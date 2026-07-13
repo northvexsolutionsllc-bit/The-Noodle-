@@ -309,6 +309,35 @@ body.is-loaded .pstrip{opacity:1;transform:none}
 .hero__videoLayer.is-live{opacity:1;transform:none}
 
 /* ==========================================================================
+   PAGE HERO — subpages
+   ========================================================================== */
+.phero{
+  background:var(--pine);padding:104px 18px 18px;
+}
+.phero__panel{
+  position:relative;max-width:calc(var(--maxw) + 120px);margin:0 auto;
+  background:var(--phc,var(--pnl-butter));color:var(--phi,#4E3007);
+  border-radius:26px;overflow:hidden;
+  padding:72px 8vw 64px;
+  display:grid;grid-template-columns:1.2fr .8fr;gap:40px;align-items:center;
+  box-shadow:0 30px 90px -30px rgba(0,0,0,.5);
+}
+.phero__over{font-family:var(--font-d);font-style:italic;font-size:1.05rem;opacity:.75;margin-bottom:12px}
+.phero__title{
+  font-family:var(--font-b);font-weight:800;text-transform:uppercase;
+  line-height:.94;letter-spacing:-.015em;
+  font-size:clamp(2.6rem,7vw,5.2rem);
+}
+.phero__lead{margin-top:18px;font-size:clamp(1rem,2.2vw,1.15rem);max-width:46ch;opacity:.85}
+.phero__fig{position:relative;justify-self:center;width:min(100%,340px);animation:pfloat 6s ease-in-out infinite}
+.phero__fig::after{
+  content:"";position:absolute;left:12%;right:12%;bottom:-9%;height:8%;
+  background:radial-gradient(50% 50% at 50% 50%, rgba(0,0,0,.3), transparent 70%);border-radius:50%;
+}
+.phero__fig img{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:999px;box-shadow:0 30px 70px -22px rgba(0,0,0,.4)}
+.phero__fig--round img{aspect-ratio:1;border-radius:50%}
+
+/* ==========================================================================
    STACKED CARDS STORY (korean diy)
    ========================================================================== */
 .stack{position:relative;background:var(--cream)}
