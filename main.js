@@ -30,9 +30,9 @@
     v.setAttribute("muted", ""); v.setAttribute("playsinline", "");
     v.src = "./assets/video/hero-loop.mp4";
     v.addEventListener("canplaythrough", function () {
-      var slides = document.querySelector(".hero__slides");
-      if (slides && !v.isConnected) {
-        slides.appendChild(v);
+      var hero = document.querySelector(".hero");
+      if (hero && !v.isConnected) {
+        hero.appendChild(v);
         requestAnimationFrame(function () { v.classList.add("is-live"); });
         v.play().catch(function () {});
       }
@@ -79,15 +79,85 @@
   var yr = document.getElementById("year");
   if (yr) yr.textContent = new Intl.DateTimeFormat("en-US", { timeZone: "America/Los_Angeles", year: "numeric" }).format(new Date());
 
-  /* ---------- hero slideshow ---------- */
-  var slides = Array.prototype.slice.call(document.querySelectorAll(".hero__slide"));
-  if (slides.length > 1 && !reduceMotion) {
-    var cur = 0;
-    setInterval(function () {
-      slides[cur].classList.remove("is-on");
-      cur = (cur + 1) % slides.length;
-      slides[cur].classList.add("is-on");
-    }, 6000);
+  /* ---------- hero panel carousel (puffhs-style) ---------- */
+  var SLIDES = [
+    { pnl: "#F3C969", ink: "#4E3007", title: "the spicy buldak bowl", img: "./assets/img/ramen-bowl-egg.jpg", alt: "A spicy ramen bowl with a soft egg, fresh off the cooking station", shape: "round", cta: "build your bowl", href: "#build" },
+    { pnl: "#F4BBC9", ink: "#7A2136", title: "strawberry cream shake", img: "./assets/img/drink-strawberry-shake.jpg", alt: "Strawberry cream shake with a whipped cream dome", shape: "tall", cta: "sip the drinks menu", href: "#drinks" },
+    { pnl: "#CBD9A6", ink: "#2E4A21", title: "the iced matcha latte", img: "./assets/img/drink-matcha.jpg", alt: "Iced matcha latte dusted with matcha powder", shape: "tall", cta: "sip the drinks menu", href: "#drinks" },
+    { pnl: "#BFD8E8", ink: "#1F3A52", title: "berry creamy red bull", img: "./assets/img/drink-blue-redbull-gummy.jpg", alt: "Blue creamy Red Bull topped with whipped cream and a gummy ring", shape: "tall", cta: "sip the drinks menu", href: "#drinks" }
+  ];
+  var strip = document.getElementById("pstrip");
+  if (strip) {
+    var slotL = document.getElementById("slotL");
+    var slotC = document.getElementById("slotC");
+    var slotR = document.getElementById("slotR");
+    var active = 0;
+    var swapping = false;
+    var pausedUntil = 0;
+    var N = SLIDES.length;
+
+    function fill(slot, s, isCenter) {
+      slot.style.setProperty("--pnl", s.pnl);
+      slot.style.setProperty("--pnl-ink", s.ink);
+      var title = slot.querySelector(".pslot__title");
+      if (title) title.textContent = s.title;
+      var fig = slot.querySelector(".pslot__fig");
+      if (fig) {
+        fig.className = "pslot__fig pslot__fig--" + s.shape;
+        var img = fig.querySelector("img");
+        if (img) { img.src = s.img; img.alt = isCenter ? s.alt : ""; }
+      }
+      if (isCenter) {
+        var cta = slot.querySelector(".pslot__cta");
+        if (cta) { cta.textContent = s.cta; cta.setAttribute("href", s.href); }
+      }
+    }
+
+    function render() {
+      fill(slotL, SLIDES[(active - 1 + N) % N], false);
+      fill(slotC, SLIDES[active], true);
+      fill(slotR, SLIDES[(active + 1) % N], false);
+    }
+
+    function rotate(dir) {
+      if (swapping) return;
+      swapping = true;
+      active = (active + dir + N) % N;
+      [slotL, slotC, slotR].forEach(function (s) { s.classList.add("is-swap"); });
+      setTimeout(function () {
+        render();
+        [slotL, slotC, slotR].forEach(function (s) { s.classList.remove("is-swap"); });
+        setTimeout(function () { swapping = false; }, 340);
+      }, 330);
+    }
+
+    function userRotate(dir) {
+      pausedUntil = Date.now() + 12000;
+      rotate(dir);
+    }
+
+    slotL.addEventListener("click", function () { userRotate(-1); });
+    slotR.addEventListener("click", function () { userRotate(1); });
+
+    // swipe on touch
+    var tx = null;
+    strip.addEventListener("touchstart", function (e) { tx = e.touches[0].clientX; }, { passive: true });
+    strip.addEventListener("touchend", function (e) {
+      if (tx === null) return;
+      var dx = e.changedTouches[0].clientX - tx;
+      if (Math.abs(dx) > 42) userRotate(dx < 0 ? 1 : -1);
+      tx = null;
+    }, { passive: true });
+
+    // auto-advance, paused after interaction / off-screen / hidden tab
+    if (!reduceMotion) {
+      var heroVisible = true;
+      new IntersectionObserver(function (en) { heroVisible = en[0].isIntersecting; }, { threshold: 0.2 })
+        .observe(strip);
+      setInterval(function () {
+        if (heroVisible && !document.hidden && Date.now() > pausedUntil) rotate(1);
+      }, 5500);
+    }
   }
 
   /* ---------- scroll progress + nav hide ---------- */
