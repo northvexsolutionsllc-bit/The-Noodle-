@@ -5,6 +5,41 @@
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var finePointer = window.matchMedia("(pointer: fine)").matches;
 
+  /* ---------- ordering ----------
+     Once the owner confirms the public online-ordering URL (Clover/DoorDash/etc),
+     set ORDER_URL and every .js-order button switches from phone to online ordering. */
+  var ORDER_URL = "";
+  if (ORDER_URL) {
+    document.querySelectorAll(".js-order").forEach(function (a) {
+      a.href = ORDER_URL;
+      a.target = "_blank";
+      a.rel = "noopener";
+      var label = a.querySelector("[data-order-label]");
+      if (label) label.textContent = "order online";
+    });
+  }
+
+  /* ---------- hero video layer ----------
+     Drop a muted portrait loop at assets/video/hero-loop.mp4 (≤3 MB) and it
+     automatically fades in over the slideshow. Absent file = slideshow only. */
+  var saveData = navigator.connection && navigator.connection.saveData;
+  if (!reduceMotion && !saveData) {
+    var v = document.createElement("video");
+    v.className = "hero__videoLayer";
+    v.muted = true; v.loop = true; v.playsInline = true; v.autoplay = true;
+    v.setAttribute("muted", ""); v.setAttribute("playsinline", "");
+    v.src = "./assets/video/hero-loop.mp4";
+    v.addEventListener("canplaythrough", function () {
+      var slides = document.querySelector(".hero__slides");
+      if (slides && !v.isConnected) {
+        slides.appendChild(v);
+        requestAnimationFrame(function () { v.classList.add("is-live"); });
+        v.play().catch(function () {});
+      }
+    }, { once: true });
+    v.addEventListener("error", function () { v.remove(); });
+  }
+
   /* ---------- live open/closed (America/Los_Angeles) ---------- */
   // Mon–Sat 10:00–22:30, Sun 12:00–22:30
   var HOURS = { 0: [720, 1350], 1: [600, 1350], 2: [600, 1350], 3: [600, 1350], 4: [600, 1350], 5: [600, 1350], 6: [600, 1350] };

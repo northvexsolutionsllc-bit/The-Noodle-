@@ -11,8 +11,13 @@ Not shipped on the page:
 - `design-ref-*.mp4` — screen recordings of other sites' UI that informed the
   redesign direction (color-blocked pastels, luxury serif, pill nav, green menu).
 
+## video/
+**Drop-in hero video:** save a muted portrait ASMR loop (HAUSCOOK boil, drink pour)
+as `video/hero-loop.mp4` (≤3 MB, 10–20 s) and push — the site detects it
+automatically and fades it in over the hero slideshow. No code change needed.
+If the file is absent, the photo slideshow runs instead.
+
 ## Wanted next
-- Portrait ASMR video loops of the HAUSCOOK stations / drink pours (mp4, ≤3 MB)
-  → wire into the hero as a `<video>` layer.
+- `video/hero-loop.mp4` (see above)
 - A high-res logo export (SVG/PNG) to replace the drawn bowl mark.
 - An `og.jpg` (1200×630) social share card.
