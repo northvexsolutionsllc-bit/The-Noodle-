@@ -68,9 +68,9 @@
     <a href="#pricing" data-nav>pricing</a>
     <a href="#visit" data-nav>visit</a>
   </div>
-  <a class="nav__cta" href="tel:+17146007684">
+  <a class="nav__cta js-order" href="tel:+17146007684">
     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.24 11 11 0 0 0 3.6.6 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1 11 11 0 0 0 .6 3.6 1 1 0 0 1-.25 1Z" fill="currentColor"/></svg>
-    <span>call</span>
+    <span data-order-label>order ahead</span>
   </a>
 </nav>
 
@@ -353,6 +353,12 @@
       </article>
     </div>
     <p class="pricing__fine reveal" data-reveal>prices before tax · menu evolves — check the counter for today's drops</p>
+    <div class="pricing__cta reveal" data-reveal>
+      <a class="btn btn--cream js-order" href="tel:+17146007684" data-magnetic>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.24 11 11 0 0 0 3.6.6 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1 11 11 0 0 0 .6 3.6 1 1 0 0 1-.25 1Z" fill="currentColor"/></svg>
+        <span data-order-label>order ahead — (714) 600-7684</span>
+      </a>
+    </div>
   </div>
 </section>
 
@@ -396,6 +402,16 @@
   <div class="proof__head">
     <p class="kicker reveal" data-reveal>don't take our word</p>
     <h2 class="h2 reveal" data-reveal>the block is <em>talking.</em></h2>
+    <p class="proof__score reveal" data-reveal>
+      <span class="proof__stars" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="m12 3 2.5 5.6 6 .6-4.5 4 1.3 5.9L12 16l-5.3 3.1L8 13.2l-4.5-4 6-.6L12 3Z" fill="currentColor"/></svg>
+        <svg viewBox="0 0 24 24"><path d="m12 3 2.5 5.6 6 .6-4.5 4 1.3 5.9L12 16l-5.3 3.1L8 13.2l-4.5-4 6-.6L12 3Z" fill="currentColor"/></svg>
+        <svg viewBox="0 0 24 24"><path d="m12 3 2.5 5.6 6 .6-4.5 4 1.3 5.9L12 16l-5.3 3.1L8 13.2l-4.5-4 6-.6L12 3Z" fill="currentColor"/></svg>
+        <svg viewBox="0 0 24 24"><path d="m12 3 2.5 5.6 6 .6-4.5 4 1.3 5.9L12 16l-5.3 3.1L8 13.2l-4.5-4 6-.6L12 3Z" fill="currentColor"/></svg>
+        <svg viewBox="0 0 24 24"><path d="m12 3 2.5 5.6 6 .6-4.5 4 1.3 5.9L12 16l-5.3 3.1L8 13.2l-4.5-4 6-.6L12 3Z" fill="currentColor"/></svg>
+      </span>
+      100% positive early ratings <span class="proof__src">· apple maps, july 2026</span>
+    </p>
   </div>
   <div class="proof__quotes">
     <blockquote class="quote reveal" data-reveal="left">
@@ -410,7 +426,7 @@
   <div class="proof__platforms reveal" data-reveal="stagger">
     <a class="plat" href="https://www.yelp.com/biz/the-noodle-lounge-long-beach" target="_blank" rel="noopener">
       <span class="plat__name" style="--pc:#D32323">yelp</span>
-      <span class="plat__stars"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 2.5 5.6 6 .6-4.5 4 1.3 5.9L12 16l-5.3 3.1L8 13.2l-4.5-4 6-.6L12 3Z" fill="currentColor"/></svg> read the reviews</span>
+      <span class="plat__stars"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 2.5 5.6 6 .6-4.5 4 1.3 5.9L12 16l-5.3 3.1L8 13.2l-4.5-4 6-.6L12 3Z" fill="currentColor"/></svg> 17 photos &amp; counting</span>
       <span class="plat__cta">yelp.com →</span>
     </a>
     <a class="plat" href="https://www.google.com/maps/place/The+Noodle+Lounge/@33.7755587,-118.1675343,17z" target="_blank" rel="noopener">
@@ -452,7 +468,8 @@
         </div>
       </div>
       <div class="visit__actions reveal" data-reveal>
-        <a class="btn btn--primary" href="https://www.google.com/maps/place/The+Noodle+Lounge/@33.7755587,-118.1675343,17z" target="_blank" rel="noopener" data-magnetic>google maps</a>
+        <a class="btn btn--primary js-order" href="tel:+17146007684" data-magnetic><span data-order-label>order ahead</span></a>
+        <a class="btn btn--outline" href="https://www.google.com/maps/place/The+Noodle+Lounge/@33.7755587,-118.1675343,17z" target="_blank" rel="noopener" data-magnetic>google maps</a>
         <a class="btn btn--outline" href="https://maps.apple.com/place?place-id=I857D2AC94E03E2AB&address=712+Cherry+Ave,+Long+Beach,+CA+90813" target="_blank" rel="noopener" data-magnetic>apple maps</a>
       </div>
     </div>
@@ -475,7 +492,10 @@
   <div class="footer__cta reveal" data-reveal="mask">
     <h2>hungry yet?</h2>
     <p>pull up to 7th &amp; cherry — the wall is waiting.</p>
-    <a class="btn btn--cream btn--big" href="https://www.google.com/maps/place/The+Noodle+Lounge/@33.7755587,-118.1675343,17z" target="_blank" rel="noopener" data-magnetic>get directions</a>
+    <div class="footer__ctaRow">
+      <a class="btn btn--cream btn--big" href="https://www.google.com/maps/place/The+Noodle+Lounge/@33.7755587,-118.1675343,17z" target="_blank" rel="noopener" data-magnetic>get directions</a>
+      <a class="btn btn--outline-light btn--big js-order" href="tel:+17146007684" data-magnetic><span data-order-label>order ahead</span></a>
+    </div>
   </div>
   <div class="footer__grid">
     <div class="footer__brand">

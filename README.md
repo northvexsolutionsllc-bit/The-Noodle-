@@ -44,7 +44,17 @@ Every push to `main` auto-deploys once the Vercel↔GitHub account link is verif
 - HAUSCOOK **automated** cooking stations ("press start" is real)
 - Watch parties, board game corner, trinket trading post
 
+## Ordering
+"Order ahead" buttons (nav, pricing, visit, footer) currently dial the verified
+phone number. When the owner confirms a public online-ordering URL, set
+`ORDER_URL` at the top of `main.js` — every order button switches to
+"order online" automatically. (The Clover link printed on receipts is a
+receipt viewer, not an ordering page — do not publish it.)
+
+## Hero video
+Drop `assets/video/hero-loop.mp4` (muted portrait loop, ≤3 MB) into the repo and
+the hero auto-detects it and fades it in over the slideshow. See `assets/README.md`.
+
 ## Still pending from the owner
-- Confirm online ordering link (Clover) before adding an "order online" button
+- Public online-ordering URL (see Ordering above)
 - Exact drink menu names/prices (Berry Breeze etc.) for a full menu page
-- Any hero video footage (portrait ASMR clips slot straight into the hero)
