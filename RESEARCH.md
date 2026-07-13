@@ -19,7 +19,14 @@
 | **Address** | 712 Cherry Ave, Long Beach, CA 90813 | ✅ Confirmed |
 | **Cross streets** | Corner of 7th Street & Cherry Avenue | ✅ Confirmed |
 | **Former tenant** | Old **Cityside Pizza Palace** space | ✅ Confirmed |
-| **Phone** | (562) 248-2178 | ⚠️ From search snippet — verify before publishing |
+| **Phone** | **(714) 600-7684** | ✅ Verified from in-store receipt photo (supersedes the (562) 248-2178 found in search snippets) |
+| **POS / ordering** | Clover POS in-store; receipt shows a clover.com link (online ordering unconfirmed — don't publish until owner confirms) | ✅ Receipt photo |
+| **Cooking stations** | **HAUSCOOK automated instant-ramen cookers** — START/STOP button, hot-water dispenser, timer. "Press start" copy is now VERIFIED honest. | ✅ Photo + video frame |
+| **Real tagline** | "slurp, sip & snack" (storefront banner + IG bio) | ✅ Photos |
+| **Drink collab brands on cup logo** | Cremita Bonita Co (@cremitabonitaco) + Dream Drinks (@dreamdrinksco) — "creamy redbulls · lemonade refreshers" | ✅ Cup label photos |
+| **Drinks seen in photos** | Creamy Red Bulls (blue, gummy-ring garnish), strawberry lemonade refreshers (Torani syrup wall), mangonada w/ chamoy + tamarind straw, matcha latte, cookies-&-cream boba shake, vanilla/strawberry whipped shakes, berry smoothie, dirty cold brew | ✅ Photos |
+| **Snacks/extras seen** | Chips wall (Lays/Doritos/Fritos + Asian imports), freezer (Korean ice creams, corn dogs, fruit jellies), candy/gum, drinks fridge (Red Bull editions, aloe, Asian sodas, Tropicana imports) | ✅ Photos |
+| **Interior brand look** | Bright white space, white shelving, pink accent wall at counter, cream kawaii badge logo, hex LED ceiling lights, black tables, marble counters | ✅ Photos |
 | **Opened** | ~June 2026 ("quietly opened last month" per July 2026 articles) | ✅ Confirmed |
 | **Coordinates** | 33.7755587, -118.1675343 (Google) / 33.775616, -118.167484 (Apple) | ✅ Confirmed |
 
@@ -171,6 +178,12 @@ Client brief adds: **soft-boiled eggs, kimchi, rice cakes (tteok)**.
 9. **Email/booking** for watch-party reservations or private hangs?
 
 ---
+
+## 9b. Uploaded Assets (July 2026) — organized into `assets/`
+
+- `assets/img/` — 23 real photos, renamed: ramen wall + shelf close-ups, storefront (grand opening, coming-soon, pre-opening Pizza Palace), HAUSCOOK cooking stations (incl. steam action shot), 11 drink glamour shots, drinks fridge, freezer snacks, pink POS counter, combo bowls + shakes.
+- `assets/reference/` — NOT for the site: receipt photo (data source) + 4 **design reference videos** (screen recordings of other sites' UI the owner likes: color-blocked pastel bakery, dark luxury serif restaurant, momofuku video hero w/ pill nav, forest-green + cream menu). These informed the redesign direction.
+- Receipt ZIP reads 90803 (POS misconfig?) — Maps/USPS say 90813; site uses 90813.
 
 ## 10. Asset Checklist (to upload to repo)
 

@@ -1,21 +1,18 @@
 # assets
 
-Drop the site's media here, then wire them into `index.html`.
+## img/
+Real restaurant photos (renamed from the July 2026 upload), used across the site.
+Add new photos here with descriptive kebab-case names, then reference them in
+`index.html`. Keep files ≤ ~200 KB where possible (resize to ≤1600px wide).
 
-## Hero video (ASMR loop)
-- `hero.webm` and `hero.mp4` — bubbling ramen / soda pour loop (muted, ~10–20s, compressed).
-- `hero-poster.jpg` — first-frame poster (shown before video loads / on reduced-motion).
-- In `index.html`, uncomment the `<source>` lines inside `.hero__video` and set `poster="./assets/hero-poster.jpg"`.
+## reference/
+Not shipped on the page:
+- `receipt.jpg` — source for verified phone/pricing (do not publish).
+- `design-ref-*.mp4` — screen recordings of other sites' UI that informed the
+  redesign direction (color-blocked pastels, luxury serif, pill nav, green menu).
 
-## Photos to add
-- `logo.svg` (+ `logo.png` fallback)
-- ramen wall shots, topping close-ups (egg, cheese, kimchi, green onion, rice cakes)
-- drinks — creamy Red Bulls, dirty sodas, **Berry Breeze**
-- storefront / interior, board game corner, trinket trading post
-- watch-party / event photos
-- reels thumbnails for the "trending at the lounge" grid (`reel-01.jpg` … `reel-04.jpg`)
-
-## Social / OG image
-- `og.jpg` (1200×630) — set it in the `og:image` / `twitter:image` meta and the JSON-LD `image` field.
-
-Recommended: serve `.webp`/`.avif` where possible and keep the hero video under ~3 MB for fast mobile load.
+## Wanted next
+- Portrait ASMR video loops of the HAUSCOOK stations / drink pours (mp4, ≤3 MB)
+  → wire into the hero as a `<video>` layer.
+- A high-res logo export (SVG/PNG) to replace the drawn bowl mark.
+- An `og.jpg` (1200×630) social share card.
