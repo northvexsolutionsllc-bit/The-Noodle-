@@ -23,10 +23,10 @@
 | **Opened** | ~June 2026 ("quietly opened last month" per July 2026 articles) | ✅ Confirmed |
 | **Coordinates** | 33.7755587, -118.1675343 (Google) / 33.775616, -118.167484 (Apple) | ✅ Confirmed |
 
-### Hours — ⚠️ DISCREPANCY TO RESOLVE
-- **Client brief says:** "Open Daily: 10:00 AM – 10:30 PM"
-- **Search data says:** Mon–Sat 10:00 AM – 10:30 PM, **Sun 12:00 PM – 10:30 PM**
-- **Action:** Confirm Sunday open time with the owner before publishing. Default to the client brief ("Open Daily 10:00 AM–10:30 PM") only if owner confirms; otherwise show the split Sunday hours.
+### Hours — ✅ RESOLVED (owner confirmed listings)
+- **Mon–Sat:** 10:00 AM – 10:30 PM
+- **Sun:** 12:00 PM – 10:30 PM
+- Site copy: show the split week (not "Open Daily 10–10:30"). The live "Open now / Closed" badge must account for the later Sunday open.
 
 ---
 
@@ -54,7 +54,7 @@
   - **Samyang Buldak** (Hot Chicken / Fire Noodle line — carbonara, kimchi, 2x spicy, cheese, etc.)
   - **Nongshim Shin Ramyun**, Neoguri, Chapagetti
   - **Ottogi**, **Paldo** varieties
-- Cooking: customers cook on-site. Client brief specifies **automated induction cooking stations** ("place your bowl, press start"). *Not explicitly confirmed in press — treat "induction stations / press start" as the client's described UX; keep copy accurate to what's actually installed.*
+- Cooking: customers cook on-site. **Owner has NOT confirmed** whether stations are automated induction "press-start" or manual. → **Copy decision: keep it honest/neutral** — say "cook it fresh in-store" and avoid the "automated induction / press start" claim until verified. Upgrade wording once the real setup is confirmed.
 
 ### Toppings (+$1 each beyond the combo's one)
 Confirmed in press: **green onion, hard-boiled or raw egg, cheese, shrimp** — "and more."
@@ -114,7 +114,7 @@ Client brief adds: **soft-boiled eggs, kimchi, rice cakes (tteok)**.
 2. **How to Noodle** — 4-step icon/card grid:
    - 01 / **Browse the Wall** — pick your base from our curation of imported Korean instant ramen packets.
    - 02 / **Stack the Top** — grab fresh add-ons: cheese, soft-boiled eggs, green onions, kimchi, or rice cakes.
-   - 03 / **Press Start** — place your bowl on our induction cooking stations. Perfect noodles every time.
+   - 03 / **Cook It Fresh** — cook your bowl right here in-store. Hot, fresh, made-to-order every time. *(Keep neutral until cooking-station type is confirmed; can become "Press Start / induction stations" if verified.)*
    - 04 / **Mix a Drink** — pair it with a custom creamy Red Bull or a signature dirty soda.
 3. **Menu & Pricing** —
    - $15 Pack Combo (ramen packet + 1 core topping + standard drink)
@@ -123,7 +123,7 @@ Client brief adds: **soft-boiled eggs, kimchi, rice cakes (tteok)**.
 4. **Social & Validation** — side-by-side grid: (L) live-updating Yelp review stream card; (R) 9:16 vertical video grid "Trending at the Lounge" (mimics Reels/TikTok).
 5. **Neighborhood Footer** —
    - Address: 712 Cherry Ave, Long Beach, CA 90813
-   - Hours: Open Daily 10:00 AM – 10:30 PM *(pending Sunday confirmation)*
+   - Hours: Mon–Sat 10:00 AM – 10:30 PM · Sun 12:00 PM – 10:30 PM
    - Bottom ticker: "Next Watch Party: This Thursday at 7 PM!"
 
 ---
@@ -160,11 +160,11 @@ Client brief adds: **soft-boiled eggs, kimchi, rice cakes (tteok)**.
 
 ## 9. Open Questions for the Owner (before/while building)
 
-1. **Sunday hours** — 10 AM or 12 PM open? (resolve the discrepancy)
-2. **Phone number** — confirm (562) 248-2178 is public-facing.
-3. **Exact ramen brands/wall inventory** to feature and any signature toppings.
-4. **Full drink menu** + prices (beyond the $15 combo standard drink) — is Berry Breeze the one to hero?
-5. **Are the cooking stations truly automated induction "press start"** or manual? (keep copy honest)
+1. ~~Sunday hours~~ — ✅ RESOLVED: Mon–Sat 10–10:30, Sun 12–10:30.
+2. ~~Cooking-station type~~ — ⏸ Unknown; copy kept neutral ("cook it fresh in-store") until confirmed.
+3. **Phone number** — confirm (562) 248-2178 is public-facing.
+4. **Exact ramen brands/wall inventory** to feature and any signature toppings.
+5. **Full drink menu** + prices (beyond the $15 combo standard drink) — is Berry Breeze the one to hero?
 6. **Logo, brand fonts, and hi-res photo/video assets** — to be uploaded to this repo.
 7. **Online ordering / delivery?** (DoorDash listing exists for LB ramen generally — confirm if they're on it.)
 8. **Real upcoming events** to seed the ticker/calendar.
