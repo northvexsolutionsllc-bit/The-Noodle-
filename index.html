@@ -4,22 +4,18 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 <title>the noodle lounge · long beach — diy korean ramen bar & creamy soda lounge</title>
-<meta name="description" content="Long Beach's DIY Korean instant ramen lounge & dirty soda bar. Pick your pack off the wall, stack your toppings, press start, and sip a creamy Red Bull. 712 Cherry Ave — open late." />
+<meta name="description" content="Long Beach's DIY Korean instant ramen lounge & dirty soda bar. Pick your pack off the wall, stack your toppings, press start. 712 Cherry Ave — open late." />
 <meta name="theme-color" content="#123528" />
-
 <meta property="og:type" content="restaurant" />
 <meta property="og:title" content="the noodle lounge — slurp. sip. chill." />
-<meta property="og:description" content="Long Beach's DIY Korean instant ramen lounge & dirty soda bar. Pick your pack, stack your toppings, press start." />
+<meta property="og:description" content="Long Beach's DIY Korean instant ramen lounge & dirty soda bar." />
 <meta property="og:image" content="./assets/img/combo-bowls-shakes.jpg" />
-<meta property="og:locale" content="en_US" />
 <meta name="twitter:card" content="summary_large_image" />
-
 <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,600&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="./styles.css" />
-
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -29,24 +25,13 @@
   "priceRange": "$",
   "image": "./assets/img/combo-bowls-shakes.jpg",
   "telephone": "+1-714-600-7684",
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": "712 Cherry Ave",
-    "addressLocality": "Long Beach",
-    "addressRegion": "CA",
-    "postalCode": "90813",
-    "addressCountry": "US"
-  },
+  "address": { "@type": "PostalAddress", "streetAddress": "712 Cherry Ave", "addressLocality": "Long Beach", "addressRegion": "CA", "postalCode": "90813", "addressCountry": "US" },
   "geo": { "@type": "GeoCoordinates", "latitude": 33.7755587, "longitude": -118.1675343 },
   "openingHoursSpecification": [
     { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"], "opens": "10:00", "closes": "22:30" },
     { "@type": "OpeningHoursSpecification", "dayOfWeek": "Sunday", "opens": "12:00", "closes": "22:30" }
   ],
-  "sameAs": [
-    "https://www.instagram.com/thenoodleloungee/",
-    "https://www.tiktok.com/@thenoodleloungee",
-    "https://www.yelp.com/biz/the-noodle-lounge-long-beach"
-  ]
+  "sameAs": ["https://www.instagram.com/thenoodleloungee/","https://www.tiktok.com/@thenoodleloungee","https://www.yelp.com/biz/the-noodle-lounge-long-beach"]
 }
 </script>
 </head>
@@ -54,19 +39,20 @@
 
 <div class="progress" aria-hidden="true"><span id="progressBar"></span></div>
 
-<!-- ================= FLOATING NAV ================= -->
 <nav class="nav" id="nav" aria-label="Main">
-  <a class="nav__brand" href="#top">
-    <svg class="nav__mark" viewBox="0 0 32 32" aria-hidden="true"><path d="M6 17h20a10 10 0 0 1-6.2 9.3l-.3 1.7h-7l-.3-1.7A10 10 0 0 1 6 17Z" fill="currentColor"/><path d="M10 13c0-2 1.5-2 1.5-4S10 7 10 5m6 8c0-2 1.5-2 1.5-4S16 7 16 5m6 8c0-2 1.5-2 1.5-4S22 7 22 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" fill="none"/></svg>
-    <span>the noodle lounge</span>
+  <a class="nav__brand" href="./index.html">
+    <img class="nav__logo" src="./assets/img/logo-96.png" alt="The Noodle Lounge logo" width="38" height="38" />
+    <span class="nav__brandname">the noodle lounge</span>
   </a>
-  <div class="nav__links" id="navLinks">
-    <a href="#top" class="is-active" data-nav>home</a>
-    <a href="#drinks" data-nav>menu</a>
-    <a href="#build" data-nav>build your own</a>
-    <a href="#gallery" data-nav>gallery</a>
-    <a href="#pricing" data-nav>pricing</a>
-    <a href="#visit" data-nav>visit</a>
+  <div class="nav__links">
+    <a href="./index.html" class="is-active">home</a>
+    <a href="./menu.html">our menu</a>
+    <a href="./build.html">build your bowl</a>
+    <a href="./drinks.html">signature drinks</a>
+    <a href="./gallery.html">gallery</a>
+    <a href="./events.html">events</a>
+    <a href="./about.html">about</a>
+    <a href="./visit.html">visit us</a>
   </div>
   <a class="nav__cta js-order" href="tel:+17146007684">
     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.24 11 11 0 0 0 3.6.6 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1 11 11 0 0 0 .6 3.6 1 1 0 0 1-.25 1Z" fill="currentColor"/></svg>
@@ -74,34 +60,32 @@
   </a>
 </nav>
 
-<!-- ================= MOBILE BOTTOM NAV ================= -->
 <nav class="botnav" aria-label="Quick navigation">
-  <a href="#top" class="is-active" data-nav>
+  <a href="./index.html" class="is-active">
     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M5.5 10.5V20h13v-9.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
     <span>home</span>
   </a>
-  <a href="#drinks" data-nav>
-    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12l-1.5 18h-9L6 3Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M7 8h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+  <a href="./menu.html">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 14h16a8 8 0 0 1-5 7.4V22H9v-.6A8 8 0 0 1 4 14Z" fill="currentColor"/><path d="M9 10.5c0-1.6 1.2-1.6 1.2-3.2S9 5 9 3.5m5 7c0-1.6 1.2-1.6 1.2-3.2S14 5 14 3.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" fill="none"/></svg>
     <span>menu</span>
   </a>
-  <a href="#build" data-nav>
-    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 14h16a8 8 0 0 1-5 7.4V22H9v-.6A8 8 0 0 1 4 14Z" fill="currentColor"/><path d="M9 10.5c0-1.6 1.2-1.6 1.2-3.2S9 5 9 3.5m5 7c0-1.6 1.2-1.6 1.2-3.2S14 5 14 3.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" fill="none"/></svg>
-    <span>build</span>
+  <a href="./drinks.html">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12l-1.5 18h-9L6 3Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M7 8h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    <span>drinks</span>
   </a>
-  <a href="#gallery" data-nav>
+  <a href="./gallery.html">
     <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="9" cy="10" r="1.6" fill="currentColor"/><path d="m5.5 18 5-5 3 3 2.5-2.5 2.5 2.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
     <span>gallery</span>
   </a>
-  <a href="#visit" data-nav>
+  <a href="./visit.html">
     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-6.1-7-11a7 7 0 1 1 14 0c0 4.9-7 11-7 11Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.6" fill="currentColor"/></svg>
     <span>visit</span>
   </a>
 </nav>
 
-<!-- ================= HERO (panel carousel) ================= -->
+<!-- ================= HERO ================= -->
 <header class="hero" id="top">
   <h1 class="sr-only">the noodle lounge — slurp. sip. chill. Long Beach's DIY Korean instant ramen lounge &amp; dirty soda bar.</h1>
-
   <p class="hero__statusPill">
     <span class="hero__dot" id="heroDot"></span>
     <span id="heroStatus">long beach · ca</span>
@@ -112,14 +96,12 @@
       <span class="pslot__title">berry creamy red bull</span>
       <figure class="pslot__fig pslot__fig--tall"><img src="./assets/img/drink-blue-redbull-gummy.jpg" alt="" width="600" height="800" loading="lazy" decoding="async" /></figure>
     </button>
-
     <section class="pslot pslot--center" id="slotC" style="--pnl:#F3C969;--pnl-ink:#4E3007" aria-live="polite">
       <p class="pslot__over">slurp. sip. chill.</p>
       <h2 class="pslot__title">the spicy buldak bowl</h2>
       <figure class="pslot__fig pslot__fig--round"><img src="./assets/img/ramen-bowl-egg.jpg" alt="A spicy ramen bowl with a soft egg, fresh off the cooking station" width="348" height="348" fetchpriority="high" decoding="async" /></figure>
-      <a class="pslot__cta" href="#build">build your bowl</a>
+      <a class="pslot__cta" href="./build.html">build your bowl</a>
     </section>
-
     <button class="pslot pslot--side pslot--right" id="slotR" type="button" aria-label="Next item" style="--pnl:#F4BBC9;--pnl-ink:#7A2136">
       <span class="pslot__title">strawberry cream shake</span>
       <figure class="pslot__fig pslot__fig--tall"><img src="./assets/img/drink-strawberry-shake.jpg" alt="" width="563" height="1000" loading="lazy" decoding="async" /></figure>
@@ -132,75 +114,98 @@
       <a href="https://www.tiktok.com/@thenoodleloungee" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 24 24"><path d="M14 3v9.6a3.6 3.6 0 1 1-3.6-3.6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M14 5.5c.8 2 2.6 3.4 5 3.6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></a>
       <a href="https://www.yelp.com/biz/the-noodle-lounge-long-beach" target="_blank" rel="noopener" aria-label="Yelp"><svg viewBox="0 0 24 24"><path d="m12 3 2.5 5.6 6 .6-4.5 4 1.3 5.9L12 16l-5.3 3.1L8 13.2l-4.5-4 6-.6L12 3Z" fill="currentColor"/></svg></a>
     </div>
-    <p class="hero__wordmark">the noodle lounge</p>
-    <a class="hero__down" href="#story" aria-label="Scroll to our story">
+    <p class="hero__wordmark"><img src="./assets/img/logo-96.png" alt="" width="30" height="30" />the noodle lounge</p>
+    <a class="hero__down" href="#intro" aria-label="Scroll down">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v14m0 0 6-6m-6 6-6-6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </a>
   </div>
 </header>
 
-<!-- ================= TICKER ================= -->
-<div class="ticker" aria-hidden="true">
-  <div class="ticker__track">
-    <span>open late til 10:30 pm</span><i></i><span>a whole wall of imported ramen</span><i></i><span>creamy red bulls &amp; dirty sodas</span><i></i><span>watch parties &amp; board games</span><i></i><span>trinket trading post</span><i></i>
-    <span>open late til 10:30 pm</span><i></i><span>a whole wall of imported ramen</span><i></i><span>creamy red bulls &amp; dirty sodas</span><i></i><span>watch parties &amp; board games</span><i></i><span>trinket trading post</span><i></i>
-  </div>
-</div>
-
 <main>
 
-<!-- ================= STORY ================= -->
-<section class="story" id="story">
-  <div class="story__grid">
-    <div class="story__media reveal" data-reveal="mask">
-      <img src="./assets/img/storefront-grand-opening.jpg" alt="The Noodle Lounge storefront on Cherry Avenue with its grand opening sign" width="768" height="702" loading="lazy" decoding="async" />
-      <figure class="story__polaroid reveal" data-reveal="pop">
-        <img src="./assets/img/pos-counter-pink.jpg" alt="The pink counter with the Clover register and the lounge's kawaii logo" width="563" height="1000" loading="lazy" decoding="async" />
-        <figcaption>the pink counter</figcaption>
-      </figure>
-    </div>
-    <div class="story__copy">
-      <p class="kicker reveal" data-reveal>our story</p>
-      <h2 class="h2 reveal" data-reveal>from a dirty-soda pop-up<br /><em>to the neighborhood lounge.</em></h2>
-      <p class="lead reveal" data-reveal>
-        Owner <strong>Leylanee Hernandez</strong> fell for creamy sodas on a trip to Washington,
-        brought the idea home as a pop-up, and turned it into a Korean-convenience-store-inspired
-        hangout on the corner of 7th &amp; Cherry. Grab a packet, cook it yourself, stay for the vibe.
-      </p>
-      <ul class="story__chips reveal" data-reveal="stagger">
-        <li>slurp, sip &amp; snack</li>
-        <li>korean c-store energy</li>
-        <li>late-night friendly</li>
-        <li>community hangout</li>
-      </ul>
-      <div class="story__stats reveal" data-reveal="stagger">
-        <div class="stat"><strong data-count="15" data-prefix="$">$15</strong><span>combo: ramen + topping + drink</span></div>
-        <div class="stat"><strong data-count="1" data-prefix="+$">+$1</strong><span>each extra topping</span></div>
-        <div class="stat"><strong>10:30</strong><span>open late, every night</span></div>
-      </div>
-    </div>
+<!-- ================= INTRO ================= -->
+<section class="intro" id="intro">
+  <img class="intro__logo" src="./assets/img/logo.png" alt="The Noodle Lounge — kawaii bowl and drinks badge logo" width="92" height="92" loading="lazy" decoding="async" />
+  <h2 class="tsplit">a korean convenience store,<br /><em>reimagined as your hangout.</em></h2>
+  <p class="lead reveal" data-reveal>
+    Pick a packet off the wall, stack your toppings, press start on the cooker,
+    and mix a creamy soda while you wait. Open late at 7th &amp; Cherry.
+  </p>
+</section>
+
+<!-- ================= THREE PATHS ================= -->
+<section class="paths">
+  <div class="paths__grid reveal" data-reveal="stagger">
+    <a class="path" href="./menu.html">
+      <img src="./assets/img/ramen-shelf-closeup.jpg" alt="" width="768" height="577" loading="lazy" decoding="async" />
+      <span class="path__arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14m0 0-6-6m6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      <span class="path__body">
+        <span class="path__cat">the wall</span>
+        <h3>our menu</h3>
+        <p>A massive curation of imported Korean ramen — cheesy to face-melting.</p>
+      </span>
+    </a>
+    <a class="path" href="./build.html">
+      <img src="./assets/img/cooking-station-steam.jpg" alt="" width="1080" height="1920" loading="lazy" decoding="async" />
+      <span class="path__arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14m0 0-6-6m6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      <span class="path__body">
+        <span class="path__cat">press start</span>
+        <h3>build your bowl</h3>
+        <p>Automated cooking stations. Perfect noodles, every single time.</p>
+      </span>
+    </a>
+    <a class="path" href="./drinks.html">
+      <img src="./assets/img/drink-mangonada.jpg" alt="" width="563" height="1000" loading="lazy" decoding="async" />
+      <span class="path__arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14m0 0-6-6m6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      <span class="path__body">
+        <span class="path__cat">the bar</span>
+        <h3>signature drinks</h3>
+        <p>Creamy Red Bulls, refreshers &amp; dirty sodas made to order.</p>
+      </span>
+    </a>
   </div>
 </section>
 
-<!-- ================= DRINKS / MENU HIGHLIGHTS ================= -->
+<!-- ================= GALLERY PREVIEW ================= -->
+<section class="homegal">
+  <div class="homegal__head">
+    <div>
+      <p class="kicker reveal" data-reveal>the lounge, live</p>
+      <h2 class="h2 tsplit">trending at<br /><em>the lounge.</em></h2>
+    </div>
+    <a class="btn btn--outline reveal" data-reveal href="./gallery.html" data-magnetic>see the full gallery</a>
+  </div>
+  <div class="bento reveal" data-reveal="stagger">
+    <figure class="shot shot--w2 shot--h2" data-full="./assets/img/ramen-wall.jpg"><img src="./assets/img/ramen-wall.jpg" alt="The full imported ramen wall at The Noodle Lounge" width="1024" height="526" loading="lazy" decoding="async" /><figcaption>the wall</figcaption></figure>
+    <figure class="shot shot--h2" data-full="./assets/img/drink-blue-boba.jpg"><img src="./assets/img/drink-blue-boba.jpg" alt="Blue refresher with boba pearls" width="563" height="1000" loading="lazy" decoding="async" /><figcaption>blue crush</figcaption></figure>
+    <figure class="shot" data-full="./assets/img/combo-bowls-shakes.jpg"><img src="./assets/img/combo-bowls-shakes.jpg" alt="Two cooked ramen bowls with shakes by the window" width="752" height="1000" loading="lazy" decoding="async" /><figcaption>combo hours</figcaption></figure>
+    <figure class="shot" data-full="./assets/img/drinks-fridge.jpg"><img src="./assets/img/drinks-fridge.jpg" alt="The drinks fridge stocked with Red Bull editions and Asian sodas" width="563" height="1000" loading="lazy" decoding="async" /><figcaption>the fridge</figcaption></figure>
+  </div>
+</section>
+
+<!-- ================= EVENTS BAND ================= -->
+<section class="evband">
+  <div class="evband__card reveal" data-reveal="mask">
+    <div class="evband__copy">
+      <h2 class="tsplit">come for the noodles,<br /><em>stay for the hangout.</em></h2>
+      <p>Watch parties, a board game corner &amp; the trinket trading post.</p>
+    </div>
+    <a class="btn btn--cream btn--big" href="./events.html" data-magnetic>what's on</a>
+  </div>
+</section>
+
+<!-- ================= DRINK RAIL ================= -->
 <section class="drinks" id="drinks">
   <div class="drinks__head">
-    <p class="kicker kicker--light reveal" data-reveal>menu highlights</p>
-    <h2 class="h2 h2--light reveal" data-reveal>not your average<br /><em>corner store soda.</em></h2>
-    <p class="lead lead--light reveal" data-reveal>
-      Creamy Red Bulls, lemonade refreshers, and dirty sodas made to order —
-      the ultimate chaser for a spicy bowl of Buldak.
-    </p>
+    <div>
+      <p class="kicker kicker--light reveal" data-reveal>the soda bar</p>
+      <h2 class="h2 h2--light tsplit">not your average<br /><em>corner store soda.</em></h2>
+    </div>
     <div class="drinks__arrows reveal" data-reveal>
-      <button class="arrow" id="drinksPrev" aria-label="Previous drinks">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </button>
-      <button class="arrow" id="drinksNext" aria-label="More drinks">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </button>
+      <button class="arrow" id="drinksPrev" aria-label="Previous drinks"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <button class="arrow" id="drinksNext" aria-label="More drinks"><svg viewBox="0 0 24 24"><path d="m9 5 7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
     </div>
   </div>
-
   <div class="drinks__rail" id="drinksRail" tabindex="0" aria-label="Signature drinks carousel">
     <article class="dcard" style="--tint:#7FB3D9">
       <span class="dcard__badge">house favorite</span>
@@ -241,257 +246,12 @@
   <p class="drinks__note reveal" data-reveal>featuring <strong>cremita bonita co</strong> ✕ <strong>dream drinks</strong> — the collab behind the cups.</p>
 </section>
 
-<!-- ================= BUILD YOUR OWN ================= -->
-<section class="build" id="build">
-  <div class="build__head">
-    <p class="kicker reveal" data-reveal>how it works</p>
-    <h2 class="h2 reveal" data-reveal>build your own <em>bowl.</em></h2>
-    <p class="lead reveal" data-reveal>Four steps. Zero rules. Perfect noodles every single time.</p>
-  </div>
-
-  <ol class="steps">
-    <li class="stepcard reveal" data-reveal="left">
-      <div class="stepcard__media">
-        <img src="./assets/img/ramen-shelf-closeup.jpg" alt="Shelves of imported Korean ramen: cheese ramyun, Buldak and more" width="768" height="577" loading="lazy" decoding="async" />
-      </div>
-      <div class="stepcard__body">
-        <span class="stepcard__num">01</span>
-        <h3>browse the wall</h3>
-        <p>Pick your base from a massive curation of imported Korean ramen — cheesy, creamy, or face-melting Buldak spicy.</p>
-      </div>
-    </li>
-    <li class="stepcard reveal" data-reveal="right">
-      <div class="stepcard__media">
-        <img src="./assets/img/freezer-snacks.jpg" alt="The topping and snack freezer with eggs, corn dogs and fruit jellies" width="750" height="1000" loading="lazy" decoding="async" />
-      </div>
-      <div class="stepcard__body">
-        <span class="stepcard__num">02</span>
-        <h3>stack the top</h3>
-        <p>Cheese, soft-boiled egg, green onions, kimchi, rice cakes, shrimp — pile on your add-ons for a buck each.</p>
-      </div>
-    </li>
-    <li class="stepcard reveal" data-reveal="left">
-      <div class="stepcard__media">
-        <img src="./assets/img/cooking-station-steam.jpg" alt="A HAUSCOOK automated cooking station boiling a bowl of ramen" width="1080" height="1920" loading="lazy" decoding="async" />
-      </div>
-      <div class="stepcard__body">
-        <span class="stepcard__num">03</span>
-        <h3>press start</h3>
-        <p>Set your bowl on our automated HAUSCOOK stations — hot water, timer, done. Cooked fresh, right at the counter.</p>
-      </div>
-    </li>
-    <li class="stepcard reveal" data-reveal="right">
-      <div class="stepcard__media">
-        <img src="./assets/img/drink-vanilla-shake.jpg" alt="A vanilla cream shake with a whipped cream dome" width="563" height="1000" loading="lazy" decoding="async" />
-      </div>
-      <div class="stepcard__body">
-        <span class="stepcard__num">04</span>
-        <h3>mix a drink</h3>
-        <p>Pair it with a custom creamy Red Bull, a refresher, or a signature dirty soda. Sweet heat, meet cream.</p>
-      </div>
-    </li>
-  </ol>
-</section>
-
-<!-- ================= GALLERY ================= -->
-<section class="gallery" id="gallery">
-  <div class="gallery__head">
-    <p class="kicker reveal" data-reveal>the lounge, live</p>
-    <h2 class="h2 reveal" data-reveal>trending at <em>the lounge.</em></h2>
-    <p class="lead reveal" data-reveal>Tap any shot to zoom. Shot in-store — no stock, all noodle.</p>
-  </div>
-  <div class="gallery__masonry reveal" data-reveal="stagger">
-    <figure class="shot" data-full="./assets/img/ramen-wall.jpg"><img src="./assets/img/ramen-wall.jpg" alt="The full imported ramen wall at The Noodle Lounge" width="1024" height="526" loading="lazy" decoding="async" /><figcaption>the wall</figcaption></figure>
-    <figure class="shot" data-full="./assets/img/combo-bowls-shakes.jpg"><img src="./assets/img/combo-bowls-shakes.jpg" alt="Two cooked ramen bowls with shakes by the window" width="752" height="1000" loading="lazy" decoding="async" /><figcaption>combo hours</figcaption></figure>
-    <figure class="shot" data-full="./assets/img/cooking-station-bowl.jpg"><img src="./assets/img/cooking-station-bowl.jpg" alt="A finished bowl with green onions at the HAUSCOOK station" width="563" height="1000" loading="lazy" decoding="async" /><figcaption>fresh off the station</figcaption></figure>
-    <figure class="shot" data-full="./assets/img/drinks-fridge.jpg"><img src="./assets/img/drinks-fridge.jpg" alt="The drinks fridge stocked with Red Bull editions and Asian sodas" width="563" height="1000" loading="lazy" decoding="async" /><figcaption>the fridge</figcaption></figure>
-    <figure class="shot" data-full="./assets/img/drink-strawberry-shake.jpg"><img src="./assets/img/drink-strawberry-shake.jpg" alt="Strawberry cream shake with whipped topping" width="563" height="1000" loading="lazy" decoding="async" /><figcaption>strawberry cream</figcaption></figure>
-    <figure class="shot" data-full="./assets/img/drink-blue-boba.jpg"><img src="./assets/img/drink-blue-boba.jpg" alt="Blue refresher with boba pearls" width="563" height="1000" loading="lazy" decoding="async" /><figcaption>blue crush</figcaption></figure>
-    <figure class="shot" data-full="./assets/img/ramen-bowl-egg.jpg"><img src="./assets/img/ramen-bowl-egg.jpg" alt="Ramen bowl with a soft egg and vegetables" width="348" height="348" loading="lazy" decoding="async" /><figcaption>egg on top</figcaption></figure>
-    <figure class="shot" data-full="./assets/img/drink-blue-closeup.jpg"><img src="./assets/img/drink-blue-closeup.jpg" alt="Close-up of an icy blue creamy Red Bull" width="1600" height="893" loading="lazy" decoding="async" /><figcaption>ice cold</figcaption></figure>
-    <figure class="shot" data-full="./assets/img/storefront-coming-soon.jpg"><img src="./assets/img/storefront-coming-soon.jpg" alt="The coming soon banner above 712 Cherry Ave before opening" width="1000" height="563" loading="lazy" decoding="async" /><figcaption>where it started</figcaption></figure>
-  </div>
-  <div class="gallery__follow reveal" data-reveal>
-    <a class="btn btn--dark" href="https://www.instagram.com/thenoodleloungee/" target="_blank" rel="noopener" data-magnetic>
-      <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.2" cy="6.8" r="1.3" fill="currentColor"/></svg>
-      more on instagram
-    </a>
-    <a class="btn btn--outline" href="https://www.tiktok.com/@thenoodleloungee" target="_blank" rel="noopener" data-magnetic>
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3v9.6a3.6 3.6 0 1 1-3.6-3.6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M14 5.5c.8 2 2.6 3.4 5 3.6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-      watch on tiktok
-    </a>
-  </div>
-</section>
-
-<!-- ================= PRICING ================= -->
-<section class="pricing" id="pricing">
-  <div class="pricing__inner">
-    <div class="pricing__head">
-      <p class="kicker kicker--light reveal" data-reveal>keep it simple</p>
-      <h2 class="h2 h2--light reveal" data-reveal>know the tab <em>before you slurp.</em></h2>
-    </div>
-    <div class="pricing__grid">
-      <article class="pcard pcard--hero reveal" data-reveal="pop">
-        <span class="pcard__badge">most popular</span>
-        <div class="pcard__price"><sup>$</sup>15</div>
-        <h3>the pack combo</h3>
-        <p>Any ramen off the wall + one core topping + a standard drink. The full lounge ritual, one price.</p>
-        <ul>
-          <li>any imported ramen packet</li>
-          <li>1 core topping included</li>
-          <li>standard drink of choice</li>
-        </ul>
-      </article>
-      <article class="pcard reveal" data-reveal="pop">
-        <div class="pcard__price"><sup>~$</sup>8</div>
-        <h3>just the noodles</h3>
-        <p>Grab a packet, cook it at the station, keep it minimal. Cups and packets, mild to 2x spicy.</p>
-      </article>
-      <article class="pcard reveal" data-reveal="pop">
-        <div class="pcard__price"><sup>+$</sup>1</div>
-        <h3>customizers</h3>
-        <p>Cheese, soft-boiled egg, green onion, kimchi, rice cakes, shrimp &amp; more — a buck a topping, stack away.</p>
-      </article>
-    </div>
-    <p class="pricing__fine reveal" data-reveal>prices before tax · menu evolves — check the counter for today's drops</p>
-    <div class="pricing__cta reveal" data-reveal>
-      <a class="btn btn--cream js-order" href="tel:+17146007684" data-magnetic>
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.24 11 11 0 0 0 3.6.6 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1 11 11 0 0 0 .6 3.6 1 1 0 0 1-.25 1Z" fill="currentColor"/></svg>
-        <span data-order-label>order ahead — (714) 600-7684</span>
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- ================= HANGOUT / EVENTS ================= -->
-<section class="hangout" id="events">
-  <div class="hangout__head">
-    <p class="kicker reveal" data-reveal>more than a bowl</p>
-    <h2 class="h2 reveal" data-reveal>come for the noodles,<br /><em>stay for the hangout.</em></h2>
-  </div>
-  <div class="hangout__grid">
-    <article class="hcard reveal" data-reveal="tilt">
-      <div class="hcard__icon">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6" width="18" height="12" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="m10 9.5 4 2.5-4 2.5v-5Z" fill="currentColor"/><path d="M8 21h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-      </div>
-      <h3>watch parties</h3>
-      <p>World Cup nights, Love Island drama, big games on the screen. Bring friends, we've got the broth.</p>
-    </article>
-    <article class="hcard reveal" data-reveal="tilt">
-      <div class="hcard__icon">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="8.5" cy="8.5" r="1.5" fill="currentColor"/><circle cx="15.5" cy="15.5" r="1.5" fill="currentColor"/><circle cx="15.5" cy="8.5" r="1.5" fill="currentColor"/><circle cx="8.5" cy="15.5" r="1.5" fill="currentColor"/></svg>
-      </div>
-      <h3>board game corner</h3>
-      <p>Grab a game off the shelf, order a round of refreshers, and let the timer on your noodles set the pace.</p>
-    </article>
-    <article class="hcard reveal" data-reveal="tilt">
-      <div class="hcard__icon">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 8h13l-2.5 4H9.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M17 16H4l2.5-4H15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </div>
-      <h3>trinket trading post</h3>
-      <p>Bring a trinket, take a trinket. The community swap shelf that keeps the lounge weird and wonderful.</p>
-    </article>
-  </div>
-  <div class="hangout__banner reveal" data-reveal="mask">
-    <p><strong>next watch party:</strong> this thursday at 7 pm — pull up.</p>
-    <a class="btn btn--cream" href="https://www.instagram.com/thenoodleloungee/" target="_blank" rel="noopener" data-magnetic>get the schedule</a>
-  </div>
-</section>
-
-<!-- ================= PRESS + REVIEWS ================= -->
-<section class="proof" id="reviews">
-  <div class="proof__head">
-    <p class="kicker reveal" data-reveal>don't take our word</p>
-    <h2 class="h2 reveal" data-reveal>the block is <em>talking.</em></h2>
-    <p class="proof__score reveal" data-reveal>
-      <span class="proof__stars" aria-hidden="true">
-        <svg viewBox="0 0 24 24"><path d="m12 3 2.5 5.6 6 .6-4.5 4 1.3 5.9L12 16l-5.3 3.1L8 13.2l-4.5-4 6-.6L12 3Z" fill="currentColor"/></svg>
-        <svg viewBox="0 0 24 24"><path d="m12 3 2.5 5.6 6 .6-4.5 4 1.3 5.9L12 16l-5.3 3.1L8 13.2l-4.5-4 6-.6L12 3Z" fill="currentColor"/></svg>
-        <svg viewBox="0 0 24 24"><path d="m12 3 2.5 5.6 6 .6-4.5 4 1.3 5.9L12 16l-5.3 3.1L8 13.2l-4.5-4 6-.6L12 3Z" fill="currentColor"/></svg>
-        <svg viewBox="0 0 24 24"><path d="m12 3 2.5 5.6 6 .6-4.5 4 1.3 5.9L12 16l-5.3 3.1L8 13.2l-4.5-4 6-.6L12 3Z" fill="currentColor"/></svg>
-        <svg viewBox="0 0 24 24"><path d="m12 3 2.5 5.6 6 .6-4.5 4 1.3 5.9L12 16l-5.3 3.1L8 13.2l-4.5-4 6-.6L12 3Z" fill="currentColor"/></svg>
-      </span>
-      100% positive early ratings <span class="proof__src">· apple maps, july 2026</span>
-    </p>
-  </div>
-  <div class="proof__quotes">
-    <blockquote class="quote reveal" data-reveal="left">
-      <p>"This new convenience store wants to be Long Beach's hangout for instant ramen lovers."</p>
-      <cite>— Long Beach Post, Eat. See. Do.</cite>
-    </blockquote>
-    <blockquote class="quote reveal" data-reveal="right">
-      <p>"Ramen crowd stakes out Long Beach's new Noodle Lounge hangout."</p>
-      <cite>— Hoodline Los Angeles</cite>
-    </blockquote>
-  </div>
-  <div class="proof__platforms reveal" data-reveal="stagger">
-    <a class="plat" href="https://www.yelp.com/biz/the-noodle-lounge-long-beach" target="_blank" rel="noopener">
-      <span class="plat__name" style="--pc:#D32323">yelp</span>
-      <span class="plat__stars"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 2.5 5.6 6 .6-4.5 4 1.3 5.9L12 16l-5.3 3.1L8 13.2l-4.5-4 6-.6L12 3Z" fill="currentColor"/></svg> 17 photos &amp; counting</span>
-      <span class="plat__cta">yelp.com →</span>
-    </a>
-    <a class="plat" href="https://www.google.com/maps/place/The+Noodle+Lounge/@33.7755587,-118.1675343,17z" target="_blank" rel="noopener">
-      <span class="plat__name" style="--pc:#1F6F52">google</span>
-      <span class="plat__stars"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 2.5 5.6 6 .6-4.5 4 1.3 5.9L12 16l-5.3 3.1L8 13.2l-4.5-4 6-.6L12 3Z" fill="currentColor"/></svg> rate us on maps</span>
-      <span class="plat__cta">google maps →</span>
-    </a>
-    <a class="plat" href="https://www.instagram.com/thenoodleloungee/" target="_blank" rel="noopener">
-      <span class="plat__name" style="--pc:#C13584">instagram</span>
-      <span class="plat__stars">@thenoodleloungee</span>
-      <span class="plat__cta">follow →</span>
-    </a>
-    <a class="plat" href="https://www.tiktok.com/@thenoodleloungee" target="_blank" rel="noopener">
-      <span class="plat__name" style="--pc:#161823">tiktok</span>
-      <span class="plat__stars">@thenoodleloungee</span>
-      <span class="plat__cta">watch →</span>
-    </a>
-  </div>
-</section>
-
-<!-- ================= VISIT ================= -->
-<section class="visit" id="visit">
-  <div class="visit__grid">
-    <div class="visit__info">
-      <p class="kicker reveal" data-reveal>find the lounge</p>
-      <h2 class="h2 reveal" data-reveal>7th &amp; cherry.<br /><em>you'll smell the broth.</em></h2>
-      <div class="visit__rows reveal" data-reveal="stagger">
-        <div class="vrow">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-6.1-7-11a7 7 0 1 1 14 0c0 4.9-7 11-7 11Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.6" fill="currentColor"/></svg>
-          <div><strong>712 Cherry Ave</strong><span>Long Beach, CA 90813</span></div>
-        </div>
-        <div class="vrow">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 7v5l3.5 2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-          <div><strong id="visitStatus">mon–sat 10a–10:30p · sun 12p–10:30p</strong><span id="visitStatusSub">open late, every night</span></div>
-        </div>
-        <div class="vrow">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.24 11 11 0 0 0 3.6.6 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1 11 11 0 0 0 .6 3.6 1 1 0 0 1-.25 1Z" fill="currentColor"/></svg>
-          <div><strong><a href="tel:+17146007684">(714) 600-7684</a></strong><span>call ahead for big groups</span></div>
-        </div>
-      </div>
-      <div class="visit__actions reveal" data-reveal>
-        <a class="btn btn--primary js-order" href="tel:+17146007684" data-magnetic><span data-order-label>order ahead</span></a>
-        <a class="btn btn--outline" href="https://www.google.com/maps/place/The+Noodle+Lounge/@33.7755587,-118.1675343,17z" target="_blank" rel="noopener" data-magnetic>google maps</a>
-        <a class="btn btn--outline" href="https://maps.apple.com/place?place-id=I857D2AC94E03E2AB&address=712+Cherry+Ave,+Long+Beach,+CA+90813" target="_blank" rel="noopener" data-magnetic>apple maps</a>
-      </div>
-    </div>
-    <div class="visit__map reveal" data-reveal="mask">
-      <button class="mapload" id="mapLoad" aria-label="Load the interactive map">
-        <img src="./assets/img/storefront-coming-soon.jpg" alt="" width="1000" height="563" loading="lazy" decoding="async" />
-        <span class="mapload__pin">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-6.1-7-11a7 7 0 1 1 14 0c0 4.9-7 11-7 11Z" fill="currentColor"/><circle cx="12" cy="10" r="2.6" fill="#FAF6EF"/></svg>
-          tap to load the map
-        </span>
-      </button>
-    </div>
-  </div>
-</section>
-
 </main>
 
 <!-- ================= FOOTER ================= -->
 <footer class="footer">
-  <div class="footer__cta reveal" data-reveal="mask">
-    <h2>hungry yet?</h2>
+  <div class="footer__cta">
+    <h2 class="tsplit">hungry yet?</h2>
     <p>pull up to 7th &amp; cherry — the wall is waiting.</p>
     <div class="footer__ctaRow">
       <a class="btn btn--cream btn--big" href="https://www.google.com/maps/place/The+Noodle+Lounge/@33.7755587,-118.1675343,17z" target="_blank" rel="noopener" data-magnetic>get directions</a>
@@ -500,10 +260,7 @@
   </div>
   <div class="footer__grid">
     <div class="footer__brand">
-      <a class="footer__logo" href="#top">
-        <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M6 17h20a10 10 0 0 1-6.2 9.3l-.3 1.7h-7l-.3-1.7A10 10 0 0 1 6 17Z" fill="currentColor"/><path d="M10 13c0-2 1.5-2 1.5-4S10 7 10 5m6 8c0-2 1.5-2 1.5-4S16 7 16 5m6 8c0-2 1.5-2 1.5-4S22 7 22 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" fill="none"/></svg>
-        the noodle lounge
-      </a>
+      <a class="footer__logo" href="./index.html"><img src="./assets/img/logo.png" alt="" width="44" height="44" loading="lazy" />the noodle lounge</a>
       <p>slurp, sip &amp; snack — long beach's diy korean ramen lounge and creamy soda bar.</p>
       <div class="footer__social">
         <a href="https://www.instagram.com/thenoodleloungee/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.2" cy="6.8" r="1.3" fill="currentColor"/></svg></a>
@@ -513,11 +270,12 @@
     </div>
     <div class="footer__col">
       <h4>explore</h4>
-      <a href="#drinks">menu highlights</a>
-      <a href="#build">build your own</a>
-      <a href="#gallery">gallery</a>
-      <a href="#pricing">pricing</a>
-      <a href="#events">events</a>
+      <a href="./menu.html">our menu</a>
+      <a href="./build.html">build your bowl</a>
+      <a href="./drinks.html">signature drinks</a>
+      <a href="./gallery.html">gallery</a>
+      <a href="./events.html">events</a>
+      <a href="./about.html">about</a>
     </div>
     <div class="footer__col">
       <h4>hours</h4>
@@ -529,19 +287,18 @@
       <p>712 Cherry Ave<br />Long Beach, CA 90813</p>
       <a href="tel:+17146007684">(714) 600-7684</a>
       <a href="https://www.instagram.com/thenoodleloungee/" target="_blank" rel="noopener">dm us on instagram</a>
+      <a href="./visit.html">plan your visit</a>
     </div>
   </div>
+  <p class="footer__wordmark" aria-hidden="true">the noodle lounge</p>
   <div class="footer__base">
     <p>© <span id="year"></span> the noodle lounge · 712 cherry ave, long beach, ca</p>
     <p class="footer__madewith">made with steam &amp; sugar</p>
   </div>
 </footer>
 
-<!-- lightbox -->
 <dialog class="lightbox" id="lightbox">
-  <button class="lightbox__close" id="lightboxClose" aria-label="Close">
-    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>
-  </button>
+  <button class="lightbox__close" id="lightboxClose" aria-label="Close"><svg viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></button>
   <img id="lightboxImg" src="" alt="Expanded gallery photo" />
 </dialog>
 

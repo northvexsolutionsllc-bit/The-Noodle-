@@ -17,14 +17,21 @@ DIY Korean instant-ramen lounge & creamy soda bar.
 Zero-build static site — plain **HTML + CSS + vanilla JS**. No framework, no bundler.
 
 ```
-index.html      # single page: hero, story, drinks rail, build-your-own, gallery,
-                # pricing, hangout/events, press + platforms, visit, footer
-styles.css      # cream + emerald design system
-main.js         # live open/closed status, slideshow, reveals, nav, carousel,
-                # lightbox, lazy map facade
+index.html      # home: panel-carousel hero, intro, three paths, bento preview,
+                # events band, drinks rail
+menu.html       # ramen wall recipe cards (spice levels, expandable) + toppings
+build.html      # build-your-bowl steps (verified HAUSCOOK 'press start')
+drinks.html     # signature drinks recipe cards + collab credits
+gallery.html    # bento gallery + lightbox
+events.html     # watch parties / board games / trinket post
+about.html      # story, press quotes, platform cards
+visit.html      # address, hours, live status, lazy map, contact
+styles.css      # design system v3 + motion engine (reveals, tsplit, parallax)
+main.js         # carousel, split-text, parallax, tilt, expandable cards,
+                # live status, lightbox, lazy map
 favicon.svg     # bowl-and-steam mark
-assets/img/     # 23 real restaurant photos (clean names)
-assets/reference/  # owner's design-reference videos + receipt (not shipped on page)
+assets/img/     # real restaurant photos incl. processed logo.png
+assets/reference/  # owner's design refs + receipt (not shipped on page)
 RESEARCH.md     # research dossier & verified facts
 ```
 
