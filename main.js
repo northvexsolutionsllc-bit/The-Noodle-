@@ -81,39 +81,83 @@
     return clamp01(-r.top / (r.height - vh));
   }
 
-  /* ----- hero scenes ----- */
-  var shero = document.querySelector('[data-story="hero"]');
-  if (shero && !reduceMotion) {
-    var scenes = Array.prototype.slice.call(shero.querySelectorAll("[data-scene]"));
-    var Ns = scenes.length;
-    shero.style.height = (Ns * 85 + 60) + "vh";
-    var counter = document.getElementById("sceneNow");
-    var bars = document.getElementById("sceneBars");
-    var barEls = bars ? Array.prototype.slice.call(bars.children) : [];
-    storyRunners.push(function () {
-      var p = sectionProgress(shero) * (Ns - 1);
-      scenes.forEach(function (sc, i) {
-        var d = p - i;                       // distance from active
-        var lp = clamp01(1 - Math.abs(d));   // 1 when centered
-        var eIn = ease(clamp01(d + 1));      // entering 0→1 while d: -1→0
-        var body = sc.querySelector(".scene__body");
-        var img = sc.querySelector(".scene__img");
-        sc.style.opacity = lp <= 0 ? 0 : (d > 0 ? 1 - ease(clamp01(d)) : eIn);
-        sc.style.zIndex = String(10 - Math.round(Math.abs(d)));
-        sc.classList.toggle("is-front", Math.abs(d) < 0.5);
-        if (img) img.style.transform = "scale(" + (1.18 - lp * 0.12) + ") translateY(" + (d * -4) + "%)";
-        if (body) {
-          body.style.opacity = String(Math.pow(lp, 1.4));
-          body.style.transform = "translateY(" + ((1 - lp) * 44) + "px)";
-        }
-        if (barEls[i]) barEls[i].style.setProperty("--f", i < p ? 1 : (i === Math.ceil(p) || i === 0 && p < 1 ? clamp01(1 - Math.abs(d)) : 0));
+  /* ----- pinned panel hero: scroll steps the carousel ----- */
+  var SLIDES = [
+    { pnl: "#F3C969", ink: "#4E3007", title: "the spicy buldak bowl", img: "./assets/img/ramen-bowl-egg.jpg", alt: "A spicy ramen bowl with a soft egg, fresh off the cooking station", shape: "round", cta: "Build Your Bowl", href: "./build.html" },
+    { pnl: "#F4BBC9", ink: "#7A2136", title: "strawberry cream shake", img: "./assets/img/drink-strawberry-shake.jpg", alt: "Strawberry cream shake with a whipped cream dome", shape: "tall", cta: "See Signature Drinks", href: "./drinks.html" },
+    { pnl: "#CBD9A6", ink: "#2E4A21", title: "the iced matcha latte", img: "./assets/img/drink-matcha.jpg", alt: "Iced matcha latte dusted with matcha powder", shape: "tall", cta: "See Signature Drinks", href: "./drinks.html" },
+    { pnl: "#BFD8E8", ink: "#1F3A52", title: "berry creamy red bull", img: "./assets/img/drink-blue-redbull-gummy.jpg", alt: "Blue creamy Red Bull topped with whipped cream and a gummy ring", shape: "tall", cta: "See Signature Drinks", href: "./drinks.html" }
+  ];
+  var shero = document.querySelector('[data-story="heropanels"]');
+  var strip = document.getElementById("pstrip");
+  if (shero && strip) {
+    var slotL = document.getElementById("slotL");
+    var slotC = document.getElementById("slotC");
+    var slotR = document.getElementById("slotR");
+    var stepEls = (function () {
+      var w = document.getElementById("heroSteps");
+      return w ? Array.prototype.slice.call(w.children) : [];
+    })();
+    var N = SLIDES.length;
+    var active = 0, swapping = false, queued = -1;
+
+    function fill(slot, sl, isCenter) {
+      slot.style.setProperty("--pnl", sl.pnl);
+      slot.style.setProperty("--pnl-ink", sl.ink);
+      var title = slot.querySelector(".pslot__title");
+      if (title) title.textContent = sl.title;
+      var fig = slot.querySelector(".pslot__fig");
+      if (fig) {
+        fig.className = "pslot__fig pslot__fig--" + sl.shape;
+        var img = fig.querySelector("img");
+        if (img) { img.src = sl.img; img.alt = isCenter ? sl.alt : ""; }
+      }
+      if (isCenter) {
+        var cta = slot.querySelector(".pslot__cta");
+        if (cta) { cta.textContent = sl.cta; cta.setAttribute("href", sl.href); }
+      }
+    }
+    function render() {
+      fill(slotL, SLIDES[(active - 1 + N) % N], false);
+      fill(slotC, SLIDES[active], true);
+      fill(slotR, SLIDES[(active + 1) % N], false);
+      stepEls.forEach(function (b, i) { b.style.setProperty("--f", i <= active ? 1 : 0); });
+    }
+    function goTo(idx) {
+      if (idx === active) return;
+      if (swapping) { queued = idx; return; }
+      swapping = true;
+      active = idx;
+      [slotL, slotC, slotR].forEach(function (sl) { sl.classList.add("is-swap"); });
+      setTimeout(function () {
+        render();
+        [slotL, slotC, slotR].forEach(function (sl) { sl.classList.remove("is-swap"); });
+        setTimeout(function () {
+          swapping = false;
+          if (queued >= 0 && queued !== active) { var q = queued; queued = -1; goTo(q); }
+          else queued = -1;
+        }, 320);
+      }, 300);
+    }
+    render();
+
+    if (!reduceMotion) {
+      // pin the hero: each scroll segment steps to the next slide
+      shero.style.height = (N * 70 + 55) + "vh";
+      storyRunners.push(function () {
+        var p = sectionProgress(shero);
+        var idx = Math.min(N - 1, Math.floor(p * N * 0.999));
+        goTo(idx);
       });
-      var current = Math.min(Ns, Math.round(p) + 1);
-      if (counter) counter.textContent = (current < 10 ? "0" : "") + current;
-      barEls.forEach(function (b, i) {
-        b.style.setProperty("--f", clamp01(p - i + 1) > 1 ? 1 : clamp01(p - i + 1));
-      });
-    });
+    }
+    // side panels still clickable (jump scroll to that segment)
+    function segScroll(idx) {
+      if (reduceMotion) { goTo(idx); return; }
+      var target = shero.offsetTop + (idx + 0.55) / N * (shero.offsetHeight - window.innerHeight);
+      window.scrollTo({ top: target, behavior: "smooth" });
+    }
+    slotL.addEventListener("click", function () { segScroll((active - 1 + N) % N); });
+    slotR.addEventListener("click", function () { segScroll((active + 1) % N); });
   }
 
   /* ----- stacked cards ----- */
@@ -123,27 +167,30 @@
     var stackHead = document.getElementById("stackHead");
     var stackCards = document.getElementById("stackCards");
     var stackPanel = document.getElementById("stackPanel");
-    stack.style.height = "420vh";
+    stack.style.height = "470vh";
     storyRunners.push(function () {
       var p = sectionProgress(stack);
-      // phases: 0-.22 card1 · .22-.44 card2 · .44-.66 card3 · .7-1 settle
+      // phases: cards rise 0-.18/.18-.36/.36-.54 · hold · settle .62-.82 · hold to 1
       cards.forEach(function (c, i) {
-        var lp = ease(clamp01((p - i * 0.22) / 0.2));
-        c.style.transform = "translateY(" + ((1 - lp) * 120) + "%) rotate(" + ((1 - lp) * (i % 2 ? 3 : -3)) + "deg)";
-        // resting offsets so the stack reads as layered
-        if (lp >= 1) c.style.transform = "translateY(" + (i * -3) + "%) rotate(" + ((i - 1) * 2.5) + "deg) scale(" + (1 - (cards.length - 1 - i) * 0.035) + ")";
+        var lp = ease(clamp01((p - i * 0.18) / 0.16));
+        var riseY = (1 - lp) * 118;
+        var restY = i * -3;
+        var riseR = (1 - lp) * (i % 2 ? 3 : -3);
+        var restR = (i - 1) * 2.2 * lp;
+        var sc = 1 - lp * (cards.length - 1 - i) * 0.03;
+        c.style.transform = "translateY(" + (riseY + restY * lp) + "%) rotate(" + (riseR + restR) + "deg) scale(" + sc + ")";
       });
-      var settle = ease(clamp01((p - 0.7) / 0.28));
+      var settle = ease(clamp01((p - 0.62) / 0.2));
       if (stackHead) {
         stackHead.style.opacity = String(1 - settle);
-        stackHead.style.transform = "translateY(" + (settle * -30) + "px)";
+        stackHead.style.transform = "translateY(" + (settle * -26) + "px)";
       }
+      if (stackCards) stackCards.style.transform = "translateX(" + (settle * -22) + "vw) scale(" + (1 - settle * 0.05) + ")";
       if (stackPanel) {
         stackPanel.style.opacity = String(settle);
-        stackPanel.style.transform = "translateX(" + ((1 - settle) * 60) + "px)";
-        stackPanel.style.pointerEvents = settle > 0.6 ? "auto" : "none";
+        stackPanel.style.transform = "translate(" + ((1 - settle) * 60) + "px,-50%)";
+        stackPanel.style.pointerEvents = settle > 0.7 ? "auto" : "none";
       }
-      if (stackCards) stackCards.style.transform = "translateX(" + ((1 - settle) * 0) + "px) scale(" + (1 - settle * 0.04) + ")";
     });
   }
 
@@ -161,17 +208,49 @@
       var cw = ccards[0].getBoundingClientRect().width;
       var gap = parseFloat(getComputedStyle(track).columnGap || getComputedStyle(track).gap) || 0;
       var span = (cw + gap) * (Nc - 1);
-      var x = -p * span - cw / 2;             // track starts at 50vw padding; center first card
-      track.style.transform = "translateX(" + x + "px)";
+      track.style.transform = "translateX(" + (-p * span - cw / 2) + "px)";
       var centerX = window.innerWidth / 2;
       ccards.forEach(function (c) {
         var r = c.getBoundingClientRect();
         var d = Math.abs(r.left + r.width / 2 - centerX) / window.innerWidth;
-        var sc = 1 - Math.min(0.1, d * 0.22);
-        c.style.transform = "scale(" + sc + ")";
-        c.style.opacity = String(1 - Math.min(0.45, d * 0.9));
+        c.style.transform = "scale(" + (1 - Math.min(0.08, d * 0.18)) + ")";
+        c.style.opacity = String(1 - Math.min(0.22, d * 0.45));
       });
       if (cbar) cbar.style.setProperty("--f", p);
+    });
+  }
+
+  /* ----- soda bar: 3D perspective showcase ----- */
+  var soda = document.querySelector('[data-story="soda"]');
+  if (soda && !reduceMotion && !isMobile) {
+    var drinks = Array.prototype.slice.call(soda.querySelectorAll("[data-drink]"));
+    var Nd = drinks.length;
+    var glow = document.getElementById("sodaGlow");
+    var sbar = document.getElementById("sodaBar");
+    soda.style.height = (100 + (Nd - 1) * 52) + "vh";
+    storyRunners.push(function () {
+      var p = sectionProgress(soda) * (Nd - 1);
+      drinks.forEach(function (card, i) {
+        var off = i - p;                       // 0 = focused
+        var a = Math.abs(off);
+        var x = off * Math.min(window.innerWidth * 0.24, 340);
+        var rotY = Math.max(-32, Math.min(32, -off * 22));
+        var z = -a * 190;
+        var sc = 1 - Math.min(0.16, a * 0.07);
+        var op = a > 2.4 ? 0 : 1 - Math.max(0, (a - 1) * 0.35);
+        card.style.transform = "translateY(-50%) translateX(" + x + "px) translateZ(" + z + "px) rotateY(" + rotY + "deg) scale(" + sc + ")";
+        card.style.opacity = String(Math.max(0, op));
+        card.style.zIndex = String(100 - Math.round(a * 10));
+        // glass sheen sweeps across the focused card
+        var media = card.querySelector(".dcard__media");
+        if (media) media.style.setProperty("--sheen", ((0.5 - off) * 240 - 120) + "%");
+      });
+      var focus = Math.min(Nd - 1, Math.max(0, Math.round(p)));
+      if (glow) {
+        var g = drinks[focus].getAttribute("data-glow");
+        if (g) glow.style.background = "radial-gradient(circle, " + g + " 0%, transparent 62%)";
+      }
+      if (sbar) sbar.style.setProperty("--f", p / (Nd - 1));
     });
   }
 
