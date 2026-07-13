@@ -65,86 +65,114 @@
     v.addEventListener("error", function () { v.remove(); });
   }
 
-  /* ---------- hero panel carousel ---------- */
-  var SLIDES = [
-    { pnl: "#F3C969", ink: "#4E3007", title: "the spicy buldak bowl", img: "./assets/img/ramen-bowl-egg.jpg", alt: "A spicy ramen bowl with a soft egg, fresh off the cooking station", shape: "round", cta: "build your bowl", href: "./build.html" },
-    { pnl: "#F4BBC9", ink: "#7A2136", title: "strawberry cream shake", img: "./assets/img/drink-strawberry-shake.jpg", alt: "Strawberry cream shake with a whipped cream dome", shape: "tall", cta: "see signature drinks", href: "./drinks.html" },
-    { pnl: "#CBD9A6", ink: "#2E4A21", title: "the iced matcha latte", img: "./assets/img/drink-matcha.jpg", alt: "Iced matcha latte dusted with matcha powder", shape: "tall", cta: "see signature drinks", href: "./drinks.html" },
-    { pnl: "#BFD8E8", ink: "#1F3A52", title: "berry creamy red bull", img: "./assets/img/drink-blue-redbull-gummy.jpg", alt: "Blue creamy Red Bull topped with whipped cream and a gummy ring", shape: "tall", cta: "see signature drinks", href: "./drinks.html" }
-  ];
-  var strip = document.getElementById("pstrip");
-  if (strip) {
-    var slotL = document.getElementById("slotL");
-    var slotC = document.getElementById("slotC");
-    var slotR = document.getElementById("slotR");
-    var active = 0, swapping = false, pausedUntil = 0, N = SLIDES.length;
+  /* ==================================================================
+     SCROLL-STORY ENGINE — pinned, scrub-driven sections (home)
+     ================================================================== */
+  var isMobile = window.matchMedia("(max-width: 880px)").matches;
+  if (reduceMotion) document.body.classList.add("is-static");
+  var storyRunners = [];
 
-    function fill(slot, s, isCenter) {
-      slot.style.setProperty("--pnl", s.pnl);
-      slot.style.setProperty("--pnl-ink", s.ink);
-      var title = slot.querySelector(".pslot__title");
-      if (title) title.textContent = s.title;
-      var fig = slot.querySelector(".pslot__fig");
-      if (fig) {
-        fig.className = "pslot__fig pslot__fig--" + s.shape;
-        var img = fig.querySelector("img");
-        if (img) { img.src = s.img; img.alt = isCenter ? s.alt : ""; }
-      }
-      if (isCenter) {
-        var cta = slot.querySelector(".pslot__cta");
-        if (cta) { cta.textContent = s.cta; cta.setAttribute("href", s.href); }
-      }
-    }
-    function render() {
-      fill(slotL, SLIDES[(active - 1 + N) % N], false);
-      fill(slotC, SLIDES[active], true);
-      fill(slotR, SLIDES[(active + 1) % N], false);
-    }
-    function rotate(dir) {
-      if (swapping) return;
-      swapping = true;
-      active = (active + dir + N) % N;
-      [slotL, slotC, slotR].forEach(function (s) { s.classList.add("is-swap"); });
-      setTimeout(function () {
-        render();
-        [slotL, slotC, slotR].forEach(function (s) { s.classList.remove("is-swap"); });
-        setTimeout(function () { swapping = false; }, 340);
-      }, 330);
-    }
-    function userRotate(dir) { pausedUntil = Date.now() + 12000; rotate(dir); }
-    slotL.addEventListener("click", function () { userRotate(-1); });
-    slotR.addEventListener("click", function () { userRotate(1); });
-    var tx = null;
-    strip.addEventListener("touchstart", function (e) { tx = e.touches[0].clientX; }, { passive: true });
-    strip.addEventListener("touchend", function (e) {
-      if (tx === null) return;
-      var dx = e.changedTouches[0].clientX - tx;
-      if (Math.abs(dx) > 42) userRotate(dx < 0 ? 1 : -1);
-      tx = null;
-    }, { passive: true });
-    if (!reduceMotion) {
-      var heroVisible = true;
-      new IntersectionObserver(function (en) { heroVisible = en[0].isIntersecting; }, { threshold: 0.2 }).observe(strip);
-      setInterval(function () {
-        if (heroVisible && !document.hidden && Date.now() > pausedUntil) rotate(1);
-      }, 5500);
-    }
-    // subtle perspective follow on the center product (desktop)
-    if (finePointer && !reduceMotion) {
-      strip.addEventListener("pointermove", function (e) {
-        var fig = slotC.querySelector(".pslot__fig");
-        if (!fig) return;
-        var r = strip.getBoundingClientRect();
-        var dx = (e.clientX - r.left) / r.width - 0.5;
-        var dy = (e.clientY - r.top) / r.height - 0.5;
-        fig.style.rotate = (dx * 4) + "deg";
-        fig.style.translate = (dx * 14) + "px " + (dy * 10) + "px";
+  function clamp01(v) { return v < 0 ? 0 : v > 1 ? 1 : v; }
+  function ease(t) { return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2; } // easeInOutQuad
+
+  function sectionProgress(el) {
+    var r = el.getBoundingClientRect();
+    var vh = window.innerHeight;
+    return clamp01(-r.top / (r.height - vh));
+  }
+
+  /* ----- hero scenes ----- */
+  var shero = document.querySelector('[data-story="hero"]');
+  if (shero && !reduceMotion) {
+    var scenes = Array.prototype.slice.call(shero.querySelectorAll("[data-scene]"));
+    var Ns = scenes.length;
+    shero.style.height = (Ns * 85 + 60) + "vh";
+    var counter = document.getElementById("sceneNow");
+    var bars = document.getElementById("sceneBars");
+    var barEls = bars ? Array.prototype.slice.call(bars.children) : [];
+    storyRunners.push(function () {
+      var p = sectionProgress(shero) * (Ns - 1);
+      scenes.forEach(function (sc, i) {
+        var d = p - i;                       // distance from active
+        var lp = clamp01(1 - Math.abs(d));   // 1 when centered
+        var eIn = ease(clamp01(d + 1));      // entering 0→1 while d: -1→0
+        var body = sc.querySelector(".scene__body");
+        var img = sc.querySelector(".scene__img");
+        sc.style.opacity = lp <= 0 ? 0 : (d > 0 ? 1 - ease(clamp01(d)) : eIn);
+        sc.style.zIndex = String(10 - Math.round(Math.abs(d)));
+        sc.classList.toggle("is-front", Math.abs(d) < 0.5);
+        if (img) img.style.transform = "scale(" + (1.18 - lp * 0.12) + ") translateY(" + (d * -4) + "%)";
+        if (body) {
+          body.style.opacity = String(Math.pow(lp, 1.4));
+          body.style.transform = "translateY(" + ((1 - lp) * 44) + "px)";
+        }
+        if (barEls[i]) barEls[i].style.setProperty("--f", i < p ? 1 : (i === Math.ceil(p) || i === 0 && p < 1 ? clamp01(1 - Math.abs(d)) : 0));
       });
-      strip.addEventListener("pointerleave", function () {
-        var fig = slotC.querySelector(".pslot__fig");
-        if (fig) { fig.style.rotate = ""; fig.style.translate = ""; }
+      var current = Math.min(Ns, Math.round(p) + 1);
+      if (counter) counter.textContent = (current < 10 ? "0" : "") + current;
+      barEls.forEach(function (b, i) {
+        b.style.setProperty("--f", clamp01(p - i + 1) > 1 ? 1 : clamp01(p - i + 1));
       });
-    }
+    });
+  }
+
+  /* ----- stacked cards ----- */
+  var stack = document.querySelector('[data-story="stack"]');
+  if (stack && !reduceMotion && !isMobile) {
+    var cards = Array.prototype.slice.call(stack.querySelectorAll("[data-scard]"));
+    var stackHead = document.getElementById("stackHead");
+    var stackCards = document.getElementById("stackCards");
+    var stackPanel = document.getElementById("stackPanel");
+    stack.style.height = "420vh";
+    storyRunners.push(function () {
+      var p = sectionProgress(stack);
+      // phases: 0-.22 card1 · .22-.44 card2 · .44-.66 card3 · .7-1 settle
+      cards.forEach(function (c, i) {
+        var lp = ease(clamp01((p - i * 0.22) / 0.2));
+        c.style.transform = "translateY(" + ((1 - lp) * 120) + "%) rotate(" + ((1 - lp) * (i % 2 ? 3 : -3)) + "deg)";
+        // resting offsets so the stack reads as layered
+        if (lp >= 1) c.style.transform = "translateY(" + (i * -3) + "%) rotate(" + ((i - 1) * 2.5) + "deg) scale(" + (1 - (cards.length - 1 - i) * 0.035) + ")";
+      });
+      var settle = ease(clamp01((p - 0.7) / 0.28));
+      if (stackHead) {
+        stackHead.style.opacity = String(1 - settle);
+        stackHead.style.transform = "translateY(" + (settle * -30) + "px)";
+      }
+      if (stackPanel) {
+        stackPanel.style.opacity = String(settle);
+        stackPanel.style.transform = "translateX(" + ((1 - settle) * 60) + "px)";
+        stackPanel.style.pointerEvents = settle > 0.6 ? "auto" : "none";
+      }
+      if (stackCards) stackCards.style.transform = "translateX(" + ((1 - settle) * 0) + "px) scale(" + (1 - settle * 0.04) + ")";
+    });
+  }
+
+  /* ----- horizontal cinema ----- */
+  var cinema = document.querySelector('[data-story="cinema"]');
+  if (cinema && !reduceMotion && !isMobile) {
+    var track = document.getElementById("cinemaTrack");
+    var cbar = document.getElementById("cinemaBar");
+    var ccards = track ? Array.prototype.slice.call(track.children) : [];
+    var Nc = ccards.length;
+    cinema.style.height = (100 + (Nc - 1) * 55) + "vh";
+    storyRunners.push(function () {
+      var p = sectionProgress(cinema);
+      if (!track || !Nc) return;
+      var cw = ccards[0].getBoundingClientRect().width;
+      var gap = parseFloat(getComputedStyle(track).columnGap || getComputedStyle(track).gap) || 0;
+      var span = (cw + gap) * (Nc - 1);
+      var x = -p * span - cw / 2;             // track starts at 50vw padding; center first card
+      track.style.transform = "translateX(" + x + "px)";
+      var centerX = window.innerWidth / 2;
+      ccards.forEach(function (c) {
+        var r = c.getBoundingClientRect();
+        var d = Math.abs(r.left + r.width / 2 - centerX) / window.innerWidth;
+        var sc = 1 - Math.min(0.1, d * 0.22);
+        c.style.transform = "scale(" + sc + ")";
+        c.style.opacity = String(1 - Math.min(0.45, d * 0.9));
+      });
+      if (cbar) cbar.style.setProperty("--f", p);
+    });
   }
 
   /* ---------- scroll progress + nav hide ---------- */
@@ -178,12 +206,15 @@
         else if (y < lastY - 6 || y < 200) nav.classList.remove("is-hidden");
       }
       if (!reduceMotion && plxEls.length) parallax();
+      for (var i = 0; i < storyRunners.length; i++) storyRunners[i]();
       lastY = y;
       ticking = false;
     });
   }
   window.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener("resize", onScroll, { passive: true });
   if (!reduceMotion && plxEls.length) parallax();
+  for (var sr = 0; sr < storyRunners.length; sr++) storyRunners[sr]();
 
   /* ---------- split headlines into masked lines ---------- */
   if (!reduceMotion) {
