@@ -257,6 +257,7 @@
   /* ---------- scroll progress + nav hide ---------- */
   var bar = document.getElementById("progressBar");
   var nav = document.getElementById("nav");
+  var navOrder = document.getElementById("navOrder");
   var lastY = 0, ticking = false;
 
   /* ---------- parallax engine ---------- */
@@ -281,8 +282,10 @@
       var max = document.documentElement.scrollHeight - window.innerHeight;
       if (bar && max > 0) bar.style.transform = "scaleX(" + Math.min(1, y / max) + ")";
       if (nav) {
-        if (y > 400 && y > lastY + 6) nav.classList.add("is-hidden");
-        else if (y < lastY - 6 || y < 200) nav.classList.remove("is-hidden");
+        var hide = y > 400 && y > lastY + 6;
+        var show = y < lastY - 6 || y < 200;
+        if (hide) { nav.classList.add("is-hidden"); if (navOrder) navOrder.classList.add("is-hidden"); }
+        else if (show) { nav.classList.remove("is-hidden"); if (navOrder) navOrder.classList.remove("is-hidden"); }
       }
       if (!reduceMotion && plxEls.length) parallax();
       for (var i = 0; i < storyRunners.length; i++) storyRunners[i]();

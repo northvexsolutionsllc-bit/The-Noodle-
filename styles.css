@@ -147,6 +147,20 @@ section{scroll-margin-top:110px}
 .nav__cta span{text-transform:capitalize}
 .nav__cta:hover{background:var(--pine-2);transform:translateY(-2px);box-shadow:0 14px 30px -10px rgba(31,111,82,.6)}
 
+/* standalone order-ahead button — fixed top right */
+.navOrder{
+  position:fixed;top:16px;right:20px;z-index:101;
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--emerald);color:var(--cream);
+  font-weight:600;font-size:.9rem;white-space:nowrap;
+  padding:13px 22px;border-radius:var(--r-pill);
+  box-shadow:0 14px 34px -12px rgba(31,111,82,.6), inset 0 1px 0 rgba(255,255,255,.14);
+  transition:transform .45s var(--ease),background .2s,box-shadow .25s;
+}
+.navOrder svg{width:16px;height:16px}
+.navOrder:hover{background:var(--pine-2);transform:translateY(-2px);box-shadow:0 20px 40px -12px rgba(31,111,82,.7)}
+.navOrder.is-hidden{transform:translateY(-150%)}
+
 /* mobile bottom nav */
 .botnav{
   position:fixed;left:50%;bottom:14px;transform:translateX(-50%);z-index:100;
@@ -233,10 +247,16 @@ body.is-loaded .pstrip{opacity:1;transform:none}
 .pslot__fig--tall{aspect-ratio:3/4.4;width:min(52%,34vh)}
 .pslot__fig--tall img{border-radius:999px;object-position:50% 78%}
 @keyframes pfloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-13px)}}
+.pslot--center{padding-bottom:40px;justify-content:center;gap:2px}
+.pslot--center .pslot__over{margin-bottom:6px}
+/* height-drive the centered product so the CTA never clips on tall drinks */
+.pslot--center .pslot__fig{width:auto;height:min(44vh,340px);margin:18px 0}
+.pslot--center .pslot__fig--tall{aspect-ratio:3/4.4}
+.pslot--center .pslot__fig--round{aspect-ratio:1}
 .pslot__cta{
   font-weight:700;font-size:1rem;letter-spacing:.02em;text-transform:capitalize;
   background:#EFF8D3;color:var(--pine);
-  padding:17px 34px;border-radius:18px;margin-top:22px;
+  padding:17px 34px;border-radius:18px;margin-top:22px;flex:none;
   box-shadow:0 16px 40px -14px rgba(0,0,0,.35);
   transition:transform .25s var(--ease),box-shadow .25s,background .2s;
 }
@@ -608,9 +628,9 @@ body.is-loaded .pstrip{opacity:1;transform:none}
 .footer__wordmark{
   max-width:var(--maxw);margin:0 auto;overflow:hidden;
   font-family:var(--font-d);font-style:italic;font-weight:600;
-  font-size:clamp(3rem,11vw,9rem);line-height:1;text-align:center;
+  font-size:clamp(3rem,11vw,9rem);line-height:1.28;text-align:center;
   color:rgba(250,246,239,.07);white-space:nowrap;user-select:none;pointer-events:none;
-  padding-bottom:10px;
+  padding-bottom:.14em;
 }
 .footer__base{
   max-width:var(--maxw);margin:0 auto;border-top:1px solid var(--line-light);padding-top:26px;
@@ -648,6 +668,7 @@ body.is-loaded .pstrip{opacity:1;transform:none}
   .nav__links a{padding:9px 8px;font-size:.78rem}
   .nav__cta{padding:10px 13px;font-size:.8rem}
   .nav__logo{width:34px;height:34px}
+  .navOrder{padding:11px 16px;font-size:.82rem;right:14px}
 }
 @media (max-width:1024px){
   .proof__platforms{grid-template-columns:1fr 1fr}
@@ -659,15 +680,17 @@ body.is-loaded .pstrip{opacity:1;transform:none}
 @media (max-width:880px){
   section{scroll-margin-top:20px}
   .nav{display:none}
+  .navOrder{display:none}
   .botnav{display:flex}
   body{padding-bottom:88px}
   .hero__statusPill{top:14px;left:50%;transform:translateX(-50%);white-space:nowrap}
-  .hero{padding:64px 12px 20px;height:100svh}
+  .hero{padding:56px 12px 92px;height:100svh}
+  .pslot--center .pslot__fig{height:min(38vh,300px);margin:12px 0}
   .pstrip{grid-template-columns:8% 84% 8%;min-height:440px}
   .pslot--side{padding:20px 4px}
   .pslot--side .pslot__title{font-size:1rem;opacity:.22}
   .pslot--side .pslot__fig{display:none}
-  .pslot--center{padding:38px 18px 22px}
+  .pslot--center{padding:38px 18px 30px}
   .pslot__title{font-size:clamp(1.7rem,7.4vw,2.4rem)}
   .pslot__fig{width:min(72%,34vh)}
   .pslot__fig--tall{width:min(56%,30vh)}
