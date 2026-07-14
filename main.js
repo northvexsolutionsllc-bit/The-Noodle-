@@ -568,22 +568,22 @@
     });
   }
 
-  /* ----- menu drinks deck on mobile: horizontal snap carousel ----- */
+  /* ----- menu drinks deck on mobile: pinned scroll-driven carousel.
+     phase 1 of each segment slides the card into center, phase 2 scrolls the
+     card's own content, so tall cards are fully readable without swiping ----- */
   if (mdeck && isMobile && !reduceMotion) {
-    var railEl = mdeck.querySelector(".mdeck__cards");
-    var railCards = Array.prototype.slice.call(mdeck.querySelectorAll("[data-mdeck-card]"));
-    var railNow = document.getElementById("mdeckNow");
-    var railBar = document.getElementById("mdeckBar");
-    railCards.forEach(function (c) {
-      // iOS snap-safe: content lives in an inner wrapper that carries all
-      // transforms, keeping the snap children untransformed
+    var mdCards = Array.prototype.slice.call(mdeck.querySelectorAll("[data-mdeck-card]"));
+    var mdNow = document.getElementById("mdeckNow");
+    var mdBar = document.getElementById("mdeckBar");
+    var Nmd = mdCards.length;
+    var mdCur = -1;
+    mdCards.forEach(function (c) {
       if (!c.querySelector(".mcat__inner")) {
         var inner = document.createElement("div");
         inner.className = "mcat__inner";
         while (c.firstChild) inner.appendChild(c.firstChild);
         c.appendChild(inner);
       }
-      // two-layer product shot: blurred cover fill behind the contained drink
       var img = c.querySelector(".mcat__media img");
       if (img && !c.querySelector(".mcat__blurbg")) {
         var b = img.cloneNode();
@@ -592,36 +592,55 @@
         b.setAttribute("aria-hidden", "true");
         img.parentNode.insertBefore(b, img);
       }
+      var body = c.querySelector(".mcat__body");
+      if (body && !body.querySelector(".mcat__bscroll")) {
+        var w = document.createElement("div");
+        w.className = "mcat__bscroll";
+        while (body.firstChild) w.appendChild(body.firstChild);
+        body.appendChild(w);
+      }
     });
-    var railInners = railCards.map(function (c) { return c.querySelector(".mcat__inner"); });
-    var railRaf = null;
-    function railPaint() {
-      railRaf = null;
-      var mid = railEl.scrollLeft + railEl.clientWidth / 2;
-      railCards.forEach(function (c, i) {
-        var center = c.offsetLeft + c.offsetWidth / 2;
-        var d = Math.min(1, Math.abs(center - mid) / railEl.clientWidth);
-        var t = railInners[i];
+    var mdInners = mdCards.map(function (c) { return c.querySelector(".mcat__inner"); });
+    var mdWraps = mdCards.map(function (c) { return c.querySelector(".mcat__bscroll"); });
+    var mdOver = mdCards.map(function () { return 0; });
+    function mdMeasure() {
+      mdCards.forEach(function (c, i) {
+        var body = c.querySelector(".mcat__body");
+        mdOver[i] = body ? Math.max(0, body.scrollHeight - body.clientHeight) : 0;
+      });
+    }
+    mdeck.style.height = (100 + Nmd * 85) + "vh";
+    mdMeasure();
+    window.addEventListener("resize", mdMeasure, { passive: true });
+    window.addEventListener("load", mdMeasure);
+    storyRunners.push(function () {
+      var p = sectionProgress(mdeck);
+      var seg = Math.min(Nmd - 1, Math.floor(p * Nmd * 0.9999));
+      var s = clamp01(p * Nmd - seg); // local progress within this card's segment
+      // conveyor: slides during the first 30% of each segment (card 0 starts centered)
+      var C = seg === 0 ? 0 : (s < 0.3 ? seg - 1 + ease(s / 0.3) : seg);
+      var step = window.innerWidth * 0.86;
+      mdCards.forEach(function (c, i) {
+        var off = i - C;
+        c.style.transform = "translateX(" + (off * step).toFixed(1) + "px)";
+        var t = mdInners[i];
         if (t) {
-          t.style.transform = "scale(" + (1 - d * 0.07).toFixed(4) + ")";
-          t.style.opacity = String(1 - d * 0.42);
+          var d = Math.min(1, Math.abs(off));
+          t.style.transform = "scale(" + (1 - d * 0.06).toFixed(4) + ")";
+          t.style.opacity = String(1 - d * 0.35);
+        }
+        // phase 2: the focused card's content scrolls with the page
+        var w = mdWraps[i];
+        if (w && mdOver[i] > 0) {
+          var q = 0;
+          if (i === seg) q = i === 0 ? ease(clamp01((s - 0.06) / 0.82)) : ease(clamp01((s - 0.36) / 0.56));
+          else if (i < seg) q = 1;
+          w.style.transform = "translateY(" + (-mdOver[i] * q).toFixed(1) + "px)";
         }
       });
-      var max = railEl.scrollWidth - railEl.clientWidth;
-      if (railBar && max > 0) railBar.style.setProperty("--f", (railEl.scrollLeft / max).toFixed(4));
-      if (railNow) {
-        var idx = 0, best = 1e9;
-        railCards.forEach(function (c, i) {
-          var d2 = Math.abs(c.offsetLeft + c.offsetWidth / 2 - mid);
-          if (d2 < best) { best = d2; idx = i; }
-        });
-        railNow.textContent = "0" + (idx + 1);
-      }
-    }
-    railEl.addEventListener("scroll", function () { if (!railRaf) railRaf = requestAnimationFrame(railPaint); }, { passive: true });
-    window.addEventListener("resize", function () { if (!railRaf) railRaf = requestAnimationFrame(railPaint); }, { passive: true });
-    window.addEventListener("load", railPaint);
-    railPaint();
+      if (mdBar) mdBar.style.setProperty("--f", p.toFixed(4));
+      if (mdNow && seg !== mdCur) { mdCur = seg; mdNow.textContent = "0" + (seg + 1); }
+    });
   }
 
   /* ---------- in-page menu nav scrollspy ---------- */
