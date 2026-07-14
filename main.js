@@ -8,18 +8,6 @@
   /* ---------- page load ---------- */
   requestAnimationFrame(function () { document.body.classList.add("is-loaded"); });
 
-  /* ---------- ordering ----------
-     Once the owner confirms the public online-ordering URL, set ORDER_URL and
-     every .js-order button switches from phone to online ordering. */
-  var ORDER_URL = "";
-  if (ORDER_URL) {
-    document.querySelectorAll(".js-order").forEach(function (a) {
-      a.href = ORDER_URL; a.target = "_blank"; a.rel = "noopener";
-      var label = a.querySelector("[data-order-label]");
-      if (label) label.textContent = "order online";
-    });
-  }
-
   /* ---------- live open/closed (America/Los_Angeles) ---------- */
   var HOURS = { 0: [720, 1350], 1: [600, 1350], 2: [600, 1350], 3: [600, 1350], 4: [600, 1350], 5: [600, 1350], 6: [600, 1350] };
   function laNow() {

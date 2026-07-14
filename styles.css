@@ -548,6 +548,23 @@ body.is-loaded .pstrip{opacity:1;transform:none}
 }
 .menuboard__foot strong{color:var(--emerald)}
 
+/* event banner (home) */
+.evband{padding:0 22px 120px;background:var(--ivory)}
+.evband__card{
+  position:relative;max-width:var(--maxw);margin:0 auto;
+  background:var(--emerald);color:var(--cream);
+  border-radius:var(--r-lg);padding:56px 8%;
+  display:flex;align-items:center;justify-content:space-between;gap:26px;flex-wrap:wrap;
+  overflow:hidden;box-shadow:var(--shadow-float);
+}
+.evband__card::before{content:"";position:absolute;top:-90px;right:60px;width:240px;height:240px;border-radius:50%;background:rgba(250,246,239,.09)}
+.evband__card::after{content:"";position:absolute;bottom:-120px;left:-60px;width:300px;height:300px;border-radius:50%;background:rgba(18,53,40,.25)}
+.evband__copy{position:relative;z-index:1}
+.evband__copy h2{font-family:var(--font-d);font-weight:500;font-size:clamp(1.8rem,4.4vw,2.8rem);line-height:1.08}
+.evband__copy h2 em{font-style:italic;color:#F7D98B}
+.evband__copy p{margin-top:10px;opacity:.85;font-weight:300}
+.evband__card .btn{position:relative;z-index:1}
+
 /* ==========================================================================
    MENU PAGE — layered hero image, in-page nav, category blocks
    ========================================================================== */
