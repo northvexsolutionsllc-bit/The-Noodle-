@@ -173,7 +173,7 @@ Client brief adds: **soft-boiled eggs, kimchi, rice cakes (tteok)**.
 4. **Exact ramen brands/wall inventory** to feature and any signature toppings.
 5. **Full drink menu** + prices (beyond the $15 combo standard drink) — is Berry Breeze the one to hero?
 6. **Logo, brand fonts, and hi-res photo/video assets** — to be uploaded to this repo.
-7. **Online ordering / delivery?** (DoorDash listing exists for LB ramen generally — confirm if they're on it.)
+7. ~~Online ordering / delivery~~ — CONFIRMED: no delivery; in-store & phone ordering only. Keep all delivery references off the site.
 8. **Real upcoming events** to seed the ticker/calendar.
 9. **Email/booking** for watch-party reservations or private hangs?
 
