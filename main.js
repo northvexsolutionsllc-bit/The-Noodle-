@@ -6,7 +6,9 @@
   var finePointer = window.matchMedia("(pointer: fine)").matches;
 
   /* ---------- page load ---------- */
-  requestAnimationFrame(function () { document.body.classList.add("is-loaded"); });
+  // body.is-loaded is added by a tiny inline double-rAF script in each page's
+  // HTML (guarantees one painted frame first, so entry transitions play);
+  // main.js must not add it earlier or the .pstrip transition gets skipped.
 
   /* ---------- live open/closed (America/Los_Angeles) ---------- */
   var HOURS = { 0: [720, 1350], 1: [600, 1350], 2: [600, 1350], 3: [600, 1350], 4: [600, 1350], 5: [600, 1350], 6: [600, 1350] };
@@ -35,14 +37,17 @@
   if (yr) yr.textContent = new Intl.DateTimeFormat("en-US", { timeZone: "America/Los_Angeles", year: "numeric" }).format(new Date());
 
   /* ---------- drop-in hero video (floating live card) ---------- */
+  // set to a real clip path (e.g. "./assets/video/hero-loop.mp4") to enable;
+  // empty string means no <video> element and no network request at all.
+  var HERO_VIDEO = "";
   var saveData = navigator.connection && navigator.connection.saveData;
-  if (!reduceMotion && !saveData && document.querySelector(".hero")) window.addEventListener("load", function () { setTimeout(initHeroVideo, 1200); }, { once: true });
+  if (HERO_VIDEO && !reduceMotion && !saveData && document.querySelector(".hero")) window.addEventListener("load", function () { setTimeout(initHeroVideo, 1200); }, { once: true });
   function initHeroVideo() {
     var v = document.createElement("video");
     v.className = "hero__videoLayer";
     v.muted = true; v.loop = true; v.playsInline = true; v.autoplay = true;
     v.setAttribute("muted", ""); v.setAttribute("playsinline", "");
-    v.src = "./assets/video/hero-loop.mp4";
+    v.src = HERO_VIDEO;
     v.addEventListener("canplaythrough", function () {
       var hero = document.querySelector(".hero");
       if (hero && !v.isConnected) {
@@ -59,23 +64,46 @@
      ================================================================== */
   var isMobile = window.matchMedia("(max-width: 880px)").matches;
   if (reduceMotion) document.body.classList.add("is-static");
+
+  // runners are built once for the boot-time layout mode; crossing the 880px
+  // breakpoint later (tablet rotation, window resize) would leave pin math
+  // built for the wrong mode, so reload exactly once when the flag flips.
+  (function () {
+    var mq = window.matchMedia("(max-width: 880px)");
+    var reloaded = false, timer;
+    function onFlip() {
+      clearTimeout(timer);
+      timer = setTimeout(function () {
+        if (!reloaded && mq.matches !== isMobile) { reloaded = true; location.reload(); }
+      }, 250);
+    }
+    if (mq.addEventListener) mq.addEventListener("change", onFlip);
+    else if (mq.addListener) mq.addListener(onFlip);
+  })();
   var storyRunners = [];
+
+  // iOS Safari: window.innerHeight changes as the URL bar collapses, which
+  // would make scroll progress jump mid-gesture. documentElement.clientHeight
+  // stays constant (equals 100svh), so all pin math uses it, and JS-assigned
+  // runway heights use svh so CSS stages and JS heights speak one language.
+  var SVH = (window.CSS && CSS.supports && CSS.supports("height", "1svh")) ? "svh" : "vh";
+  function viewH() { return document.documentElement.clientHeight || window.innerHeight; }
 
   function clamp01(v) { return v < 0 ? 0 : v > 1 ? 1 : v; }
   function ease(t) { return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2; } // easeInOutQuad
 
   function sectionProgress(el) {
     var r = el.getBoundingClientRect();
-    var vh = window.innerHeight;
+    var vh = viewH();
     return clamp01(-r.top / (r.height - vh));
   }
 
   /* ----- pinned panel hero: scroll steps the carousel ----- */
   var SLIDES = [
-    { pnl: "#F3C969", ink: "#4E3007", title: "the spicy buldak bowl", img: "./assets/img/ramen-bowl-egg.jpg", alt: "A spicy ramen bowl with a soft egg, fresh off the cooking station", shape: "round", cta: "Build Your Bowl", href: "./build.html" },
-    { pnl: "#F4BBC9", ink: "#7A2136", title: "strawberry cream shake", img: "./assets/img/drink-strawberry-shake.jpg", alt: "Strawberry cream shake with a whipped cream dome", shape: "tall", cta: "See Signature Drinks", href: "./drinks.html" },
-    { pnl: "#CBD9A6", ink: "#2E4A21", title: "the iced matcha latte", img: "./assets/img/drink-matcha.jpg", alt: "Iced matcha latte dusted with matcha powder", shape: "tall", cta: "See Signature Drinks", href: "./drinks.html" },
-    { pnl: "#BFD8E8", ink: "#1F3A52", title: "berry creamy red bull", img: "./assets/img/drink-blue-redbull-gummy.jpg", alt: "Blue creamy Red Bull topped with whipped cream and a gummy ring", shape: "tall", cta: "See Signature Drinks", href: "./drinks.html" }
+    { pnl: "#F3C969", ink: "#4E3007", title: "the spicy buldak bowl", img: "./assets/img/ramen-bowl-egg.webp", alt: "A spicy ramen bowl with a soft egg, fresh off the cooking station", shape: "round", cta: "Build Your Bowl", href: "./build.html" },
+    { pnl: "#F4BBC9", ink: "#7A2136", title: "strawberry cream shake", img: "./assets/img/drink-strawberry-shake.webp", alt: "Strawberry cream shake with a whipped cream dome", shape: "tall", cta: "See Signature Drinks", href: "./drinks.html" },
+    { pnl: "#CBD9A6", ink: "#2E4A21", title: "the iced matcha latte", img: "./assets/img/drink-matcha.webp", alt: "Iced matcha latte dusted with matcha powder", shape: "tall", cta: "See Signature Drinks", href: "./drinks.html" },
+    { pnl: "#BFD8E8", ink: "#1F3A52", title: "berry creamy red bull", img: "./assets/img/drink-blue-redbull-gummy.webp", alt: "Blue creamy Red Bull topped with whipped cream and a gummy ring", shape: "tall", cta: "See Signature Drinks", href: "./drinks.html" }
   ];
   var shero = document.querySelector('[data-story="heropanels"]');
   var strip = document.getElementById("pstrip");
@@ -133,7 +161,7 @@
 
     if (!reduceMotion) {
       // pin the hero: each scroll segment steps to the next slide
-      shero.style.height = (N * 70 + 55) + "vh";
+      shero.style.height = (N * 70 + 55) + SVH;
       storyRunners.push(function () {
         var p = sectionProgress(shero);
         var idx = Math.min(N - 1, Math.floor(p * N * 0.999));
@@ -143,7 +171,7 @@
     // side panels still clickable (jump scroll to that segment)
     function segScroll(idx) {
       if (reduceMotion) { goTo(idx); return; }
-      var target = shero.offsetTop + (idx + 0.55) / N * (shero.offsetHeight - window.innerHeight);
+      var target = shero.offsetTop + (idx + 0.55) / N * (shero.offsetHeight - viewH());
       window.scrollTo({ top: target, behavior: "smooth" });
     }
     slotL.addEventListener("click", function () { segScroll((active - 1 + N) % N); });
@@ -157,7 +185,7 @@
     var stackHead = document.getElementById("stackHead");
     var stackCards = document.getElementById("stackCards");
     var stackPanel = document.getElementById("stackPanel");
-    stack.style.height = "420vh";
+    stack.style.height = 420 + SVH;
     storyRunners.push(function () {
       var p = sectionProgress(stack);
       // phases: cards rise 0-.16/.17-.33/.34-.50 · rest · settle .58-.82 · hold to 1
@@ -193,7 +221,7 @@
       mPanel.classList.add("stack__panel--flow");
       stack.parentNode.insertBefore(mPanel, stack.nextSibling);
     }
-    stack.style.height = "320vh"; // 100svh stage + ~73vh of scroll per card
+    stack.style.height = 320 + SVH; // 100svh stage + ~73svh of scroll per card
     storyRunners.push(function () {
       var p = sectionProgress(stack);
       mCards.forEach(function (c, i) {
@@ -216,7 +244,7 @@
     var cbar = document.getElementById("cinemaBar");
     var ccards = track ? Array.prototype.slice.call(track.children) : [];
     var Nc = ccards.length;
-    cinema.style.height = (100 + (Nc - 1) * 55) + "vh";
+    cinema.style.height = (100 + (Nc - 1) * 55) + SVH;
     storyRunners.push(function () {
       var p = sectionProgress(cinema);
       if (!track || !Nc) return;
@@ -242,7 +270,7 @@
     var Nd = drinks.length;
     var glow = document.getElementById("sodaGlow");
     var sbar = document.getElementById("sodaBar");
-    soda.style.height = (100 + (Nd - 1) * 55) + "vh";
+    soda.style.height = (100 + (Nd - 1) * 55) + SVH;
     storyRunners.push(function () {
       var p = sectionProgress(soda) * (Nd - 1);
       drinks.forEach(function (card, i) {
@@ -318,7 +346,7 @@
   /* ---------- parallax engine ---------- */
   var plxEls = Array.prototype.slice.call(document.querySelectorAll("[data-plx]"));
   function parallax() {
-    var vh = window.innerHeight;
+    var vh = viewH();
     plxEls.forEach(function (el) {
       var r = el.getBoundingClientRect();
       if (r.bottom < -80 || r.top > vh + 80) return;
@@ -334,7 +362,7 @@
     ticking = true;
     requestAnimationFrame(function () {
       var y = window.scrollY;
-      var max = document.documentElement.scrollHeight - window.innerHeight;
+      var max = document.documentElement.scrollHeight - viewH();
       if (bar && max > 0) bar.style.transform = "scaleX(" + Math.min(1, y / max) + ")";
       if (nav) {
         var hide = y > 400 && y > lastY + 6;
@@ -419,7 +447,7 @@
     var dnow = document.getElementById("mdeckNow");
     var dbar = document.getElementById("mdeckBar");
     var dhead = document.getElementById("mdeckHead");
-    mdeck.style.height = (100 + Ndc * 62 + 18) + "vh";
+    mdeck.style.height = (100 + Ndc * 62 + 18) + SVH;
     storyRunners.push(function () {
       var p = sectionProgress(mdeck);
       var total = Ndc * 0.155;
@@ -457,7 +485,7 @@
     var bGhost = document.getElementById("blineGhost");
     var Nb = bChs.length;
     var BW = 0.09, BHALF = 0.045; // crossfade window centred on chapter boundaries
-    bline.style.height = (100 + Nb * 75) + "vh";
+    bline.style.height = (100 + Nb * 75) + SVH;
     storyRunners.push(function () {
       var p = sectionProgress(bline);
       var idx = Math.min(Nb - 1, Math.floor(p * Nb * 0.999));
@@ -483,7 +511,7 @@
     });
     bJumps.forEach(function (b, i) {
       b.addEventListener("click", function () {
-        var t = bline.offsetTop + ((i + 0.55) / Nb) * (bline.offsetHeight - window.innerHeight);
+        var t = bline.offsetTop + ((i + 0.55) / Nb) * (bline.offsetHeight - viewH());
         window.scrollTo({ top: t, behavior: "smooth" });
       });
     });
@@ -563,7 +591,7 @@
     var eLayers = Array.prototype.slice.call(ehero.querySelectorAll("[data-eplx]"));
     storyRunners.push(function () {
       var y = window.scrollY;
-      if (y > window.innerHeight * 1.4) return;
+      if (y > viewH() * 1.4) return;
       eLayers.forEach(function (el) {
         var d = parseFloat(el.getAttribute("data-eplx")) || 1;
         el.style.setProperty("--ey", (-y * d * 0.14).toFixed(1) + "px");
@@ -577,7 +605,7 @@
   if (tline && tlineFill && !reduceMotion) {
     storyRunners.push(function () {
       var r = tline.getBoundingClientRect();
-      var vh = window.innerHeight;
+      var vh = viewH();
       // fill from when the section enters to when its bottom clears 80% of the viewport
       var f = clamp01((vh * 0.8 - r.top) / (r.height));
       tlineFill.style.transform = "scaleY(" + f.toFixed(4) + ")";
@@ -613,12 +641,12 @@
     var mdCardsEl = mdeck.querySelector(".mdeck__cards");
     var mdOver = mdCards.map(function () { return 0; });
     function mdMeasure() {
-      var win = mdCardsEl ? mdCardsEl.clientHeight : window.innerHeight;
+      var win = mdCardsEl ? mdCardsEl.clientHeight : viewH();
       mdCards.forEach(function (c, i) {
         mdOver[i] = Math.max(0, c.offsetHeight - win);
       });
     }
-    mdeck.style.height = (100 + Nmd * 85) + "vh";
+    mdeck.style.height = (100 + Nmd * 85) + SVH;
     mdMeasure();
     window.addEventListener("resize", mdMeasure, { passive: true });
     window.addEventListener("load", mdMeasure);
@@ -709,7 +737,7 @@
     if (tPinned) {
       // scroll-scrubbed: each segment pours the next cup up from the glass base
       tasting.classList.add("is-pinned");
-      tasting.style.height = (100 + Nt * 55) + "vh";
+      tasting.style.height = (100 + Nt * 55) + SVH;
       tImgs.forEach(function (im, j) {
         im.classList.remove("is-on");
         im.style.zIndex = String(1 + j);
@@ -733,7 +761,7 @@
       // coasters scrub the page to that drink's segment
       tCoasters.forEach(function (b, i) {
         b.addEventListener("click", function () {
-          var t = tasting.offsetTop + ((i + 0.55) / Nt) * (tasting.offsetHeight - window.innerHeight);
+          var t = tasting.offsetTop + ((i + 0.55) / Nt) * (tasting.offsetHeight - viewH());
           window.scrollTo({ top: t, behavior: "smooth" });
         });
       });
