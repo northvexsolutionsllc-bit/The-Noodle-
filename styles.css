@@ -123,6 +123,7 @@ section{scroll-margin-top:110px}
 .nav__brandname{
   font-family:var(--font-d);font-weight:600;font-size:1rem;color:var(--pine);white-space:nowrap;
 }
+.nav__wordmark{height:30px;width:auto;display:block}
 .nav__links{display:flex;gap:1px;flex:none}
 .nav__links a{
   position:relative;font-weight:500;font-size:.85rem;color:var(--ink-soft);
@@ -149,6 +150,27 @@ section{scroll-margin-top:110px}
 .nav__cta svg{width:15px;height:15px}
 .nav__cta span{text-transform:capitalize}
 .nav__cta:hover{background:var(--pine-2);transform:translateY(-2px);box-shadow:0 14px 30px -10px rgba(31,111,82,.6)}
+
+/* visit-us CTA — fixed top right, stronger than nav links */
+.navCta{
+  position:fixed;top:16px;right:20px;z-index:101;
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--emerald);color:var(--cream);
+  font-weight:600;font-size:.9rem;white-space:nowrap;
+  padding:13px 22px;border-radius:var(--r-pill);
+  box-shadow:0 14px 34px -12px rgba(31,111,82,.6), inset 0 1px 0 rgba(255,255,255,.14);
+  transition:transform .45s var(--ease),background .25s,box-shadow .25s;
+  overflow:hidden;
+}
+.navCta svg{width:16px;height:16px;flex:none}
+.navCta::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.28) 48%,transparent 62%);
+  transform:translateX(-130%);
+}
+.navCta:hover{background:var(--pine-2);transform:translateY(-2px);box-shadow:0 20px 42px -12px rgba(31,111,82,.7)}
+.navCta:hover::after{animation:d-sheen .9s var(--ease) forwards}
+.navCta.is-hidden{transform:translateY(-160%)}
 
 /* mobile bottom nav */
 .botnav{
@@ -1406,12 +1428,115 @@ body.is-loaded .ahero__sticker{animation:b-tag .6s cubic-bezier(.34,1.4,.64,1) 1
 .stat span{font-size:.85rem;color:var(--ink-soft);max-width:20ch;display:block;margin-top:6px}
 
 /* ==========================================================================
+   VISIT — postcard hero + route map card
+   ========================================================================== */
+.vhero{background:var(--sage);padding:150px 22px 96px;overflow:hidden}
+.vhero__inner{
+  max-width:calc(var(--maxw) + 40px);margin:0 auto;
+  display:grid;grid-template-columns:1.02fr .98fr;gap:clamp(30px,5vw,70px);align-items:center;
+}
+.vhero__title{
+  font-family:var(--font-d);font-weight:500;
+  font-size:clamp(2.5rem,6vw,4.8rem);line-height:1.05;letter-spacing:-.014em;color:var(--ink);
+}
+.vhero__title em{font-style:italic;color:var(--emerald)}
+.vhero__status{
+  display:inline-flex;align-items:center;gap:9px;margin-top:20px;
+  background:var(--white);border:1px solid var(--line);border-radius:var(--r-pill);
+  padding:9px 16px;font-weight:600;font-size:.85rem;color:var(--pine);letter-spacing:.04em;
+}
+.vhero__lead{margin-top:16px;color:var(--ink-soft);font-size:clamp(1rem,2.2vw,1.14rem);max-width:44ch}
+.vhero__ctas{display:flex;gap:12px;margin-top:28px;flex-wrap:wrap}
+.vhero__kick,.vhero__fade{opacity:0}
+body.is-loaded .vhero__kick{animation:bh-fade .7s var(--ease) .15s forwards}
+body.is-loaded .vhero__status{animation:bh-fade .7s var(--ease) .4s forwards}
+body.is-loaded .vhero__lead{animation:bh-fade .8s var(--ease) .55s forwards}
+body.is-loaded .vhero__ctas{animation:bh-fade .8s var(--ease) .75s forwards}
+/* the postcard */
+.vpost{position:relative;justify-self:center;width:min(100%,470px)}
+.vpost__card{
+  position:relative;background:var(--white);border-radius:18px;
+  padding:20px 20px 18px;
+  box-shadow:0 34px 80px -26px rgba(18,53,40,.45);
+  transform:rotate(-2.5deg);opacity:0;
+}
+@keyframes v-post{
+  0%{opacity:0;transform:translateY(-7vh) rotate(-7deg)}
+  70%{opacity:1;transform:translateY(5px) rotate(-1.2deg)}
+  100%{opacity:1;transform:translateY(0) rotate(-2.5deg)}
+}
+body.is-loaded .vpost__card{animation:v-post .9s cubic-bezier(.22,1,.36,1) .25s forwards}
+.vpost__wordmark{width:132px;height:auto;margin-bottom:12px}
+.vpost__stamp{
+  position:absolute;top:16px;right:16px;
+  border:2px dashed rgba(32,40,31,.25);border-radius:10px;padding:6px;
+  background:var(--cream);opacity:0;transform:rotate(4deg);
+}
+.vpost__stamp img{width:46px;height:46px;display:block}
+body.is-loaded .vpost__stamp{animation:b-tag .6s cubic-bezier(.34,1.4,.64,1) 1.05s forwards}
+.vpost__postmark{
+  position:absolute;top:34px;right:84px;
+  width:86px;height:86px;border:2px solid rgba(32,40,31,.14);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;text-align:center;
+  font-family:var(--font-d);font-style:italic;font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;
+  color:rgba(32,40,31,.4);padding:12px;
+  transform:rotate(-12deg);opacity:0;
+}
+@keyframes v-mark{from{opacity:0;transform:rotate(-24deg) scale(1.15)}to{opacity:1;transform:rotate(-12deg) scale(1)}}
+body.is-loaded .vpost__postmark{animation:v-mark .5s var(--ease) 1.3s forwards}
+.vpost__photo{border-radius:12px;overflow:hidden}
+.vpost__photo img{width:100%;height:auto;aspect-ratio:4/3.3;object-fit:cover;object-position:50% 30%}
+.vpost__addr{
+  font-family:var(--font-d);font-style:italic;font-size:.95rem;color:var(--ink-soft);
+  text-align:center;padding-top:12px;
+}
+.vpost__pin{
+  position:absolute;left:-22px;bottom:36px;z-index:2;
+  width:58px;height:58px;border-radius:50%;
+  background:var(--emerald);color:var(--cream);
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 16px 36px -12px rgba(31,111,82,.7);
+  opacity:0;
+}
+.vpost__pin svg{width:26px;height:26px}
+@keyframes v-pin{
+  0%{opacity:0;transform:scale(.5)}
+  65%{opacity:1;transform:scale(1.12)}
+  100%{opacity:1;transform:scale(1)}
+}
+body.is-loaded .vpost__pin{animation:v-pin .55s cubic-bezier(.34,1.4,.64,1) 1.5s forwards,b-float 5.5s ease-in-out 2.4s infinite}
+
+/* designed route facade for the lazy map */
+.mapload--card{background:linear-gradient(150deg,var(--pine),var(--pine-2))}
+.mapload--card::after{background:none}
+.mapload--card img{display:none}
+.mapload__route{position:absolute;inset:0;width:100%;height:100%}
+.mapload--card .mapload__pin b{font-family:var(--font-d);font-weight:600;font-style:italic;font-size:1.3rem;letter-spacing:.02em}
+.mapload__hint{
+  font-size:.78rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;
+  color:rgba(250,246,239,.65);
+  border:1px solid rgba(250,246,239,.3);border-radius:var(--r-pill);padding:8px 16px;
+  transition:background .25s,color .25s,border-color .25s;
+}
+.mapload--card:hover .mapload__hint{background:var(--cream);color:var(--pine);border-color:var(--cream)}
+
+/* ==========================================================================
    VISIT
    ========================================================================== */
 .visit__grid{max-width:var(--maxw);margin:0 auto;display:grid;grid-template-columns:1fr 1.1fr;gap:60px;align-items:center}
 .visit__rows{display:flex;flex-direction:column;gap:22px;margin-top:32px}
-.vrow{display:flex;gap:16px;align-items:flex-start}
-.vrow svg{width:24px;height:24px;color:var(--emerald);flex:none;margin-top:2px}
+.vrow{
+  display:flex;gap:16px;align-items:flex-start;
+  padding:10px 12px;margin:0 -12px;border-radius:16px;
+  transition:background .25s,transform .3s var(--ease);
+}
+.vrow:hover{background:var(--sage);transform:translateX(6px)}
+.vrow svg{
+  width:46px;height:46px;color:var(--emerald);flex:none;
+  background:var(--sage);border-radius:14px;padding:11px;
+  transition:background .25s,color .25s;
+}
+.vrow:hover svg{background:var(--emerald);color:var(--cream)}
 .vrow strong{font-weight:600;font-size:1.05rem;color:var(--pine);display:block}
 .vrow strong a:hover{color:var(--emerald)}
 .vrow span{color:var(--ink-soft);font-size:.88rem}
@@ -1472,6 +1597,7 @@ body.is-loaded .ahero__sticker{animation:b-tag .6s cubic-bezier(.34,1.4,.64,1) 1
    ========================================================================== */
 @media (max-width:1280px){
   .nav__brandname{display:none}
+  .nav__wordmark{display:none}
   .nav__links a{padding:10px 10px;font-size:.82rem}
 }
 @media (max-width:1060px){
@@ -1479,6 +1605,7 @@ body.is-loaded .ahero__sticker{animation:b-tag .6s cubic-bezier(.34,1.4,.64,1) 1
   .nav__links a{padding:9px 8px;font-size:.78rem}
   .nav__cta{padding:10px 13px;font-size:.8rem}
   .nav__logo{width:34px;height:34px}
+  .navCta{padding:11px 16px;font-size:.82rem;right:14px}
 }
 @media (max-width:1024px){
   .ahero__inner{grid-template-columns:1fr;gap:44px;text-align:center}
@@ -1512,6 +1639,7 @@ body.is-loaded .ahero__sticker{animation:b-tag .6s cubic-bezier(.34,1.4,.64,1) 1
 @media (max-width:880px){
   section{scroll-margin-top:20px}
   .nav{display:none}
+  .navCta{display:none}
   .botnav{display:flex}
   body{padding-bottom:88px}
   .hero__statusPill{top:14px;left:50%;transform:translateX(-50%);white-space:nowrap}
@@ -1582,6 +1710,11 @@ body.is-loaded .ahero__sticker{animation:b-tag .6s cubic-bezier(.34,1.4,.64,1) 1
   .paths__grid{grid-template-columns:1fr}
   .path{aspect-ratio:4/3.4}
   .story__grid,.visit__grid{grid-template-columns:1fr;gap:44px}
+  .vhero{padding:120px 16px 70px}
+  .vhero__inner{grid-template-columns:1fr;gap:44px;text-align:center}
+  .vhero__ctas{justify-content:center}
+  .vpost{width:min(100%,400px)}
+  .vpost__pin{left:-10px}
   .story__polaroid{right:6px;bottom:-30px}
   .tasting{height:auto !important}
   .tasting__pin{position:static;height:auto;overflow:visible;padding:100px 22px 90px}
@@ -1665,6 +1798,8 @@ body.is-static .phstack__main,body.is-static .phstack__accent,body.is-static .ph
 body.is-static .bhero__over,body.is-static .bhero__lead,body.is-static .bhero__steps li,
 body.is-static .bscene__station,body.is-static .bscene__bowl,body.is-static .bscene__mini,body.is-static .bscene__tag{opacity:1;animation:none}
 body.is-static .bscene__steam{display:none}
+body.is-static .vhero__kick,body.is-static .vhero__status,body.is-static .vhero__lead,body.is-static .vhero__ctas,
+body.is-static .vpost__card,body.is-static .vpost__stamp,body.is-static .vpost__postmark,body.is-static .vpost__pin{opacity:1;animation:none}
 body.is-static .ahero__kick,body.is-static .ahero__lead,body.is-static .ahero__ctas,
 body.is-static .apol,body.is-static .ahero__sticker{opacity:1;animation:none}
 body.is-static .apol img{filter:none}

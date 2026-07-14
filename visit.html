@@ -8,12 +8,14 @@
 <meta name="theme-color" content="#123528" />
 <meta property="og:title" content="visit us · the noodle lounge — 712 cherry ave, long beach" />
 <meta property="og:description" content="Find The Noodle Lounge at 712 Cherry Ave, Long Beach (7th & Cherry). Open late every night. Call (714) 600-7684." />
-<meta property="og:image" content="./assets/img/combo-bowls-shakes.jpg" />
-<link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+<meta property="og:image" content="https://the-noodle.vercel.app/assets/img/og-card.jpg" />
+<link rel="icon" type="image/png" sizes="64x64" href="./assets/img/favicon-32.png" />
+<link rel="apple-touch-icon" href="./assets/img/apple-touch-icon.png" />
+<link rel="manifest" href="./site.webmanifest" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,600&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="./styles.css?v=16" />
+<link rel="stylesheet" href="./styles.css?v=17" />
 </head>
 <body>
 
@@ -21,7 +23,7 @@
 <nav class="nav" id="nav" aria-label="Main">
   <a class="nav__brand" href="./index.html">
     <img class="nav__logo" src="./assets/img/logo-96.png" alt="The Noodle Lounge logo" width="38" height="38" />
-    <span class="nav__brandname">The Noodle Lounge</span>
+    <img class="nav__wordmark" src="./assets/img/wordmark.png" alt="The Noodle Lounge" width="756" height="313" />
   </a>
   <div class="nav__links">
     <a href="./index.html">home</a>
@@ -29,7 +31,6 @@
     <a href="./build.html">build your bowl</a>
     <a href="./drinks.html">signature drinks</a>
     <a href="./about.html">about</a>
-    <a href="./visit.html" class="is-active">visit us</a>
   </div>
 </nav>
 
@@ -56,14 +57,30 @@
     <span>visit</span>
   </a>
 </nav>
-<header class="phero">
-  <div class="phero__panel" style="--phc:#1B4A37;--phi:#FAF6EF">
-    <div>
-      <p class="phero__over">Find the Lounge</p>
-      <h1 class="phero__title tsplit">VISIT US</h1>
-      <p class="phero__lead">7th &amp; Cherry — you’ll smell the broth. Open late every night, with parking on the block and the blue LED glow in the window.</p>
+<header class="vhero">
+  <div class="vhero__inner">
+    <div class="vhero__copy">
+      <p class="kicker vhero__kick">find the lounge</p>
+      <h1 class="vhero__title tsplit">Pull up to<br /><em>7th &amp; Cherry.</em></h1>
+      <p class="vhero__status vhero__fade"><span class="hero__dot" id="heroDot"></span><span id="heroStatus">checking hours…</span></p>
+      <p class="vhero__lead vhero__fade">712 Cherry Ave, Long Beach — you&rsquo;ll smell the broth before you see the sign. Parking on the block, blue LED glow in the window.</p>
+      <div class="vhero__ctas vhero__fade">
+        <a class="btn btn--primary" href="https://www.google.com/maps/place/The+Noodle+Lounge/@33.7755587,-118.1675343,17z" target="_blank" rel="noopener" data-magnetic>get directions</a>
+        <a class="btn btn--outline" href="tel:+17146007684" data-magnetic>call the lounge</a>
+      </div>
     </div>
-    <figure class="phero__fig"><img src="./assets/img/storefront-coming-soon.jpg" alt="" width="600" height="800" fetchpriority="high" decoding="async" /></figure>
+    <div class="vpost" aria-hidden="true">
+      <div class="vpost__card">
+        <img class="vpost__wordmark" src="./assets/img/wordmark.png" alt="" width="756" height="313" />
+        <span class="vpost__stamp"><img src="./assets/img/logo-96.png" alt="" width="192" height="192" /></span>
+        <span class="vpost__postmark">long beach &middot; ca &middot; 90813</span>
+        <figure class="vpost__photo"><img src="./assets/img/storefront-grand-opening.jpg" alt="" width="768" height="702" fetchpriority="high" decoding="async" /></figure>
+        <p class="vpost__addr">712 Cherry Ave &middot; corner of 7th &amp; Cherry</p>
+      </div>
+      <span class="vpost__pin">
+        <svg viewBox="0 0 24 24"><path d="M12 21s-7-6.1-7-11a7 7 0 1 1 14 0c0 4.9-7 11-7 11Z" fill="currentColor"/><circle cx="12" cy="10" r="2.6" fill="#FAF6EF"/></svg>
+      </span>
+    </div>
   </div>
 </header>
 
@@ -87,7 +104,7 @@
           <div><strong><a href="tel:+17146007684">(714) 600-7684</a></strong><span>call ahead for big groups &amp; watch parties</span></div>
         </div>
         <div class="vrow">
-          <svg style="width:24px;height:24px" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.2" cy="6.8" r="1.3" fill="currentColor"/></svg>
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.2" cy="6.8" r="1.3" fill="currentColor"/></svg>
           <div><strong><a href="https://www.instagram.com/thenoodleloungee/" target="_blank" rel="noopener">@thenoodleloungee</a></strong><span>dms open — events, collabs &amp; questions</span></div>
         </div>
       </div>
@@ -97,11 +114,16 @@
       </div>
     </div>
     <div class="visit__map reveal" data-reveal="mask">
-      <button class="mapload" id="mapLoad" aria-label="Load the interactive map">
-        <img src="./assets/img/storefront-coming-soon.jpg" alt="" width="1000" height="563" loading="lazy" decoding="async" />
+      <button class="mapload mapload--card" id="mapLoad" aria-label="Load the interactive map">
+        <svg class="mapload__route" viewBox="0 0 400 300" aria-hidden="true" preserveAspectRatio="xMidYMid slice">
+          <path d="M-20 240 C 80 235, 120 180, 160 150 S 260 90, 330 70 S 400 40, 430 30" fill="none" stroke="rgba(250,246,239,.35)" stroke-width="3" stroke-dasharray="1 10" stroke-linecap="round"/>
+          <path d="M-20 285 C 100 275, 200 240, 300 215 S 400 185, 430 175" fill="none" stroke="rgba(250,246,239,.14)" stroke-width="2" stroke-dasharray="1 9" stroke-linecap="round"/>
+          <circle cx="330" cy="70" r="5" fill="#E2A23B"/>
+        </svg>
         <span class="mapload__pin">
           <svg viewBox="0 0 24 24"><path d="M12 21s-7-6.1-7-11a7 7 0 1 1 14 0c0 4.9-7 11-7 11Z" fill="currentColor"/><circle cx="12" cy="10" r="2.6" fill="#FAF6EF"/></svg>
-          Tap to load the map
+          <b>7th &amp; Cherry</b>
+          <span class="mapload__hint">tap to load the map</span>
         </span>
       </button>
     </div>
@@ -153,6 +175,6 @@
   </div>
 </footer>
 
-<script src="./main.js?v=16" defer></script>
+<script src="./main.js?v=17" defer></script>
 </body>
 </html>
