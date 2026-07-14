@@ -59,8 +59,11 @@ phone number. When the owner confirms a public online-ordering URL, set
 receipt viewer, not an ordering page — do not publish it.)
 
 ## Hero video
-Drop `assets/video/hero-loop.mp4` (muted portrait loop, ≤3 MB) into the repo and
-the hero auto-detects it and fades it in over the slideshow. See `assets/README.md`.
+Drop `assets/video/hero-loop.mp4` (muted portrait loop, ≤3 MB) into the repo,
+then set `HERO_VIDEO = "./assets/video/hero-loop.mp4"` at the top of `main.js` -
+the hero fades it in over the slideshow. (The old auto-detect probe was removed:
+it guaranteed a 404 network error on every homepage view while the file is
+pending.) See `assets/README.md`.
 
 ## Still pending from the owner
 - Public online-ordering URL (see Ordering above)

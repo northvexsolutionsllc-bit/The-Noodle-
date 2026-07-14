@@ -1,0 +1,5 @@
+# design references + raw brand sources: never loaded by any page,
+# keeps every deploy ~27MB lighter
+assets/reference
+assets/brand
+qa.py

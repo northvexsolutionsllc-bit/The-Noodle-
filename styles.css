@@ -276,9 +276,9 @@ body.drawer-open{overflow:hidden}
   flex:1;display:grid;grid-template-columns:24% 52% 24%;
   border-radius:26px;overflow:hidden;min-height:520px;
   box-shadow:0 30px 90px -30px rgba(0,0,0,.55);
-  opacity:0;transform:translateY(26px) scale(.985);
   transition:opacity .9s var(--ease),transform .9s var(--ease);
 }
+:where(html.js) .pstrip{opacity:0;transform:translateY(26px) scale(.985)}
 body.is-loaded .pstrip{opacity:1;transform:none}
 .pslot{
   position:relative;background:var(--pnl,#F3C969);color:var(--pnl-ink,#4E3007);
@@ -405,15 +405,19 @@ body.is-loaded .pstrip{opacity:1;transform:none}
 /* ==========================================================================
    REVEAL / MOTION ENGINE
    ========================================================================== */
-.reveal{opacity:0;transform:translateY(36px);filter:blur(6px);transition:opacity .95s var(--ease),transform .95s var(--ease),filter .95s var(--ease)}
-.reveal[data-reveal="left"]{transform:translateX(-46px)}
-.reveal[data-reveal="right"]{transform:translateX(46px)}
-.reveal[data-reveal="pop"]{transform:translateY(24px) scale(.93)}
-.reveal[data-reveal="mask"]{clip-path:inset(9% 9% 9% 9% round 28px);opacity:1;transform:none;filter:none;transition:clip-path 1.15s var(--ease)}
+/* the hidden initial states only apply once the tiny head script has tagged
+   <html class="js"> - so content is never blank while main.js is still on
+   the wire, and the page fully degrades if scripts are blocked. with JS
+   present the reveal choreography is pixel-identical to before. */
+:where(html.js) .reveal{opacity:0;transform:translateY(36px);filter:blur(6px);transition:opacity .95s var(--ease),transform .95s var(--ease),filter .95s var(--ease)}
+:where(html.js) .reveal[data-reveal="left"]{transform:translateX(-46px)}
+:where(html.js) .reveal[data-reveal="right"]{transform:translateX(46px)}
+:where(html.js) .reveal[data-reveal="pop"]{transform:translateY(24px) scale(.93)}
+:where(html.js) .reveal[data-reveal="mask"]{clip-path:inset(9% 9% 9% 9% round 28px);opacity:1;transform:none;filter:none;transition:clip-path 1.15s var(--ease)}
 .reveal.is-in{opacity:1;transform:none;filter:none}
 .reveal[data-reveal="mask"].is-in{clip-path:inset(0 0 0 0 round 0px)}
-.reveal[data-reveal="stagger"]{opacity:1;transform:none;filter:none;transition:none}
-.reveal[data-reveal="stagger"] > *{
+:where(html.js) .reveal[data-reveal="stagger"]{opacity:1;transform:none;filter:none;transition:none}
+:where(html.js) .reveal[data-reveal="stagger"] > *{
   opacity:0;transform:translateY(28px);filter:blur(5px);
   transition:opacity .85s var(--ease),transform .85s var(--ease),filter .85s var(--ease);
   transition-delay:calc(var(--i,0) * 90ms);
@@ -427,11 +431,8 @@ body.is-loaded .pstrip{opacity:1;transform:none}
 
 /* image reveal frames (parallax inside) */
 .imgframe{position:relative;overflow:hidden;border-radius:var(--r-lg)}
-.imgframe img{
-  width:100%;height:100%;object-fit:cover;
-  transform:scale(1.16);transition:transform 1.3s var(--ease);
-  will-change:transform;
-}
+.imgframe img{width:100%;height:100%;object-fit:cover;will-change:transform}
+:where(html.js) .imgframe img{transform:scale(1.16);transition:transform 1.3s var(--ease)}
 .imgframe.is-in img{transform:scale(1.02)}
 /* parallax images are driven per-frame by JS - a transition here would lag a
    beat behind the scroll, so it must stay off */
@@ -583,15 +584,17 @@ body.is-loaded .pstrip{opacity:1;transform:none}
   position:relative;z-index:2;max-width:calc(var(--maxw) + 60px);margin:0 auto;width:100%;
   display:grid;grid-template-columns:1.02fr .98fr;gap:40px;align-items:center;
 }
-.dhero__kick{opacity:0}
+:where(html.js) .dhero__kick{opacity:0}
 .dhero__title{
   font-family:var(--font-d);font-weight:500;
   font-size:clamp(2.7rem,6.6vw,5.4rem);line-height:1.04;letter-spacing:-.015em;
 }
 .dhero__title em{font-style:italic;color:#F7D98B}
-.dhero__lead{margin-top:20px;max-width:44ch;color:rgba(250,246,239,.78);font-size:clamp(1rem,2.2vw,1.14rem);font-weight:300;opacity:0}
+.dhero__lead{margin-top:20px;max-width:44ch;color:rgba(250,246,239,.78);font-size:clamp(1rem,2.2vw,1.14rem);font-weight:300}
+:where(html.js) .dhero__lead{opacity:0}
 .dhero__lead strong{color:var(--cream);font-weight:500}
-.dhero__ctas{display:flex;gap:12px;margin-top:32px;flex-wrap:wrap;opacity:0}
+.dhero__ctas{display:flex;gap:12px;margin-top:32px;flex-wrap:wrap}
+:where(html.js) .dhero__ctas{opacity:0}
 body.is-loaded .dhero__kick{animation:bh-fade .7s var(--ease) .15s forwards}
 body.is-loaded .dhero__lead{animation:bh-fade .8s var(--ease) .5s forwards}
 body.is-loaded .dhero__ctas{animation:bh-fade .8s var(--ease) .75s forwards}
@@ -615,8 +618,9 @@ body.is-loaded .dhero__ctas{animation:bh-fade .8s var(--ease) .75s forwards}
   border-radius:999px;overflow:hidden;
   border:5px solid rgba(250,246,239,.16);
   box-shadow:0 40px 90px -28px rgba(0,0,0,.65);
-  opacity:0;will-change:transform;
+  will-change:transform;
 }
+:where(html.js) .dbottle__fig{opacity:0}
 .dbottle__fig img{width:100%;height:100%;object-fit:cover;object-position:50% 62%}
 /* glass reflection streak - sweeps once on land, again on hover */
 .dbottle__fig::after{
@@ -2069,11 +2073,20 @@ body.is-static .ccard{transform:none !important}
   .footer__col a:hover,.footer__social a:hover,.etags__wrap span:hover,
   .lineup__arrows button:hover,.bline__rail button:hover,
   .story__polaroid:hover,.apol:hover,.enight:hover .enight__thumb,
-  .stepcard:hover,.tline__card:hover,.mgroup:hover{
+  .stepcard:hover,.tline__card:hover,.mgroup:hover,
+  .nav__brand:hover .nav__logo,.tline__card:hover .tline__fig img{
     transform:none !important;
   }
+  /* hover-triggered sheen sweeps + hover reveals have no meaning on touch;
+     a tap must never be spent on them */
+  .dbottle:hover .dbottle__fig::after,.navCta:hover::after{animation:none !important}
+  .enight__thumb{opacity:1}
   .drawer{
     backdrop-filter:none;-webkit-backdrop-filter:none;
     background:rgba(15,42,31,.97);
   }
 }
+
+/* interactive elements that are not <a>/<button> need the same tap treatment:
+   removes the double-tap-zoom wait so the first tap always lands */
+.mcard,.pslot--side,.menuBtn,[data-topping]{touch-action:manipulation}
