@@ -39,10 +39,10 @@ body{
   -webkit-font-smoothing:antialiased;overflow-x:hidden;
   -webkit-tap-highlight-color:transparent;
 }
-a{color:inherit;text-decoration:none}
+a{color:inherit;text-decoration:none;touch-action:manipulation}
 img{max-width:100%;display:block}
 ul,ol{list-style:none}
-button{font:inherit;border:none;background:none;cursor:pointer;color:inherit}
+button{font:inherit;border:none;background:none;cursor:pointer;color:inherit;touch-action:manipulation}
 section{scroll-margin-top:110px}
 ::selection{background:var(--emerald);color:var(--cream)}
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
@@ -2055,3 +2055,25 @@ body.is-static .cinema{height:auto !important}
 body.is-static .cinema__stage{position:static;height:auto;padding-bottom:70px}
 body.is-static .cinema__track{overflow-x:auto;padding:6px 20px 20px;transform:none !important}
 body.is-static .ccard{transform:none !important}
+
+/* ==========================================================================
+   TOUCH DEVICES - first-tap reliability + Safari GPU relief (no visual change
+   in practice: touch has no hover concept, and the drawer bg is near-opaque)
+   ========================================================================== */
+@media (hover:none){
+  .btn:hover,.pslot__cta:hover,.nav__cta:hover,.navCta:hover,
+  .hero__social a:hover,.menunav a:hover,.coaster:hover,
+  .flab__tab:hover,.flab__chips span:hover,.mcat__chips span:hover,
+  .mcat__items li:hover,.mcat__thumbs figure:hover img,
+  .tkt:hover,.glass:hover,.enight:hover,.vrow:hover,.plat:hover,
+  .footer__col a:hover,.footer__social a:hover,.etags__wrap span:hover,
+  .lineup__arrows button:hover,.bline__rail button:hover,
+  .story__polaroid:hover,.apol:hover,.enight:hover .enight__thumb,
+  .stepcard:hover,.tline__card:hover,.mgroup:hover{
+    transform:none !important;
+  }
+  .drawer{
+    backdrop-filter:none;-webkit-backdrop-filter:none;
+    background:rgba(15,42,31,.97);
+  }
+}
