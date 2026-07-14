@@ -443,6 +443,53 @@
     });
   }
 
+  /* ----- drinks page: hero pointer-depth parallax ----- */
+  var dhero = document.querySelector(".dhero");
+  if (dhero && finePointer && !reduceMotion) {
+    var dBottles = Array.prototype.slice.call(dhero.querySelectorAll(".dbottle"));
+    var dtx = 0, dty = 0, dcx = 0, dcy = 0, dRaf = null;
+    function dLoop() {
+      dRaf = requestAnimationFrame(function () {
+        dcx += (dtx - dcx) * 0.07;
+        dcy += (dty - dcy) * 0.07;
+        dBottles.forEach(function (b) {
+          var d = parseFloat(b.getAttribute("data-depth")) || 1;
+          b.style.setProperty("--px", (dcx * 16 * d).toFixed(2) + "px");
+          b.style.setProperty("--py", (dcy * 10 * d).toFixed(2) + "px");
+        });
+        if (Math.abs(dtx - dcx) > 0.002 || Math.abs(dty - dcy) > 0.002) dLoop();
+        else dRaf = null;
+      });
+    }
+    dhero.addEventListener("pointermove", function (e) {
+      var r = dhero.getBoundingClientRect();
+      dtx = ((e.clientX - r.left) / r.width) * 2 - 1;
+      dty = ((e.clientY - r.top) / r.height) * 2 - 1;
+      if (!dRaf) dLoop();
+    });
+    dhero.addEventListener("pointerleave", function () { dtx = 0; dty = 0; if (!dRaf) dLoop(); });
+  }
+
+  /* ----- drinks page: flavor lab tabs ----- */
+  var flabTabs = Array.prototype.slice.call(document.querySelectorAll("[data-flab]"));
+  if (flabTabs.length) {
+    var flabPanes = Array.prototype.slice.call(document.querySelectorAll("[data-flab-pane]"));
+    flabTabs.forEach(function (tab) {
+      tab.addEventListener("click", function () {
+        var i = parseInt(tab.getAttribute("data-flab"), 10);
+        flabTabs.forEach(function (t, j) {
+          t.classList.toggle("is-on", j === i);
+          t.setAttribute("aria-selected", j === i ? "true" : "false");
+        });
+        flabPanes.forEach(function (p, j) {
+          // re-add the class even for the same pane so the cascade replays
+          p.classList.remove("is-on");
+          if (j === i) { void p.offsetWidth; p.classList.add("is-on"); }
+        });
+      });
+    });
+  }
+
   /* ---------- in-page menu nav scrollspy ---------- */
   var menunav = document.querySelector(".menunav");
   if (menunav) {

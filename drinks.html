@@ -13,7 +13,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,600&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="./styles.css?v=11" />
+<link rel="stylesheet" href="./styles.css?v=12" />
 </head>
 <body>
 
@@ -57,218 +57,150 @@
     <span>visit</span>
   </a>
 </nav>
-<header class="phero">
-  <div class="phero__panel" style="--phc:#F4BBC9;--phi:#7A2136">
-    <div>
-      <p class="phero__over">The Soda Bar</p>
-      <h1 class="phero__title tsplit">SIGNATURE DRINKS</h1>
-      <p class="phero__lead">Creamy Red Bulls, custom flavor shots, and dirty sodas made to order — the ultimate chaser for a spicy bowl of Buldak.</p>
+<header class="dhero">
+  <div class="dhero__glow dhero__glow--pink" aria-hidden="true"></div>
+  <div class="dhero__glow dhero__glow--blue" aria-hidden="true"></div>
+  <div class="dhero__glow dhero__glow--butter" aria-hidden="true"></div>
+  <div class="dhero__inner">
+    <div class="dhero__copy">
+      <p class="kicker kicker--light dhero__kick">the soda bar</p>
+      <h1 class="dhero__title tsplit">Pour something<br /><em>pretty.</em></h1>
+      <p class="dhero__lead">Creamy Red Bulls, dirty sodas, refreshers and shakes — every cup built at the counter by <strong>Cremita Bonita Co ✕ Dream Drinks</strong>.</p>
+      <div class="dhero__ctas">
+        <a class="btn btn--cream" href="#lineup" data-magnetic>meet the lineup</a>
+        <a class="btn btn--outline-light" href="#board" data-magnetic>the full board</a>
+      </div>
     </div>
-    <figure class="phero__fig"><img src="./assets/img/drink-strawberry-shake.jpg" alt="" width="600" height="800" fetchpriority="high" decoding="async" /></figure>
+    <div class="dhero__shelf" id="dheroShelf" aria-hidden="true">
+      <figure class="dbottle dbottle--l" data-depth="0.7" style="--g:#F4BBC9">
+        <div class="dbottle__fig"><img src="./assets/img/drink-strawberry-shake.jpg" alt="" width="563" height="1000" fetchpriority="high" decoding="async" /></div>
+        <figcaption>La Fresita</figcaption>
+      </figure>
+      <figure class="dbottle dbottle--c" data-depth="1.5" style="--g:#BFD8E8">
+        <div class="dbottle__fig"><img src="./assets/img/drink-blue-redbull-gummy.jpg" alt="" width="600" height="800" fetchpriority="high" decoding="async" /></div>
+        <figcaption>Blue Crush</figcaption>
+      </figure>
+      <figure class="dbottle dbottle--r" data-depth="1" style="--g:#CBD9A6">
+        <div class="dbottle__fig"><img src="./assets/img/drink-matcha.jpg" alt="" width="563" height="1000" fetchpriority="high" decoding="async" /></div>
+        <figcaption>Matcha</figcaption>
+      </figure>
+    </div>
   </div>
 </header>
 
 <main>
-<section class="psec">
-  <div class="psec__head">
-    <p class="kicker reveal" data-reveal>made to order</p>
-    <h2 class="h2 tsplit">Not your average<br /><em>corner store soda.</em></h2>
-    <p class="lead reveal" data-reveal>Every cup is built at the counter — pick a base, add flavor shots, cream it, top it. A few house favorites, then the full board below.</p>
+<!-- ============================== THE LINEUP — draggable shelf ============================== -->
+<section class="lineup psec" id="lineup">
+  <div class="lineup__head">
+    <div>
+      <p class="kicker reveal" data-reveal>house favorites</p>
+      <h2 class="h2 tsplit">The lineup.</h2>
+    </div>
+    <div class="lineup__arrows reveal" data-reveal>
+      <button id="drinksPrev" aria-label="Scroll the lineup backwards"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <button id="drinksNext" aria-label="Scroll the lineup forwards"><svg viewBox="0 0 24 24"><path d="m9 5 7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    </div>
   </div>
-  <div class="mcards">
-    <article class="mcard reveal" data-reveal="pop">
-      <div class="mcard__media"><span class="mcard__badge">House Favorite</span><img src="./assets/img/drink-blue-redbull-gummy.jpg" alt="Blue Crush creamy energy drink with whipped cream and a gummy ring" width="800" height="600" loading="lazy" decoding="async" /></div>
-      <div class="mcard__body">
-        <span class="mcard__cat">signature energy</span>
-        <h3>Blue Crush</h3>
-        <div class="mcard__row">
-          <span></span>
-          <span class="mcard__more">details <svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        </div>
-        <p class="mcard__desc">A creamy blue energy drink over your choice of Red Bull, Alani Nu or Celsius — whipped top and a gummy garnish.</p>
-      </div>
-    </article>
-    <article class="mcard reveal" data-reveal="pop">
-      <div class="mcard__media"><img src="./assets/img/drink-strawberry-shake.jpg" alt="La Fresita strawberry milkshake with a whipped dome" width="800" height="600" loading="lazy" decoding="async" /></div>
-      <div class="mcard__body">
-        <span class="mcard__cat">milkshake</span>
-        <h3>La Fresita</h3>
-        <div class="mcard__row">
-          <span></span>
-          <span class="mcard__more">details <svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        </div>
-        <p class="mcard__desc">Blended strawberry milkshake crowned with a whipped-cream dome. Sweet, pink and dreamy.</p>
-      </div>
-    </article>
-    <article class="mcard reveal" data-reveal="pop">
-      <div class="mcard__media"><img src="./assets/img/drink-matcha.jpg" alt="Iced matcha milk tea dusted with matcha powder" width="800" height="600" loading="lazy" decoding="async" /></div>
-      <div class="mcard__body">
-        <span class="mcard__cat">milk tea</span>
-        <h3>Matcha</h3>
-        <div class="mcard__row">
-          <span></span>
-          <span class="mcard__more">details <svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        </div>
-        <p class="mcard__desc">Stone-ground matcha over ice with a creamy top and a fresh dusting. The calm one on the board.</p>
-      </div>
-    </article>
-    <article class="mcard reveal" data-reveal="pop">
-      <div class="mcard__media"><img src="./assets/img/drink-cookies-cream.jpg" alt="Cookies y Cremita milkshake with boba and a whipped dome" width="800" height="600" loading="lazy" decoding="async" /></div>
-      <div class="mcard__body">
-        <span class="mcard__cat">milkshake</span>
-        <h3>Cookies y Cremita</h3>
-        <div class="mcard__row">
-          <span></span>
-          <span class="mcard__more">details <svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        </div>
-        <p class="mcard__desc">Cookies-and-cream milkshake over boba pearls, finished with a whipped dome. Dessert in a cup.</p>
-      </div>
-    </article>
-    <article class="mcard reveal" data-reveal="pop">
-      <div class="mcard__media"><img src="./assets/img/drink-berry-smoothie.jpg" alt="Berrysita Linda real-fruit berry smoothie" width="800" height="600" loading="lazy" decoding="async" /></div>
-      <div class="mcard__body">
-        <span class="mcard__cat">smoothie</span>
-        <h3>Berrysita Linda</h3>
-        <div class="mcard__row">
-          <span></span>
-          <span class="mcard__more">details <svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        </div>
-        <p class="mcard__desc">Smooth, refreshing and made with real fruit — a mixed-berry smoothie built for the sun.</p>
-      </div>
-    </article>
-    <article class="mcard reveal" data-reveal="pop">
-      <div class="mcard__media"><img src="./assets/img/drink-strawberry-lemonade.jpg" alt="Strawberry Dreamade lemonade refresher" width="800" height="600" loading="lazy" decoding="async" /></div>
-      <div class="mcard__body">
-        <span class="mcard__cat">lemonade refresher</span>
-        <h3>Strawberry Dreamade</h3>
-        <div class="mcard__row">
-          <span></span>
-          <span class="mcard__more">details <svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        </div>
-        <p class="mcard__desc">A strawberry lemonade refresher off the flavor wall. Add boba to make it a meal.</p>
-      </div>
-    </article>
+  <p class="lineup__hint reveal" data-reveal>drag to browse &mdash; every cup made to order</p>
+  <div class="lineup__rail" id="drinksRail">
+    <figure class="bottlecard" style="--g:#BFD8E8">
+      <img src="./assets/img/drink-blue-redbull-gummy.jpg" alt="Blue Crush creamy energy drink with whipped cream and a gummy ring" width="600" height="800" loading="lazy" decoding="async" />
+      <figcaption><span class="bottlecard__cat">signature energy</span><h3>Blue Crush</h3><p>Creamy blue energy over Red Bull, Alani Nu or Celsius &mdash; whipped top, gummy garnish.</p></figcaption>
+    </figure>
+    <figure class="bottlecard" style="--g:#F4BBC9">
+      <img src="./assets/img/drink-strawberry-shake.jpg" alt="La Fresita strawberry milkshake with a whipped dome" width="563" height="1000" loading="lazy" decoding="async" />
+      <figcaption><span class="bottlecard__cat">milkshake</span><h3>La Fresita</h3><p>Blended strawberry shake crowned with a whipped-cream dome. Sweet, pink, dreamy.</p></figcaption>
+    </figure>
+    <figure class="bottlecard" style="--g:#CBD9A6">
+      <img src="./assets/img/drink-matcha.jpg" alt="Iced matcha milk tea dusted with matcha powder" width="563" height="1000" loading="lazy" decoding="async" />
+      <figcaption><span class="bottlecard__cat">milk tea</span><h3>Matcha</h3><p>Stone-ground matcha over ice with a creamy top. The calm one on the board.</p></figcaption>
+    </figure>
+    <figure class="bottlecard" style="--g:#E8D9BF">
+      <img src="./assets/img/drink-cookies-cream.jpg" alt="Cookies y Cremita milkshake with boba and a whipped dome" width="563" height="1000" loading="lazy" decoding="async" />
+      <figcaption><span class="bottlecard__cat">milkshake</span><h3>Cookies y Cremita</h3><p>Cookies-and-cream over boba pearls, finished with a whipped dome. Dessert in a cup.</p></figcaption>
+    </figure>
+    <figure class="bottlecard" style="--g:#D9BFD4">
+      <img src="./assets/img/drink-berry-smoothie.jpg" alt="Berrysita Linda real-fruit berry smoothie" width="563" height="1000" loading="lazy" decoding="async" />
+      <figcaption><span class="bottlecard__cat">smoothie</span><h3>Berrysita Linda</h3><p>Smooth and refreshing, made with real fruit &mdash; a mixed-berry smoothie built for the sun.</p></figcaption>
+    </figure>
+    <figure class="bottlecard" style="--g:#F3C969">
+      <img src="./assets/img/drink-strawberry-lemonade.jpg" alt="Strawberry Dreamade lemonade refresher" width="563" height="1000" loading="lazy" decoding="async" />
+      <figcaption><span class="bottlecard__cat">lemonade refresher</span><h3>Strawberry Dreamade</h3><p>A strawberry lemonade refresher off the flavor wall. Add boba to make it a moment.</p></figcaption>
+    </figure>
   </div>
 </section>
 
-<section class="psec psec--alt">
-  <div class="psec__head">
-    <p class="kicker reveal" data-reveal>the full board</p>
-    <h2 class="h2 tsplit">Every sip,<br /><em>on the menu.</em></h2>
-    <p class="lead reveal" data-reveal>Signature creamy energy drinks, an espresso bar, dirty juices &amp; sodas, refreshers, milkshakes and real-fruit smoothies.</p>
+<!-- ============================== THE FLAVOR LAB — interactive catalog ============================== -->
+<section class="flab" id="board">
+  <div class="flab__head">
+    <p class="kicker kicker--light reveal" data-reveal>the full board</p>
+    <h2 class="h2 h2--light tsplit">Every sip,<br /><em>on the menu.</em></h2>
   </div>
-  <div class="menuboard">
-  <div class="mgroup reveal" data-reveal="pop">
-    <h3 class="mgroup__h">Signature Creamy Energy Drinks</h3>
-    <p class="mgroup__sub">Signatures</p>
-    <ul>
-      <li><span>Pink Paradise</span></li>
-      <li><span>Berry Breeze</span></li>
-      <li><span>Peach Pop</span></li>
-      <li><span>Blue Crush</span></li>
-    </ul>
-    <p class="mgroup__sub">Sour Series</p>
-    <ul>
-      <li><span>Neon Rush</span></li>
-      <li><span>Dino Rush</span></li>
-    </ul>
-    <p class="mgroup__sub">Build Your Own Cremita — choose your energy base</p>
-    <div class="mgroup__flavors"><span>Red Bull</span><span>Alani Nu’s</span><span>Celsius</span></div>
-    <div class="mprice"><b>MD</b> $7.75 <span>·</span> <b>LG</b> $8.75</div>
+  <div class="flab__wrap reveal" data-reveal>
+    <div class="flab__tabs" role="tablist" aria-label="Drink categories">
+      <button class="flab__tab is-on" data-flab="0" style="--fg:#F4BBC9" role="tab" aria-selected="true"><i>01</i><span>Creamy Energy</span></button>
+      <button class="flab__tab" data-flab="1" style="--fg:#E8D9BF" role="tab" aria-selected="false"><i>02</i><span>Espresso Bar</span></button>
+      <button class="flab__tab" data-flab="2" style="--fg:#BFD8E8" role="tab" aria-selected="false"><i>03</i><span>Dirty Juices &amp; Sodas</span></button>
+      <button class="flab__tab" data-flab="3" style="--fg:#F3C969" role="tab" aria-selected="false"><i>04</i><span>Refreshers &amp; Aguas</span></button>
+      <button class="flab__tab" data-flab="4" style="--fg:#D9BFD4" role="tab" aria-selected="false"><i>05</i><span>Shakes &amp; Raspados</span></button>
+      <button class="flab__tab" data-flab="5" style="--fg:#CBD9A6" role="tab" aria-selected="false"><i>06</i><span>Smoothies &amp; Boba</span></button>
+    </div>
+    <div class="flab__panel">
+      <article class="flab__pane is-on" data-flab-pane style="--fg:#F4BBC9">
+        <h3>Signature Creamy Energy Drinks</h3>
+        <p class="flab__sub">signatures</p>
+        <div class="flab__chips"><span>Pink Paradise</span><span>Berry Breeze</span><span>Peach Pop</span><span>Blue Crush</span></div>
+        <p class="flab__sub">sour series</p>
+        <div class="flab__chips"><span>Neon Rush</span><span>Dino Rush</span></div>
+        <p class="flab__sub">build your own cremita &mdash; pick a base</p>
+        <div class="flab__chips"><span>Red Bull</span><span>Alani Nu&rsquo;s</span><span>Celsius</span></div>
+        <p class="flab__price"><b>MD</b> $7.75 <i>&middot;</i> <b>LG</b> $8.75</p>
+      </article>
+      <article class="flab__pane" data-flab-pane style="--fg:#E8D9BF">
+        <h3>Espresso Bar</h3>
+        <p class="flab__sub">espresso</p>
+        <div class="flab__chips"><span>Iced Vanilla Latte</span><span>Spanish Latte</span><span>Cinnamon Latte</span><span>Mocha Latte</span><span>Americano</span><span>Espresso</span></div>
+        <p class="flab__sub">milk teas</p>
+        <div class="flab__chips"><span>Matcha</span><span>Thai Tea</span><span>Taro</span></div>
+        <p class="flab__sub">frapp&eacute;s</p>
+        <div class="flab__chips"><span>Mocha</span><span>Caramel</span><span>Matcha</span><span>Biscoff</span><span>Oreo</span><span>Coconut</span><span>Nutella</span></div>
+        <p class="flab__price"><b>MD</b> $7.75 <i>&middot;</i> <b>LG</b> $8.75</p>
+      </article>
+      <article class="flab__pane" data-flab-pane style="--fg:#BFD8E8">
+        <h3>Dirty Juices &amp; Sodas</h3>
+        <p class="flab__sub">dirty juices</p>
+        <div class="flab__chips"><span>Strawberry Cran Splash</span><span>Pom Pom Apple Pop</span><span>Mango Pineapple Glow</span><span>Berry Lemon Twist</span></div>
+        <p class="flab__note">cream is optional &#9825;</p>
+        <p class="flab__sub">dirty sodas</p>
+        <div class="flab__chips"><span>Cherry Vanilla</span><span>Blue Lagoon</span><span>Brown Sugar Cream</span><span>Coconut Lime</span></div>
+      </article>
+      <article class="flab__pane" data-flab-pane style="--fg:#F3C969">
+        <h3>Lemonade Refreshers &amp; Aguas Frescas</h3>
+        <p class="flab__sub">refreshers</p>
+        <div class="flab__chips"><span>Sage Citrus</span><span>Blue Thunder</span><span>Dino Dream</span><span>Watermelon Blast</span><span>Golden Mango</span><span>Strawberry Dreamade</span></div>
+        <p class="flab__sub">aguas frescas</p>
+        <div class="flab__chips"><span>Horchata</span><span>Tamarindo</span><span>Lim&oacute;n con Ch&iacute;a</span><span>Jamaica</span></div>
+        <p class="flab__price"><b>Boba</b> add-on <i>&middot;</i> <b>+$1.00</b></p>
+      </article>
+      <article class="flab__pane" data-flab-pane style="--fg:#D9BFD4">
+        <h3>Milkshakes &amp; Raspados</h3>
+        <p class="flab__sub">milkshakes</p>
+        <div class="flab__chips"><span>La Fresita &#9825;</span><span>Cookies y Cremita &#9825;</span><span>Banana Beb&eacute; &#9825;</span><span>Choco Bonita &#9825;</span><span>Vainilla Mami &#9825;</span></div>
+        <p class="flab__sub">raspados</p>
+        <div class="flab__chips"><span>Chicle</span><span>Vainilla</span><span>Tamarindo</span><span>Lim&oacute;n</span></div>
+        <p class="flab__price"><b>MD</b> $7.75 <i>&middot;</i> <b>LG</b> $8.75</p>
+      </article>
+      <article class="flab__pane" data-flab-pane style="--fg:#CBD9A6">
+        <h3>Smoothies &amp; Popping Boba</h3>
+        <p class="flab__note">smooth, refreshing &amp; made with real fruit!</p>
+        <p class="flab__sub">smoothies</p>
+        <div class="flab__chips"><span>Berrysita Linda &#9825;</span><span>Mango Mamacita &#9825;</span><span>Pi&ntilde;a Bonita &#9825;</span><span>Banana Encantada &#9825;</span></div>
+        <p class="flab__sub">popping boba &mdash; juicy bursts of flavor</p>
+        <div class="flab__chips"><span>Pomegranate</span><span>Kiwi</span><span>Blueberry</span><span>Lemon</span><span>Strawberry</span><span>Peach</span><span>Green Apple</span><span>Cherry</span><span>Mango</span><span>Raspberry</span></div>
+      </article>
+    </div>
   </div>
-  <div class="mgroup reveal" data-reveal="pop">
-    <h3 class="mgroup__h">Espresso Bar</h3>
-    <p class="mgroup__sub">Espresso</p>
-    <ul>
-      <li><span>Iced Vanilla Latte</span></li>
-      <li><span>Spanish Latte</span></li>
-      <li><span>Cinnamon Latte</span></li>
-      <li><span>Mocha Latte</span></li>
-      <li><span>Americano</span></li>
-      <li><span>Espresso</span></li>
-    </ul>
-    <p class="mgroup__sub">Milk Teas</p>
-    <ul>
-      <li><span>Matcha</span></li>
-      <li><span>Thai Tea</span></li>
-      <li><span>Taro</span></li>
-    </ul>
-    <p class="mgroup__sub">Frappés</p>
-    <div class="mgroup__flavors"><span>Mocha</span><span>Caramel</span><span>Matcha</span><span>Biscoff</span><span>Oreo</span><span>Coconut</span><span>Nutella</span></div>
-    <div class="mprice"><b>MD</b> $7.75 <span>·</span> <b>LG</b> $8.75</div>
-  </div>
-  <div class="mgroup reveal" data-reveal="pop">
-    <h3 class="mgroup__h">Dirty Juices &amp; Sodas</h3>
-    <p class="mgroup__sub">Dirty Juices</p>
-    <ul>
-      <li><span>Strawberry Cran Splash</span></li>
-      <li><span>Pom Pom Apple Pop</span></li>
-      <li><span>Mango Pineapple Glow</span></li>
-      <li><span>Berry Lemon Twist</span></li>
-    </ul>
-    <p class="mgroup__note">cream is optional ♡</p>
-    <p class="mgroup__sub">Dirty Sodas</p>
-    <ul>
-      <li><span>Cherry Vanilla</span></li>
-      <li><span>Blue Lagoon</span></li>
-      <li><span>Brown Sugar Cream</span></li>
-      <li><span>Coconut Lime</span></li>
-    </ul>
-  </div>
-  <div class="mgroup reveal" data-reveal="pop">
-    <h3 class="mgroup__h">Lemonade Refreshers</h3>
-    <p class="mgroup__sub">Refreshers</p>
-    <ul>
-      <li><span>Sage Citrus</span></li>
-      <li><span>Blue Thunder</span></li>
-      <li><span>Dino Dream</span></li>
-      <li><span>Watermelon Blast</span></li>
-      <li><span>Golden Mango</span></li>
-      <li><span>Strawberry Dreamade</span></li>
-    </ul>
-    <p class="mgroup__sub">Aguas Frescas</p>
-    <ul>
-      <li><span>Horchata</span></li>
-      <li><span>Tamarindo</span></li>
-      <li><span>Limón con Chía</span></li>
-      <li><span>Jamaica</span></li>
-    </ul>
-    <div class="mprice"><b>Boba</b> add-on <span>·</span> <b>+$1.00</b></div>
-  </div>
-  <div class="mgroup reveal" data-reveal="pop">
-    <h3 class="mgroup__h">Milkshakes &amp; Raspados</h3>
-    <p class="mgroup__sub">Milkshakes</p>
-    <ul>
-      <li><span>La Fresita ♡</span></li>
-      <li><span>Cookies y Cremita ♡</span></li>
-      <li><span>Banana Bebé ♡</span></li>
-      <li><span>Choco Bonita ♡</span></li>
-      <li><span>Vainilla Mami ♡</span></li>
-    </ul>
-    <p class="mgroup__sub">Raspados</p>
-    <ul>
-      <li><span>Chicle</span></li>
-      <li><span>Vainilla</span></li>
-      <li><span>Tamarindo</span></li>
-      <li><span>Limón</span></li>
-    </ul>
-    <div class="mprice"><b>MD</b> $7.75 <span>·</span> <b>LG</b> $8.75</div>
-  </div>
-  <div class="mgroup reveal" data-reveal="pop">
-    <h3 class="mgroup__h">Smoothies &amp; Popping Boba</h3>
-    <p class="mgroup__note">smooth, refreshing &amp; made with real fruit!</p>
-    <p class="mgroup__sub">Smoothies</p>
-    <ul>
-      <li><span>Berrysita Linda ♡</span></li>
-      <li><span>Mango Mamacita ♡</span></li>
-      <li><span>Piña Bonita ♡</span></li>
-      <li><span>Banana Encantada ♡</span></li>
-    </ul>
-    <p class="mgroup__sub">Popping Boba — juicy bursts of flavor</p>
-    <div class="mgroup__flavors"><span>Pomegranate</span><span>Kiwi</span><span>Blueberry</span><span>Lemon</span><span>Strawberry</span><span>Peach</span><span>Green Apple</span><span>Cherry</span><span>Mango</span><span>Raspberry</span></div>
-  </div>
-  </div>
-  <p class="menuboard__foot reveal" data-reveal>Featuring <strong>Cremita Bonita Co</strong> ✕ <strong>Dream Drinks</strong> — the collab behind the cups.</p>
+  <p class="flab__foot reveal" data-reveal>Featuring <strong>Cremita Bonita Co</strong> ✕ <strong>Dream Drinks</strong> &mdash; the collab behind the cups.</p>
 </section>
 </main>
 <footer class="footer">
@@ -317,6 +249,6 @@
   </div>
 </footer>
 
-<script src="./main.js?v=11" defer></script>
+<script src="./main.js?v=12" defer></script>
 </body>
 </html>
