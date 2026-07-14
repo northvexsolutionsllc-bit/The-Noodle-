@@ -32,7 +32,7 @@
 }
 
 *{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;overflow-x:clip}
+html{scroll-behavior:smooth}
 body{
   background:var(--cream);color:var(--ink);
   font-family:var(--font-b);font-weight:400;line-height:1.6;
@@ -1373,23 +1373,17 @@ body.is-loaded .ehero__chip{animation:b-tag .6s cubic-bezier(.34,1.4,.64,1) 1.3s
 .enight__thumb img{width:100%;height:100%;object-fit:cover}
 .enight:hover .enight__thumb{transform:rotate(-2deg) scale(1.06);opacity:1;box-shadow:var(--shadow-float)}
 
-/* ticker band */
-.eticker{background:var(--pine);padding:34px 0;overflow:hidden;display:flex;flex-direction:column;gap:14px}
-.eticker__row{overflow:hidden;white-space:nowrap;display:flex}
-.eticker__track{
-  display:inline-flex;align-items:center;gap:26px;padding-right:26px;flex:none;
-  animation:e-tick 36s linear infinite;
+/* static tag band */
+.etags{background:var(--pine);padding:56px 22px}
+.etags__wrap{max-width:900px;margin:0 auto;display:flex;flex-wrap:wrap;justify-content:center;gap:12px}
+.etags__wrap span{
+  font-family:var(--font-d);font-style:italic;font-weight:500;
+  font-size:clamp(1rem,2.2vw,1.3rem);color:rgba(250,246,239,.85);
+  border:1px solid rgba(250,246,239,.22);border-radius:var(--r-pill);
+  padding:10px 22px;
+  transition:background .25s,color .25s,border-color .25s,transform .3s var(--ease);
 }
-.eticker__row:hover .eticker__track{animation-play-state:paused}
-.eticker__row--rev .eticker__track{animation:e-tick-rev 46s linear infinite}
-.eticker__track span{
-  font-family:var(--font-d);font-weight:500;font-style:italic;
-  font-size:clamp(1.2rem,2.6vw,1.8rem);color:rgba(250,246,239,.85);
-}
-.eticker__row--rev .eticker__track span{color:rgba(250,246,239,.35);font-size:clamp(1rem,2vw,1.3rem)}
-.eticker__track i{color:var(--butter);font-style:normal;font-size:1rem}
-@keyframes e-tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-@keyframes e-tick-rev{from{transform:translateX(-50%)}to{transform:translateX(0)}}
+.etags__wrap span:hover{background:var(--cream);color:var(--pine);border-color:var(--cream);transform:translateY(-3px)}
 
 /* follow panel */
 .efollow{padding:110px 22px 130px;background:var(--cream)}
@@ -1835,14 +1829,15 @@ body.is-loaded .vpost__pin{animation:v-pin .55s cubic-bezier(.34,1.4,.64,1) 1.5s
   .soda__head{padding:76px 18px 1vh}
   .soda__scene{perspective:900px}
   .dcard{width:min(250px,72vw);margin-left:calc(min(250px,72vw) / -2)}
-  /* stacked story: flow layout, cards scrubbed by the mobile runner */
-  .stack__stage{position:static;height:auto;padding:80px 20px 40px;overflow:visible}
-  .stack__head{margin-bottom:24px}
-  .stack__scene{flex-direction:column;gap:30px;display:flex}
-  .stack__cards{position:static;width:100%;height:auto;display:flex;flex-direction:column;gap:16px;transform:none !important}
-  .scard{position:static;width:100%;height:auto;aspect-ratio:4/3.2}
-  .stack__panel{position:static;opacity:1 !important;transform:none !important;width:100%;pointer-events:auto !important}
-  .stack{height:auto !important}
+  /* stacked story: pinned on mobile too; the info panel flows after the stage */
+  .stack__stage{padding:74px 18px 24px}
+  .stack__head{margin-bottom:2vh}
+  .stack__cards{width:min(86vw,400px);height:min(56vh,460px)}
+  .stack__panel--flow{
+    position:static;opacity:1 !important;transform:none !important;
+    width:100%;max-width:560px;margin:0 auto;pointer-events:auto !important;
+    padding:60px 22px 76px;background:var(--cream);
+  }
   /* cinema: pinned scrub on mobile, wider cards */
   .cinema__head{padding:76px 18px 22px}
   .ccard{width:78vw}
@@ -1982,7 +1977,6 @@ body.is-static .bscene__steam{display:none}
 body.is-static .drawer{transition:none}
 body.is-static .ehero__kick,body.is-static .ehero__lead,body.is-static .ehero__ctas,
 body.is-static .ecol,body.is-static .ehero__neon,body.is-static .ehero__chip{opacity:1;animation:none}
-body.is-static .eticker__track{animation:none}
 body.is-static .vhero__kick,body.is-static .vhero__status,body.is-static .vhero__lead,body.is-static .vhero__ctas,
 body.is-static .vpost__card,body.is-static .vpost__stamp,body.is-static .vpost__postmark,body.is-static .vpost__pin{opacity:1;animation:none}
 body.is-static .ahero__kick,body.is-static .ahero__lead,body.is-static .ahero__ctas,
