@@ -397,7 +397,7 @@
 
   /* ----- menu page: pinned drinks deck ----- */
   var mdeck = document.querySelector('[data-story="mdeck"]');
-  if (mdeck && !reduceMotion) {
+  if (mdeck && !reduceMotion && !isMobile) {
     var dcards = Array.prototype.slice.call(mdeck.querySelectorAll("[data-mdeck-card]"));
     var Ndc = dcards.length;
     var dnow = document.getElementById("mdeckNow");
@@ -566,6 +566,67 @@
       var f = clamp01((vh * 0.8 - r.top) / (r.height));
       tlineFill.style.transform = "scaleY(" + f.toFixed(4) + ")";
     });
+  }
+
+  /* ----- menu drinks deck on mobile: snap carousel with center focus ----- */
+  if (mdeck && isMobile && !reduceMotion) {
+    var railEl = mdeck.querySelector(".mdeck__cards");
+    var railCards = Array.prototype.slice.call(mdeck.querySelectorAll("[data-mdeck-card]"));
+    var railNow = document.getElementById("mdeckNow");
+    var railBar = document.getElementById("mdeckBar");
+    // blurred fill behind each product shot so the full drink shows without gaps
+    railCards.forEach(function (c) {
+      var img = c.querySelector(".mcat__media img");
+      if (img && !c.querySelector(".mcat__blurbg")) {
+        var b = img.cloneNode();
+        b.className = "mcat__blurbg";
+        b.setAttribute("alt", "");
+        b.setAttribute("aria-hidden", "true");
+        img.parentNode.insertBefore(b, img);
+      }
+    });
+    var railRaf = null;
+    function railPaint() {
+      railRaf = null;
+      var mid = railEl.scrollLeft + railEl.clientWidth / 2;
+      railCards.forEach(function (c) {
+        var center = c.offsetLeft + c.offsetWidth / 2;
+        var d = Math.min(1, Math.abs(center - mid) / railEl.clientWidth);
+        c.style.transform = "scale(" + (1 - d * 0.07).toFixed(4) + ")";
+        c.style.opacity = String(1 - d * 0.42);
+      });
+      var max = railEl.scrollWidth - railEl.clientWidth;
+      if (railBar && max > 0) railBar.style.setProperty("--f", (railEl.scrollLeft / max).toFixed(4));
+      if (railNow) {
+        var idx = 0, best = 1e9;
+        railCards.forEach(function (c, i) {
+          var d2 = Math.abs(c.offsetLeft + c.offsetWidth / 2 - mid);
+          if (d2 < best) { best = d2; idx = i; }
+        });
+        railNow.textContent = "0" + (idx + 1);
+      }
+    }
+    railEl.addEventListener("scroll", function () { if (!railRaf) railRaf = requestAnimationFrame(railPaint); }, { passive: true });
+    railPaint();
+    // mouse-drag support (trackpads and touch scroll natively)
+    if (finePointer) {
+      var rDown = false, rX = 0, rL = 0, rMoved = false;
+      railEl.addEventListener("pointerdown", function (e) {
+        if (e.pointerType !== "mouse") return;
+        rDown = true; rMoved = false; rX = e.clientX; rL = railEl.scrollLeft;
+        railEl.classList.add("is-dragging");
+      });
+      window.addEventListener("pointermove", function (e) {
+        if (!rDown) return;
+        if (Math.abs(e.clientX - rX) > 4) rMoved = true;
+        railEl.scrollLeft = rL - (e.clientX - rX);
+      });
+      window.addEventListener("pointerup", function () {
+        if (!rDown) return;
+        rDown = false; railEl.classList.remove("is-dragging");
+      });
+      railEl.addEventListener("click", function (e) { if (rMoved) e.preventDefault(); }, true);
+    }
   }
 
   /* ---------- in-page menu nav scrollspy ---------- */
