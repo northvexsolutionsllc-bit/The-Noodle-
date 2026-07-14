@@ -513,8 +513,8 @@
     });
   });
 
-  /* ---------- drinks page: the tasting table ---------- */
-  var tasting = document.querySelector(".tasting");
+  /* ---------- drinks page: the tasting table (pinned, scroll-poured) ---------- */
+  var tasting = document.querySelector('[data-story="tasting"]');
   if (tasting) {
     var tImgs = Array.prototype.slice.call(document.querySelectorAll("#tastingFrame img"));
     var tCoasters = Array.prototype.slice.call(tasting.querySelectorAll("[data-tasting]"));
@@ -525,26 +525,13 @@
     var tDesc = document.getElementById("tastingDesc");
     var tNow = document.getElementById("tastingNow");
     var tBar = document.getElementById("tastingBar");
-    var tCur = 0, tTimer = null, tIdle = null, tVisible = false;
+    var Nt = tImgs.length;
+    var tCur = 0;
+    var tPinned = !reduceMotion && window.matchMedia("(min-width:1025px)").matches;
 
-    function tArm() {
-      if (tBar) {
-        tBar.classList.remove("run");
-        void tBar.offsetWidth;
-        if (!reduceMotion && tVisible) tBar.classList.add("run");
-      }
-      clearTimeout(tTimer);
-      if (!reduceMotion && tVisible) tTimer = setTimeout(function () { tGo((tCur + 1) % tImgs.length); }, 4600);
-    }
-    function tGo(i) {
-      if (i === tCur) { tArm(); return; }
-      var out = tImgs[tCur], inn = tImgs[i];
-      tCur = i;
-      tImgs.forEach(function (im) { im.classList.remove("is-out"); });
-      out.classList.remove("is-on"); out.classList.add("is-out");
-      inn.classList.add("is-on");
-      setTimeout(function () { out.classList.remove("is-out"); }, 950);
+    function tMeta(i) {
       var c = tCoasters[i];
+      if (!c) return;
       if (tGlow) tGlow.style.background = c.getAttribute("data-g");
       if (tCat) tCat.textContent = c.getAttribute("data-cat");
       if (tName) tName.textContent = c.getAttribute("data-name");
@@ -553,30 +540,57 @@
       if (tSwap && !reduceMotion) { tSwap.classList.remove("swap"); void tSwap.offsetWidth; tSwap.classList.add("swap"); }
       tCoasters.forEach(function (b, j) {
         b.classList.toggle("is-on", j === i);
-        b.style.setProperty("--g", b.getAttribute("data-g"));
         b.setAttribute("aria-selected", j === i ? "true" : "false");
       });
-      tArm();
     }
-    tCoasters.forEach(function (b) {
-      b.style.setProperty("--g", b.getAttribute("data-g"));
-      b.addEventListener("click", function () {
-        tGo(parseInt(b.getAttribute("data-tasting"), 10));
-        // a manual pick pauses the table for a beat before it resumes turning
-        clearTimeout(tTimer); clearTimeout(tIdle);
-        if (tBar) tBar.classList.remove("run");
-        tIdle = setTimeout(tArm, 8000);
+    tCoasters.forEach(function (b) { b.style.setProperty("--g", b.getAttribute("data-g")); });
+
+    if (tPinned) {
+      // scroll-scrubbed: each segment pours the next cup up from the glass base
+      tasting.classList.add("is-pinned");
+      tasting.style.height = (100 + Nt * 55) + "vh";
+      tImgs.forEach(function (im, j) {
+        im.classList.remove("is-on");
+        im.style.zIndex = String(1 + j);
+        im.style.opacity = j === 0 ? "1" : "0";
       });
-    });
-    // only turn the table while it is on screen
-    var tIo = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) {
-        tVisible = e.isIntersecting;
-        if (tVisible) tArm();
-        else { clearTimeout(tTimer); if (tBar) tBar.classList.remove("run"); }
+      var TW = 0.1, THALF = 0.05;
+      storyRunners.push(function () {
+        var p = sectionProgress(tasting);
+        var idx = 0;
+        for (var i = 1; i < Nt; i++) {
+          var t = ease(clamp01((p - (i / Nt - THALF)) / TW));
+          var im = tImgs[i];
+          im.style.opacity = t > 0 ? "1" : "0";
+          im.style.clipPath = "circle(" + (t * 135).toFixed(2) + "% at 50% 92%)";
+          im.style.transform = "scale(" + (1.07 - 0.07 * t).toFixed(4) + ")";
+          if (t > 0.5) idx = i;
+        }
+        if (tBar) tBar.style.transform = "scaleX(" + p + ")";
+        if (idx !== tCur) { tCur = idx; tMeta(idx); }
       });
-    }, { threshold: 0.35 });
-    tIo.observe(tasting);
+      // coasters scrub the page to that drink's segment
+      tCoasters.forEach(function (b, i) {
+        b.addEventListener("click", function () {
+          var t = tasting.offsetTop + ((i + 0.55) / Nt) * (tasting.offsetHeight - window.innerHeight);
+          window.scrollTo({ top: t, behavior: "smooth" });
+        });
+      });
+    } else {
+      // unpinned fallback (tablet/mobile/reduced motion): tap a coaster to pour
+      tCoasters.forEach(function (b, i) {
+        b.addEventListener("click", function () {
+          if (i === tCur) return;
+          var out = tImgs[tCur], inn = tImgs[i];
+          tCur = i;
+          tImgs.forEach(function (im) { im.classList.remove("is-out"); });
+          out.classList.remove("is-on"); out.classList.add("is-out");
+          inn.classList.add("is-on");
+          setTimeout(function () { out.classList.remove("is-out"); }, 950);
+          tMeta(i);
+        });
+      });
+    }
   }
 
   /* ---------- gallery lightbox ---------- */

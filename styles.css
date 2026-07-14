@@ -583,7 +583,14 @@ body.is-loaded .dbottle--c figcaption{animation-delay:1.15s}
 body.is-loaded .dbottle--l figcaption{animation-delay:1.35s}
 body.is-loaded .dbottle--r figcaption{animation-delay:1.5s}
 
-/* the tasting table — auto-rotating spotlight stage + coaster selector */
+/* the tasting table — pinned, scroll-poured spotlight + coaster selector */
+.tasting{position:relative;background:var(--cream)}
+.tasting__pin{
+  position:sticky;top:0;height:100svh;overflow:hidden;
+  display:flex;flex-direction:column;justify-content:center;
+  padding:86px 22px 26px;
+}
+.tasting__pin .psec__head{margin-bottom:34px}
 .tasting .psec__head .lead{margin-left:auto;margin-right:auto}
 .tasting__wrap{
   max-width:calc(var(--maxw) - 40px);margin:0 auto;
@@ -597,7 +604,7 @@ body.is-loaded .dbottle--r figcaption{animation-delay:1.5s}
   transition:background 1s ease;
   pointer-events:none;
 }
-.tasting__tilt{position:relative;width:min(72%,330px);will-change:transform}
+.tasting__tilt{position:relative;width:min(72%,330px,46vh);will-change:transform}
 .tasting__frame{
   position:relative;width:100%;aspect-ratio:9/13;
   border-radius:200px 200px 30px 30px;
@@ -613,6 +620,8 @@ body.is-loaded .dbottle--r figcaption{animation-delay:1.5s}
 }
 .tasting__frame img.is-on{opacity:1;z-index:2;animation:t-pour .9s var(--ease)}
 .tasting__frame img.is-out{opacity:1;z-index:1}
+/* pinned mode drives clip-path/scale per frame from the scroll runner */
+.tasting.is-pinned .tasting__frame img{animation:none}
 /* liquid reveal: the incoming cup floods up from the base of the glass */
 @keyframes t-pour{
   from{clip-path:circle(0% at 50% 92%);transform:scale(1.07)}
@@ -1463,6 +1472,9 @@ body.is-loaded .bscene__steam i:nth-child(3){animation-delay:3.7s;height:38px}
   .path{aspect-ratio:4/3.4}
   .story__grid,.visit__grid{grid-template-columns:1fr;gap:44px}
   .story__polaroid{right:6px;bottom:-30px}
+  .tasting{height:auto !important}
+  .tasting__pin{position:static;height:auto;overflow:visible;padding:100px 22px 90px}
+  .tasting__bar{display:none}
   .tasting__wrap{grid-template-columns:1fr;gap:34px;text-align:center}
   .tasting__info{margin:0 auto}
   .tasting__desc{margin-left:auto;margin-right:auto}
@@ -1547,6 +1559,9 @@ body.is-static .dhero__kick,body.is-static .dhero__lead,body.is-static .dhero__c
 body.is-static .dbottle__fig,body.is-static .dbottle figcaption{opacity:1;animation:none}
 body.is-static .dbottle::before{opacity:.4;animation:none}
 body.is-static .dhero__glow{animation:none}
+body.is-static .tasting{height:auto !important}
+body.is-static .tasting__pin{position:static;height:auto;overflow:visible;padding:100px 22px 90px}
+body.is-static .tasting__bar{display:none}
 body.is-static .bline{height:auto !important}
 body.is-static .bline__stage{position:static;height:auto;display:block;padding:80px 20px 30px}
 body.is-static .bline__rail,body.is-static .bline__media{display:none}
