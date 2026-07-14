@@ -574,8 +574,15 @@
     var railCards = Array.prototype.slice.call(mdeck.querySelectorAll("[data-mdeck-card]"));
     var railNow = document.getElementById("mdeckNow");
     var railBar = document.getElementById("mdeckBar");
-    // blurred fill behind each product shot so the full drink shows without gaps
+    // iOS Safari snaps back to the first card if snap children carry
+    // transforms, so all scaling happens on an inner wrapper instead
     railCards.forEach(function (c) {
+      if (!c.querySelector(".mcat__inner")) {
+        var inner = document.createElement("div");
+        inner.className = "mcat__inner";
+        while (c.firstChild) inner.appendChild(c.firstChild);
+        c.appendChild(inner);
+      }
       var img = c.querySelector(".mcat__media img");
       if (img && !c.querySelector(".mcat__blurbg")) {
         var b = img.cloneNode();
@@ -585,15 +592,19 @@
         img.parentNode.insertBefore(b, img);
       }
     });
+    var railInners = railCards.map(function (c) { return c.querySelector(".mcat__inner"); });
     var railRaf = null;
     function railPaint() {
       railRaf = null;
       var mid = railEl.scrollLeft + railEl.clientWidth / 2;
-      railCards.forEach(function (c) {
+      railCards.forEach(function (c, i) {
         var center = c.offsetLeft + c.offsetWidth / 2;
         var d = Math.min(1, Math.abs(center - mid) / railEl.clientWidth);
-        c.style.transform = "scale(" + (1 - d * 0.07).toFixed(4) + ")";
-        c.style.opacity = String(1 - d * 0.42);
+        var t = railInners[i];
+        if (t) {
+          t.style.transform = "scale(" + (1 - d * 0.07).toFixed(4) + ")";
+          t.style.opacity = String(1 - d * 0.42);
+        }
       });
       var max = railEl.scrollWidth - railEl.clientWidth;
       if (railBar && max > 0) railBar.style.setProperty("--f", (railEl.scrollLeft / max).toFixed(4));
