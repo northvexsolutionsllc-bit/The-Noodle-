@@ -490,6 +490,19 @@
     });
   }
 
+  /* ----- about page: timeline draws itself with scroll ----- */
+  var tline = document.querySelector('[data-story="tline"]');
+  var tlineFill = document.getElementById("tlineFill");
+  if (tline && tlineFill && !reduceMotion) {
+    storyRunners.push(function () {
+      var r = tline.getBoundingClientRect();
+      var vh = window.innerHeight;
+      // fill from when the section enters to when its bottom clears 80% of the viewport
+      var f = clamp01((vh * 0.8 - r.top) / (r.height));
+      tlineFill.style.transform = "scaleY(" + f.toFixed(4) + ")";
+    });
+  }
+
   /* ---------- in-page menu nav scrollspy ---------- */
   var menunav = document.querySelector(".menunav");
   if (menunav) {
@@ -591,23 +604,6 @@
         });
       });
     }
-  }
-
-  /* ---------- gallery lightbox ---------- */
-  var lb = document.getElementById("lightbox");
-  var lbImg = document.getElementById("lightboxImg");
-  if (lb && lbImg) {
-    document.querySelectorAll(".shot").forEach(function (fig) {
-      fig.addEventListener("click", function () {
-        lbImg.src = fig.getAttribute("data-full");
-        var cap = fig.querySelector("figcaption");
-        lbImg.alt = cap ? cap.textContent : "Expanded gallery photo";
-        if (typeof lb.showModal === "function") lb.showModal();
-      });
-    });
-    var close = document.getElementById("lightboxClose");
-    if (close) close.addEventListener("click", function () { lb.close(); });
-    lb.addEventListener("click", function (e) { if (e.target === lb) lb.close(); });
   }
 
   /* ---------- lazy map facade ---------- */
