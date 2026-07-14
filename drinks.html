@@ -13,7 +13,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,600&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="./styles.css?v=12" />
+<link rel="stylesheet" href="./styles.css?v=13" />
 </head>
 <body>
 
@@ -67,7 +67,7 @@
       <h1 class="dhero__title tsplit">Pour something<br /><em>pretty.</em></h1>
       <p class="dhero__lead">Creamy Red Bulls, dirty sodas, refreshers and shakes — every cup built at the counter by <strong>Cremita Bonita Co ✕ Dream Drinks</strong>.</p>
       <div class="dhero__ctas">
-        <a class="btn btn--cream" href="#lineup" data-magnetic>meet the lineup</a>
+        <a class="btn btn--cream" href="#lineup" data-magnetic>the tasting table</a>
         <a class="btn btn--outline-light" href="#board" data-magnetic>the full board</a>
       </div>
     </div>
@@ -90,43 +90,45 @@
 
 <main>
 <!-- ============================== THE LINEUP — draggable shelf ============================== -->
-<section class="lineup psec" id="lineup">
-  <div class="lineup__head">
-    <div>
-      <p class="kicker reveal" data-reveal>house favorites</p>
-      <h2 class="h2 tsplit">The lineup.</h2>
-    </div>
-    <div class="lineup__arrows reveal" data-reveal>
-      <button id="drinksPrev" aria-label="Scroll the lineup backwards"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-      <button id="drinksNext" aria-label="Scroll the lineup forwards"><svg viewBox="0 0 24 24"><path d="m9 5 7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-    </div>
+<section class="tasting psec" id="lineup">
+  <div class="psec__head">
+    <p class="kicker reveal" data-reveal>house favorites</p>
+    <h2 class="h2 tsplit">The tasting table.</h2>
+    <p class="lead reveal" data-reveal style="margin-left:auto;margin-right:auto">Six cups on rotation. Tap a coaster &mdash; or just watch the table turn.</p>
   </div>
-  <p class="lineup__hint reveal" data-reveal>drag to browse &mdash; every cup made to order</p>
-  <div class="lineup__rail" id="drinksRail">
-    <figure class="bottlecard" style="--g:#BFD8E8">
-      <img src="./assets/img/drink-blue-redbull-gummy.jpg" alt="Blue Crush creamy energy drink with whipped cream and a gummy ring" width="600" height="800" loading="lazy" decoding="async" />
-      <figcaption><span class="bottlecard__cat">signature energy</span><h3>Blue Crush</h3><p>Creamy blue energy over Red Bull, Alani Nu or Celsius &mdash; whipped top, gummy garnish.</p></figcaption>
-    </figure>
-    <figure class="bottlecard" style="--g:#F4BBC9">
-      <img src="./assets/img/drink-strawberry-shake.jpg" alt="La Fresita strawberry milkshake with a whipped dome" width="563" height="1000" loading="lazy" decoding="async" />
-      <figcaption><span class="bottlecard__cat">milkshake</span><h3>La Fresita</h3><p>Blended strawberry shake crowned with a whipped-cream dome. Sweet, pink, dreamy.</p></figcaption>
-    </figure>
-    <figure class="bottlecard" style="--g:#CBD9A6">
-      <img src="./assets/img/drink-matcha.jpg" alt="Iced matcha milk tea dusted with matcha powder" width="563" height="1000" loading="lazy" decoding="async" />
-      <figcaption><span class="bottlecard__cat">milk tea</span><h3>Matcha</h3><p>Stone-ground matcha over ice with a creamy top. The calm one on the board.</p></figcaption>
-    </figure>
-    <figure class="bottlecard" style="--g:#E8D9BF">
-      <img src="./assets/img/drink-cookies-cream.jpg" alt="Cookies y Cremita milkshake with boba and a whipped dome" width="563" height="1000" loading="lazy" decoding="async" />
-      <figcaption><span class="bottlecard__cat">milkshake</span><h3>Cookies y Cremita</h3><p>Cookies-and-cream over boba pearls, finished with a whipped dome. Dessert in a cup.</p></figcaption>
-    </figure>
-    <figure class="bottlecard" style="--g:#D9BFD4">
-      <img src="./assets/img/drink-berry-smoothie.jpg" alt="Berrysita Linda real-fruit berry smoothie" width="563" height="1000" loading="lazy" decoding="async" />
-      <figcaption><span class="bottlecard__cat">smoothie</span><h3>Berrysita Linda</h3><p>Smooth and refreshing, made with real fruit &mdash; a mixed-berry smoothie built for the sun.</p></figcaption>
-    </figure>
-    <figure class="bottlecard" style="--g:#F3C969">
-      <img src="./assets/img/drink-strawberry-lemonade.jpg" alt="Strawberry Dreamade lemonade refresher" width="563" height="1000" loading="lazy" decoding="async" />
-      <figcaption><span class="bottlecard__cat">lemonade refresher</span><h3>Strawberry Dreamade</h3><p>A strawberry lemonade refresher off the flavor wall. Add boba to make it a moment.</p></figcaption>
-    </figure>
+  <div class="tasting__wrap reveal" data-reveal="pop">
+    <div class="tasting__stage">
+      <div class="tasting__glow" id="tastingGlow"></div>
+      <div class="tasting__tilt tilt3d">
+        <div class="tasting__frame" id="tastingFrame">
+          <img class="is-on" src="./assets/img/drink-blue-redbull-gummy.jpg" alt="Blue Crush creamy energy drink" width="600" height="800" decoding="async" />
+          <img src="./assets/img/drink-strawberry-shake.jpg" alt="La Fresita strawberry milkshake" width="563" height="1000" loading="lazy" decoding="async" />
+          <img src="./assets/img/drink-matcha.jpg" alt="Matcha iced milk tea" width="563" height="1000" loading="lazy" decoding="async" />
+          <img src="./assets/img/drink-cookies-cream.jpg" alt="Cookies y Cremita milkshake with boba" width="563" height="1000" loading="lazy" decoding="async" />
+          <img src="./assets/img/drink-berry-smoothie.jpg" alt="Berrysita Linda berry smoothie" width="563" height="1000" loading="lazy" decoding="async" />
+          <img src="./assets/img/drink-strawberry-lemonade.jpg" alt="Strawberry Dreamade lemonade refresher" width="563" height="1000" loading="lazy" decoding="async" />
+        </div>
+        <span class="tasting__floor" aria-hidden="true"></span>
+      </div>
+      <div class="tasting__bar" aria-hidden="true"><i id="tastingBar"></i></div>
+    </div>
+    <div class="tasting__info">
+      <p class="tasting__count"><b id="tastingNow">01</b><span>/ 06</span></p>
+      <div class="tasting__swap" id="tastingSwap">
+        <p class="tasting__cat" id="tastingCat">signature energy</p>
+        <h3 class="tasting__name" id="tastingName">Blue Crush</h3>
+        <p class="tasting__desc" id="tastingDesc">Creamy blue energy over Red Bull, Alani Nu or Celsius &mdash; whipped top, gummy garnish.</p>
+      </div>
+      <div class="tasting__coasters" role="tablist" aria-label="Pick a drink">
+        <button class="coaster is-on" data-tasting="0" data-g="#BFD8E8" data-cat="signature energy" data-name="Blue Crush" data-desc="Creamy blue energy over Red Bull, Alani Nu or Celsius &mdash; whipped top, gummy garnish." role="tab" aria-selected="true" aria-label="Blue Crush"><img src="./assets/img/drink-blue-redbull-gummy.jpg" alt="" width="76" height="76" loading="lazy" /></button>
+        <button class="coaster" data-tasting="1" data-g="#F4BBC9" data-cat="milkshake" data-name="La Fresita" data-desc="Blended strawberry shake crowned with a whipped-cream dome. Sweet, pink, dreamy." role="tab" aria-selected="false" aria-label="La Fresita"><img src="./assets/img/drink-strawberry-shake.jpg" alt="" width="76" height="76" loading="lazy" /></button>
+        <button class="coaster" data-tasting="2" data-g="#CBD9A6" data-cat="milk tea" data-name="Matcha" data-desc="Stone-ground matcha over ice with a creamy top. The calm one on the board." role="tab" aria-selected="false" aria-label="Matcha"><img src="./assets/img/drink-matcha.jpg" alt="" width="76" height="76" loading="lazy" /></button>
+        <button class="coaster" data-tasting="3" data-g="#E8D9BF" data-cat="milkshake" data-name="Cookies y Cremita" data-desc="Cookies-and-cream over boba pearls, finished with a whipped dome. Dessert in a cup." role="tab" aria-selected="false" aria-label="Cookies y Cremita"><img src="./assets/img/drink-cookies-cream.jpg" alt="" width="76" height="76" loading="lazy" /></button>
+        <button class="coaster" data-tasting="4" data-g="#D9BFD4" data-cat="smoothie" data-name="Berrysita Linda" data-desc="Smooth and refreshing, made with real fruit &mdash; a mixed-berry smoothie built for the sun." role="tab" aria-selected="false" aria-label="Berrysita Linda"><img src="./assets/img/drink-berry-smoothie.jpg" alt="" width="76" height="76" loading="lazy" /></button>
+        <button class="coaster" data-tasting="5" data-g="#F3C969" data-cat="lemonade refresher" data-name="Strawberry Dreamade" data-desc="A strawberry lemonade refresher off the flavor wall. Add boba to make it a moment." role="tab" aria-selected="false" aria-label="Strawberry Dreamade"><img src="./assets/img/drink-strawberry-lemonade.jpg" alt="" width="76" height="76" loading="lazy" /></button>
+      </div>
+      <p class="tasting__hint">every cup made to order at the counter</p>
+    </div>
   </div>
 </section>
 
@@ -249,6 +251,6 @@
   </div>
 </footer>
 
-<script src="./main.js?v=12" defer></script>
+<script src="./main.js?v=13" defer></script>
 </body>
 </html>

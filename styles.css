@@ -583,62 +583,95 @@ body.is-loaded .dbottle--c figcaption{animation-delay:1.15s}
 body.is-loaded .dbottle--l figcaption{animation-delay:1.35s}
 body.is-loaded .dbottle--r figcaption{animation-delay:1.5s}
 
-/* the lineup — draggable bottle shelf */
-.lineup__head{
-  max-width:var(--maxw);margin:0 auto 6px;padding:0 2px;
-  display:flex;align-items:end;justify-content:space-between;gap:20px;
+/* the tasting table — auto-rotating spotlight stage + coaster selector */
+.tasting .psec__head .lead{margin-left:auto;margin-right:auto}
+.tasting__wrap{
+  max-width:calc(var(--maxw) - 40px);margin:0 auto;
+  display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,5vw,70px);align-items:center;
 }
-.lineup__hint{max-width:var(--maxw);margin:0 auto 30px;color:var(--ink-soft);font-family:var(--font-d);font-style:italic;font-size:.95rem}
-.lineup__arrows{display:flex;gap:10px}
-.lineup__arrows button{
-  width:52px;height:52px;border-radius:50%;
-  background:var(--white);border:1.5px solid var(--line);color:var(--pine);
-  display:flex;align-items:center;justify-content:center;
-  transition:background .2s,color .2s,transform .25s var(--ease),border-color .2s;
+.tasting__stage{position:relative;display:flex;flex-direction:column;align-items:center}
+.tasting__glow{
+  position:absolute;left:50%;top:46%;transform:translate(-50%,-50%);
+  width:min(76%,360px);aspect-ratio:1;border-radius:50%;
+  background:#BFD8E8;filter:blur(70px);opacity:.5;
+  transition:background 1s ease;
+  pointer-events:none;
 }
-.lineup__arrows button svg{width:20px;height:20px}
-.lineup__arrows button:hover{background:var(--pine);border-color:var(--pine);color:var(--cream);transform:translateY(-3px)}
-.lineup__rail{
-  display:flex;gap:18px;overflow-x:auto;
-  max-width:var(--maxw);margin:0 auto;
-  padding:10px 4px 26px;
-  scroll-snap-type:x mandatory;scrollbar-width:none;
-  cursor:grab;
+.tasting__tilt{position:relative;width:min(72%,330px);will-change:transform}
+.tasting__frame{
+  position:relative;width:100%;aspect-ratio:9/13;
+  border-radius:200px 200px 30px 30px;
+  overflow:hidden;
+  box-shadow:0 40px 90px -26px rgba(18,53,40,.5);
+  border:6px solid var(--white);
+  background:var(--ivory);
+  transform:translateZ(0);
 }
-.lineup__rail::-webkit-scrollbar{display:none}
-.lineup__rail.is-dragging{cursor:grabbing;scroll-snap-type:none}
-.bottlecard{
-  position:relative;flex:0 0 min(300px,78vw);scroll-snap-align:start;
-  border-radius:var(--r-lg);overflow:hidden;
-  aspect-ratio:9/14;
-  box-shadow:var(--shadow-soft);
-  transition:transform .4s var(--ease),box-shadow .4s;
+.tasting__frame img{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 60%;
+  opacity:0;will-change:transform,opacity;
 }
-.bottlecard:hover{transform:translateY(-8px);box-shadow:var(--shadow-float)}
-.bottlecard img{
-  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
-  transition:transform .9s var(--ease);
-  user-select:none;-webkit-user-drag:none;
+.tasting__frame img.is-on{opacity:1;z-index:2;animation:t-pour .9s var(--ease)}
+.tasting__frame img.is-out{opacity:1;z-index:1}
+/* liquid reveal: the incoming cup floods up from the base of the glass */
+@keyframes t-pour{
+  from{clip-path:circle(0% at 50% 92%);transform:scale(1.07)}
+  to{clip-path:circle(135% at 50% 92%);transform:scale(1)}
 }
-.bottlecard:hover img{transform:scale(1.05)}
-.bottlecard::before{
-  content:"";position:absolute;inset:0;z-index:1;
-  background:linear-gradient(180deg,transparent 46%,rgba(10,28,20,.24) 66%,rgba(10,28,20,.86));
+.tasting__floor{
+  display:block;margin:-6px auto 0;width:74%;height:26px;
+  background:radial-gradient(50% 50% at 50% 50%,rgba(18,53,40,.32),transparent 70%);
+  border-radius:50%;
 }
-.bottlecard::after{
-  content:"";position:absolute;top:14px;right:14px;z-index:2;
-  width:14px;height:14px;border-radius:50%;background:var(--g,#BFD8E8);
-  box-shadow:0 0 18px var(--g,#BFD8E8);
+.tasting__bar{width:min(210px,50%);height:3px;border-radius:3px;background:rgba(32,40,31,.12);overflow:hidden;margin-top:20px}
+.tasting__bar i{display:block;height:100%;width:100%;background:var(--emerald);transform:scaleX(0);transform-origin:0 50%}
+.tasting__bar i.run{animation:t-run 4.6s linear forwards}
+@keyframes t-run{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.tasting__info{max-width:460px}
+.tasting__count{font-family:var(--font-d);font-style:italic;color:var(--ink-soft);margin-bottom:6px}
+.tasting__count b{font-weight:600;font-size:1.5rem;color:var(--emerald)}
+.tasting__count span{opacity:.55;margin-left:2px}
+.tasting__swap{position:relative}
+.tasting__cat{
+  font-weight:600;font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--emerald);margin-bottom:8px;
 }
-.bottlecard figcaption{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:22px 22px 20px;color:var(--cream)}
-.bottlecard__cat{font-size:.66rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--g,#BFD8E8)}
-.bottlecard figcaption h3{font-family:var(--font-d);font-weight:600;font-size:1.5rem;margin:5px 0 0}
-.bottlecard figcaption p{
-  font-size:.86rem;font-weight:300;color:rgba(250,246,239,.85);
-  max-height:0;opacity:0;overflow:hidden;margin-top:0;
-  transition:max-height .5s var(--ease),opacity .4s,margin-top .4s;
+.tasting__name{
+  font-family:var(--font-d);font-weight:500;
+  font-size:clamp(2.1rem,4.6vw,3.4rem);line-height:1.04;letter-spacing:-.01em;color:var(--ink);
 }
-.bottlecard:hover figcaption p{max-height:120px;opacity:1;margin-top:8px}
+.tasting__desc{color:var(--ink-soft);margin-top:14px;font-size:1.02rem;max-width:40ch}
+/* text hand-off replays on every switch */
+.tasting__swap.swap .tasting__cat{animation:flab-in .5s var(--ease) both}
+.tasting__swap.swap .tasting__name{animation:t-rise .65s var(--ease) both .05s}
+.tasting__swap.swap .tasting__desc{animation:flab-in .6s var(--ease) both .14s}
+@keyframes t-rise{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+.tasting__coasters{display:flex;margin-top:30px;padding-left:8px}
+.coaster{
+  position:relative;width:64px;height:64px;border-radius:50%;flex:none;
+  margin-left:-12px;
+  border:3px solid var(--cream);
+  box-shadow:0 10px 26px -10px rgba(18,53,40,.45);
+  overflow:hidden;cursor:pointer;
+  transform:rotate(var(--r,0deg));
+  transition:transform .35s var(--ease),box-shadow .3s,border-color .3s;
+}
+.coaster:nth-child(odd){--r:-4deg}
+.coaster:nth-child(even){--r:4deg}
+.coaster img{width:100%;height:100%;object-fit:cover;object-position:50% 58%}
+.coaster::after{
+  content:"";position:absolute;inset:0;border-radius:50%;
+  background:rgba(18,53,40,.35);transition:background .3s;
+}
+.coaster:hover{transform:translateY(-8px) rotate(0deg);z-index:5}
+.coaster:hover::after{background:rgba(18,53,40,0)}
+.coaster.is-on{
+  transform:translateY(-10px) scale(1.12) rotate(0deg);z-index:6;
+  border-color:var(--g,#BFD8E8);
+  box-shadow:0 16px 34px -10px rgba(18,53,40,.5),0 0 0 4px rgba(31,111,82,.1);
+}
+.coaster.is-on::after{background:rgba(18,53,40,0)}
+.tasting__hint{margin-top:26px;font-family:var(--font-d);font-style:italic;font-size:.92rem;color:var(--ink-soft)}
 
 /* the flavor lab — interactive dark catalog */
 .flab{background:var(--pine);color:var(--cream);padding:110px 22px 96px}
@@ -1430,8 +1463,11 @@ body.is-loaded .bscene__steam i:nth-child(3){animation-delay:3.7s;height:38px}
   .path{aspect-ratio:4/3.4}
   .story__grid,.visit__grid{grid-template-columns:1fr;gap:44px}
   .story__polaroid{right:6px;bottom:-30px}
-  .lineup__arrows{display:none}
-  .lineup__head{padding:0 4px}
+  .tasting__wrap{grid-template-columns:1fr;gap:34px;text-align:center}
+  .tasting__info{margin:0 auto}
+  .tasting__desc{margin-left:auto;margin-right:auto}
+  .tasting__coasters{justify-content:center;padding-left:0}
+  .tasting__tilt{width:min(64%,280px)}
   .dhero{padding:104px 16px 56px;min-height:auto}
   .dhero__title{font-size:clamp(2.4rem,10vw,3.4rem)}
   .dbottle--c{width:min(38%,220px)}
