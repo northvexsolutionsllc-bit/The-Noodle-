@@ -13,7 +13,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,600&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="./styles.css?v=14" />
+<link rel="stylesheet" href="./styles.css?v=15" />
 </head>
 <body>
 
@@ -28,7 +28,6 @@
     <a href="./menu.html">our menu</a>
     <a href="./build.html">build your bowl</a>
     <a href="./drinks.html">signature drinks</a>
-    <a href="./gallery.html">gallery</a>
     <a href="./about.html" class="is-active">about</a>
     <a href="./visit.html">visit us</a>
   </div>
@@ -48,43 +47,62 @@
     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12l-1.5 18h-9L6 3Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M7 8h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
     <span>drinks</span>
   </a>
-  <a href="./gallery.html">
-    <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="9" cy="10" r="1.6" fill="currentColor"/><path d="m5.5 18 5-5 3 3 2.5-2.5 2.5 2.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    <span>gallery</span>
+  <a href="./about.html" class="is-active">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 11v5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="8" r="1.3" fill="currentColor"/></svg>
+    <span>about</span>
   </a>
   <a href="./visit.html">
     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-6.1-7-11a7 7 0 1 1 14 0c0 4.9-7 11-7 11Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.6" fill="currentColor"/></svg>
     <span>visit</span>
   </a>
 </nav>
-<header class="phero">
-  <div class="phero__panel" style="--phc:#EFE3CE;--phi:#4E3007">
-    <div>
-      <p class="phero__over">Our Story</p>
-      <h1 class="phero__title tsplit">FROM POP-UP TO THE LOUNGE</h1>
-      <p class="phero__lead">Owner Leylanee Hernandez fell for creamy sodas on a trip to Washington, brought the idea home as a pop-up, and turned it into the neighborhood lounge.</p>
+<header class="ahero">
+  <div class="ahero__inner">
+    <div class="ahero__copy">
+      <p class="kicker ahero__kick">our story</p>
+      <h1 class="ahero__title tsplit">Made in Long Beach,<br /><em>one bowl at a time.</em></h1>
+      <p class="ahero__lead">Owner <strong>Leylanee Hernandez</strong> fell for creamy sodas on a trip to Washington, brought them home as a pop-up &mdash; and turned the corner of 7th &amp; Cherry into the neighborhood&rsquo;s noodle lounge.</p>
+      <div class="ahero__ctas">
+        <a class="btn btn--primary" href="./visit.html" data-magnetic>come say hi</a>
+        <a class="btn btn--outline" href="./menu.html" data-magnetic>see the menu</a>
+      </div>
     </div>
-    <figure class="phero__fig"><img src="./assets/img/storefront-grand-opening.jpg" alt="" width="600" height="800" fetchpriority="high" decoding="async" /></figure>
+    <div class="ahero__wall" aria-hidden="true">
+      <figure class="apol apol--a">
+        <img src="./assets/img/ramen-wall.jpg" alt="" width="1024" height="526" fetchpriority="high" decoding="async" />
+        <figcaption>the wall, day one</figcaption>
+      </figure>
+      <figure class="apol apol--b">
+        <img src="./assets/img/storefront-grand-opening.jpg" alt="" width="768" height="702" decoding="async" />
+        <figcaption>grand opening &middot; 7th &amp; cherry</figcaption>
+      </figure>
+      <figure class="apol apol--c">
+        <img src="./assets/img/combo-bowls-shakes.jpg" alt="" width="750" height="1000" loading="lazy" decoding="async" />
+        <figcaption>slurp, sip &amp; snack</figcaption>
+      </figure>
+      <span class="ahero__sticker">est. 2026 &middot; long beach</span>
+    </div>
   </div>
 </header>
 
 <main>
+<!-- ============================== WHO WE ARE ============================== -->
 <section class="psec">
   <div class="story__grid">
     <div class="story__media">
-      <div class="imgframe" data-plx="0.1"><img src="./assets/img/storefront-grand-opening.jpg" alt="The Noodle Lounge storefront on Cherry Avenue with its grand opening sign" width="768" height="702" loading="lazy" decoding="async" /></div>
+      <div class="imgframe" data-plx="0.1"><img src="./assets/img/ramen-shelf-closeup.jpg" alt="Shelves of imported Korean ramen — cheese ramyun, Buldak and more" width="768" height="577" loading="lazy" decoding="async" /></div>
       <figure class="story__polaroid reveal" data-reveal="pop">
-        <img src="./assets/img/pos-counter-pink.jpg" alt="The pink counter with the Clover register" width="563" height="1000" loading="lazy" decoding="async" />
-        <figcaption>the pink counter</figcaption>
+        <img src="./assets/img/drink-strawberry-shake.jpg" alt="A strawberry cream shake — the cremita that started it all" width="563" height="1000" loading="lazy" decoding="async" />
+        <figcaption>the cup that started it all</figcaption>
       </figure>
     </div>
     <div>
-      <p class="kicker reveal" data-reveal>7th &amp; cherry</p>
+      <p class="kicker reveal" data-reveal>who we are</p>
       <h2 class="h2 tsplit">A Korean c-store,<br /><em>with lounge energy.</em></h2>
       <p class="lead reveal" data-reveal>
         Grab a packet off the wall, cook it yourself on the automated stations, and stay for
-        the board games. The drinks — creamy Red Bulls and lemonade refreshers — are the
-        <strong>cremita bonita co ✕ dream drinks</strong> collab that started it all.
+        the board games. The drinks &mdash; creamy Red Bulls and lemonade refreshers &mdash; are the
+        <strong>Cremita Bonita Co ✕ Dream Drinks</strong> collab that started it all.
       </p>
       <ul class="story__chips reveal" data-reveal="stagger">
         <li>slurp, sip &amp; snack</li><li>korean c-store energy</li><li>late-night friendly</li><li>community hangout</li>
@@ -98,7 +116,72 @@
   </div>
 </section>
 
-<section class="psec psec--alt">
+<!-- ============================== TIMELINE ============================== -->
+<section class="tline psec--alt" data-story="tline">
+  <div class="psec__head">
+    <p class="kicker reveal" data-reveal>how we got here</p>
+    <h2 class="h2 tsplit">From a road trip<br /><em>to the corner store.</em></h2>
+  </div>
+  <div class="tline__wrap">
+    <span class="tline__track" aria-hidden="true"><i id="tlineFill"></i></span>
+    <article class="tline__item reveal" data-reveal="left">
+      <span class="tline__dot" aria-hidden="true"></span>
+      <div class="tline__card">
+        <p class="tline__tag">the spark</p>
+        <h3>A creamy soda crush.</h3>
+        <p>On a trip to Washington, Leylanee tried her first creamy soda &mdash; and couldn&rsquo;t stop thinking about bringing that sweet-cream magic back to Long Beach.</p>
+      </div>
+    </article>
+    <article class="tline__item reveal" data-reveal="right">
+      <span class="tline__dot" aria-hidden="true"></span>
+      <div class="tline__card">
+        <p class="tline__tag">the pop-up</p>
+        <h3>Cremita Bonita Co ✕ Dream Drinks.</h3>
+        <p>The collab started slinging creamy Red Bulls and dirty sodas as a pop-up. Cups first &mdash; the crowds followed.</p>
+        <figure class="tline__fig"><img src="./assets/img/drink-blue-closeup.jpg" alt="A blue creamy soda up close" width="1600" height="893" loading="lazy" decoding="async" /></figure>
+      </div>
+    </article>
+    <article class="tline__item reveal" data-reveal="left">
+      <span class="tline__dot" aria-hidden="true"></span>
+      <div class="tline__card">
+        <p class="tline__tag">the corner</p>
+        <h3>An old pizza spot, reborn.</h3>
+        <p>A tired storefront on 7th &amp; Cherry got a second life &mdash; shelves went up, the cookers came in, and the windows filled with flavor.</p>
+        <figure class="tline__fig"><img src="./assets/img/storefront-before-pizza-palace.jpg" alt="The storefront before, as Pizza Palace" width="760" height="442" loading="lazy" decoding="async" /></figure>
+      </div>
+    </article>
+    <article class="tline__item reveal" data-reveal="right">
+      <span class="tline__dot" aria-hidden="true"></span>
+      <div class="tline__card">
+        <p class="tline__tag">grand opening &middot; 2026</p>
+        <h3>The lounge opens.</h3>
+        <p>A whole wall of imported ramen, HAUSCOOK stations at the counter, and the soda bar in full swing. Long Beach showed up hungry.</p>
+        <figure class="tline__fig"><img src="./assets/img/storefront-coming-soon.jpg" alt="The storefront wrapped in coming-soon signage" width="1000" height="563" loading="lazy" decoding="async" /></figure>
+      </div>
+    </article>
+    <article class="tline__item reveal" data-reveal="left">
+      <span class="tline__dot" aria-hidden="true"></span>
+      <div class="tline__card">
+        <p class="tline__tag">today</p>
+        <h3>The neighborhood hangout.</h3>
+        <p>Board games on the shelf, watch parties on the screen, a trinket trading post by the door &mdash; and noodles until 10:30 every night.</p>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ============================== MOOD BAND ============================== -->
+<section class="aband">
+  <div class="aband__bg" data-plx="0.12"><img src="./assets/img/cooking-station-steam.jpg" alt="" width="1080" height="1920" loading="lazy" decoding="async" /></div>
+  <div class="aband__inner">
+    <p class="kicker kicker--light reveal" data-reveal>the vibe</p>
+    <h2 class="aband__quote tsplit">No kitchen. No waiter.<br /><em>No rush.</em></h2>
+    <p class="aband__sub reveal" data-reveal>You cook, you mix, you stay a while. That&rsquo;s the whole idea.</p>
+  </div>
+</section>
+
+<!-- ============================== PROOF ============================== -->
+<section class="psec">
   <div class="psec__head">
     <p class="kicker reveal" data-reveal>don't take our word</p>
     <h2 class="h2 tsplit">The block is<br /><em>talking.</em></h2>
@@ -164,8 +247,7 @@
       <a href="./menu.html">our menu</a>
       <a href="./build.html">build your bowl</a>
       <a href="./drinks.html">signature drinks</a>
-      <a href="./gallery.html">gallery</a>
-        <a href="./about.html">about</a>
+          <a href="./about.html">about</a>
     </div>
     <div class="footer__col">
       <h4>hours</h4>
@@ -187,6 +269,6 @@
   </div>
 </footer>
 
-<script src="./main.js?v=14" defer></script>
+<script src="./main.js?v=15" defer></script>
 </body>
 </html>
