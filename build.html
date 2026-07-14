@@ -13,7 +13,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,600&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="./styles.css?v=10" />
+<link rel="stylesheet" href="./styles.css?v=11" />
 </head>
 <body>
 
@@ -57,60 +57,142 @@
     <span>visit</span>
   </a>
 </nav>
-<header class="phero">
-  <div class="phero__panel" style="--phc:#CBD9A6;--phi:#2E4A21">
-    <div>
-      <p class="phero__over">Press Start</p>
-      <h1 class="phero__title tsplit">BUILD YOUR BOWL</h1>
-      <p class="phero__lead">Automated HAUSCOOK stations cook your noodles perfectly, every single time. You pick, you stack, you press start.</p>
+<header class="bhero">
+  <div class="bhero__panel" style="--phc:#CBD9A6;--phi:#2E4A21">
+    <div class="bhero__copy">
+      <p class="bhero__over">Press Start</p>
+      <h1 class="bhero__title tsplit">BUILD YOUR<br />OWN BOWL</h1>
+      <p class="bhero__lead">Pick a packet off the wall, stack it your way, and let the HAUSCOOK station do the cooking. No kitchen. No waiter. No rules.</p>
+      <ol class="bhero__steps" aria-label="The four steps">
+        <li><b>01</b> choose</li>
+        <li><b>02</b> stack</li>
+        <li><b>03</b> cook</li>
+        <li><b>04</b> enjoy</li>
+      </ol>
     </div>
-    <figure class="phero__fig"><img src="./assets/img/cooking-station-steam.jpg" alt="" width="600" height="800" fetchpriority="high" decoding="async" /></figure>
+    <div class="bscene" aria-hidden="true">
+      <div class="bscene__station"><img src="./assets/img/cooking-station-steam.jpg" alt="" width="1080" height="1920" fetchpriority="high" decoding="async" /></div>
+      <div class="bscene__steam"><i></i><i></i><i></i></div>
+      <div class="bscene__bowl"><img src="./assets/img/ramen-bowl-egg.jpg" alt="" width="348" height="348" fetchpriority="high" decoding="async" /></div>
+      <figure class="bscene__mini bscene__mini--packets"><img src="./assets/img/build-mini-packets.jpg" alt="" width="440" height="440" loading="lazy" decoding="async" /></figure>
+      <figure class="bscene__mini bscene__mini--toppings"><img src="./assets/img/build-mini-toppings.jpg" alt="" width="440" height="440" loading="lazy" decoding="async" /></figure>
+      <span class="bscene__tag">4 steps &middot; zero rules</span>
+    </div>
   </div>
 </header>
 
 <main>
-<section class="psec psec--sage">
-  <div class="psec__head">
-    <p class="kicker reveal" data-reveal>the ritual</p>
-    <h2 class="h2 tsplit">Four steps.<br /><em>Zero rules.</em></h2>
+<!-- ============================== THE BUILD LINE — pinned journey ============================== -->
+<section class="bline" data-story="bline">
+  <div class="bline__stage">
+    <div class="bline__rail" id="blineRail" aria-hidden="true">
+      <span class="bline__railTrack"><i id="blineFill"></i></span>
+      <button data-bline-jump="0"><b></b><span>choose</span></button>
+      <button data-bline-jump="1"><b></b><span>stack</span></button>
+      <button data-bline-jump="2"><b></b><span>cook</span></button>
+      <button data-bline-jump="3"><b></b><span>enjoy</span></button>
+    </div>
+    <div class="bline__media">
+      <span class="bline__ghost" id="blineGhost">01</span>
+      <div class="bline__frame">
+        <img data-bline-img src="./assets/img/ramen-shelf-closeup.jpg" alt="Shelves of imported Korean ramen — cheese ramyun, Buldak and more" width="768" height="577" decoding="async" style="object-position:50% 42%" />
+        <img data-bline-img src="./assets/img/freezer-snacks.jpg" alt="The topping and snack freezer" width="750" height="1000" loading="lazy" decoding="async" style="object-position:50% 38%" />
+        <img data-bline-img src="./assets/img/cooking-station-steam.jpg" alt="A HAUSCOOK automated cooking station boiling a bowl of ramen" width="1080" height="1920" loading="lazy" decoding="async" style="object-position:50% 46%" />
+        <img data-bline-img src="./assets/img/combo-bowls-shakes.jpg" alt="Two finished ramen bowls with cream shakes" width="750" height="1000" loading="lazy" decoding="async" style="object-position:50% 58%" />
+      </div>
+    </div>
+    <div class="bline__chapters">
+      <article class="bline__ch" data-bline-ch>
+        <figure class="bline__chImg"><img src="./assets/img/ramen-shelf-closeup.jpg" alt="Shelves of imported Korean ramen" width="768" height="577" loading="lazy" decoding="async" style="object-position:50% 42%" /></figure>
+        <p class="bline__label">step 01 &middot; the wall</p>
+        <h2 class="bline__h">Choose your fighter.</h2>
+        <p class="bline__p">A whole wall of imported Korean ramen — cups and packets, cheesy to face-melting Buldak. Rotating curation, so there is always something new to try.</p>
+        <div class="bline__chips"><span>mild</span><span>spicy</span><span>2x spicy</span><span>cheesy</span><span>creamy</span></div>
+      </article>
+      <article class="bline__ch" data-bline-ch>
+        <figure class="bline__chImg"><img src="./assets/img/freezer-snacks.jpg" alt="The topping and snack freezer" width="750" height="1000" loading="lazy" decoding="async" style="object-position:50% 38%" /></figure>
+        <p class="bline__label">step 02 &middot; the stack</p>
+        <h2 class="bline__h">Stack it your way.</h2>
+        <p class="bline__p">Fourteen toppings, a dollar each — eggs, spam, rice cakes, double cheese. This is where your bowl stops being instant and starts being yours.</p>
+        <div class="bline__chips"><span>toppings $1 each</span><span>sides from $1</span></div>
+      </article>
+      <article class="bline__ch" data-bline-ch>
+        <figure class="bline__chImg"><img src="./assets/img/cooking-station-steam.jpg" alt="A HAUSCOOK automated cooking station" width="1080" height="1920" loading="lazy" decoding="async" style="object-position:50% 46%" /></figure>
+        <p class="bline__label">step 03 &middot; the station</p>
+        <h2 class="bline__h">Press start. That&rsquo;s it.</h2>
+        <p class="bline__p">Set your bowl on an automated HAUSCOOK station — hot water, timer, done. Cooked fresh at the counter, perfectly, every single time.</p>
+        <div class="bline__chips"><span>HAUSCOOK stations</span><span>fresh &amp; hot</span></div>
+      </article>
+      <article class="bline__ch" data-bline-ch>
+        <figure class="bline__chImg"><img src="./assets/img/combo-bowls-shakes.jpg" alt="Finished ramen bowls with cream shakes" width="750" height="1000" loading="lazy" decoding="async" style="object-position:50% 58%" /></figure>
+        <p class="bline__label">step 04 &middot; the payoff</p>
+        <h2 class="bline__h">Slurp. Sip. Chill.</h2>
+        <p class="bline__p">Grab a creamy soda or a shake, claim a table, and take your time. The lounge is the point — board games, watch parties, no rush.</p>
+        <div class="bline__chips"><span>creamy sodas</span><span>shakes</span><span>hangout built in</span></div>
+      </article>
+    </div>
   </div>
-  <ol class="steps">
-    <li class="stepcard reveal" data-reveal="left">
-      <div class="stepcard__media"><img src="./assets/img/ramen-shelf-closeup.jpg" alt="Shelves of imported Korean ramen: cheese ramyun, Buldak and more" width="768" height="577" loading="lazy" decoding="async" /></div>
-      <div class="stepcard__body">
-        <span class="stepcard__num">01</span>
-        <h3>browse the wall</h3>
-        <p>Pick your base from a massive curation of imported Korean ramen — cheesy, creamy, or face-melting Buldak spicy.</p>
+</section>
+
+<!-- ============================== TOPPING PLAYGROUND ============================== -->
+<section class="picker psec psec--sage">
+  <div class="psec__head">
+    <p class="kicker reveal" data-reveal>the fun part</p>
+    <h2 class="h2 tsplit">Stack a bowl,<br /><em>right here.</em></h2>
+    <p class="lead reveal" data-reveal style="margin-left:auto;margin-right:auto">Tap toppings to try a build — then come make it for real at the counter. Every topping is $1.</p>
+  </div>
+  <div class="picker__wall reveal" data-reveal="stagger" id="pickerWall">
+    <button class="tkt" data-topping>Green Onion</button>
+    <button class="tkt" data-topping>Cilantro</button>
+    <button class="tkt" data-topping>Lime</button>
+    <button class="tkt" data-topping>Lemon</button>
+    <button class="tkt" data-topping>Onion</button>
+    <button class="tkt" data-topping>Jalape&ntilde;o</button>
+    <button class="tkt" data-topping>Hard Boil Egg</button>
+    <button class="tkt" data-topping>Raw Egg</button>
+    <button class="tkt" data-topping>Spam</button>
+    <button class="tkt" data-topping>Sausage</button>
+    <button class="tkt" data-topping>Rice Cakes</button>
+    <button class="tkt" data-topping>Corn</button>
+    <button class="tkt" data-topping>Mozzarella Cheese</button>
+    <button class="tkt" data-topping>Cheddar Cheese</button>
+  </div>
+  <div class="picker__tally reveal" data-reveal="pop">
+    <span class="picker__bowlIco" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 14h16a8 8 0 0 1-5 7.4V22H9v-.6A8 8 0 0 1 4 14Z" fill="currentColor"/><path d="M9 10.5c0-1.6 1.2-1.6 1.2-3.2S9 5 9 3.5m5 7c0-1.6 1.2-1.6 1.2-3.2S14 5 14 3.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" fill="none"/></svg></span>
+    <span id="pickerCount">Your bowl is waiting &mdash; tap a topping</span>
+    <span class="picker__price" id="pickerPrice"></span>
+  </div>
+</section>
+
+<!-- ============================== COMBO BAND ============================== -->
+<section class="cband">
+  <div class="cband__card reveal" data-reveal="mask">
+    <div class="cband__head">
+      <p class="kicker kicker--light reveal" data-reveal>done deciding?</p>
+      <h2 class="h2 h2--light tsplit">The combos<br /><em>do the math.</em></h2>
+    </div>
+    <div class="cband__grid reveal" data-reveal="stagger">
+      <div class="glass glass--hero">
+        <p class="glass__label">the full combo</p>
+        <h3>Ramen + Topping + Drink</h3>
+        <span class="glass__price">$15</span>
+        <p class="glass__note">One of everything &mdash; the whole ritual in a single order.</p>
       </div>
-    </li>
-    <li class="stepcard reveal" data-reveal="right">
-      <div class="stepcard__media"><img src="./assets/img/freezer-snacks.jpg" alt="The topping and snack freezer with eggs, corn dogs and fruit jellies" width="750" height="1000" loading="lazy" decoding="async" /></div>
-      <div class="stepcard__body">
-        <span class="stepcard__num">02</span>
-        <h3>stack the top</h3>
-        <p>Cheese, soft-boiled egg, green onions, kimchi, rice cakes, shrimp — pile on your add-ons.</p>
+      <div class="glass">
+        <p class="glass__label">keep it classic</p>
+        <h3>Ramen + Rice <b>$13</b></h3>
+        <h3>Ramen + Seaweed <b>$9</b></h3>
       </div>
-    </li>
-    <li class="stepcard reveal" data-reveal="left">
-      <div class="stepcard__media"><img src="./assets/img/cooking-station-steam.jpg" alt="A HAUSCOOK automated cooking station boiling a bowl of ramen" width="1080" height="1920" loading="lazy" decoding="async" /></div>
-      <div class="stepcard__body">
-        <span class="stepcard__num">03</span>
-        <h3>press start</h3>
-        <p>Set your bowl on our automated HAUSCOOK stations — hot water, timer, done. Cooked fresh, right at the counter.</p>
+      <div class="glass">
+        <p class="glass__label">off the wall</p>
+        <h3>Ramen Esquite <b>$10</b></h3>
+        <h3>Tostilocos <b>$5</b></h3>
       </div>
-    </li>
-    <li class="stepcard reveal" data-reveal="right">
-      <div class="stepcard__media"><img src="./assets/img/drink-vanilla-shake.jpg" alt="A vanilla cream shake with a whipped cream dome" width="563" height="1000" loading="lazy" decoding="async" /></div>
-      <div class="stepcard__body">
-        <span class="stepcard__num">04</span>
-        <h3>mix a drink</h3>
-        <p>Pair it with a custom creamy Red Bull, a refresher, or a signature dirty soda. Sweet heat, meet cream.</p>
-      </div>
-    </li>
-  </ol>
-  <div style="display:flex;justify-content:center;gap:14px;margin-top:52px;flex-wrap:wrap">
-    <a class="btn btn--primary btn--big reveal" data-reveal href="./menu.html" data-magnetic>browse the wall</a>
-    <a class="btn btn--outline btn--big reveal" data-reveal href="./drinks.html" data-magnetic>pick your drink</a>
+    </div>
+    <div class="cband__ctas">
+      <a class="btn btn--cream btn--big" href="./menu.html" data-magnetic>see the full menu</a>
+      <a class="btn btn--outline-light btn--big" href="./drinks.html" data-magnetic>pick your drink</a>
+    </div>
   </div>
 </section>
 </main>
@@ -160,6 +242,6 @@
   </div>
 </footer>
 
-<script src="./main.js?v=10" defer></script>
+<script src="./main.js?v=11" defer></script>
 </body>
 </html>
