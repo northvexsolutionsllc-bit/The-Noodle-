@@ -1352,19 +1352,35 @@ body.is-loaded .ahero__sticker{animation:b-tag .6s cubic-bezier(.34,1.4,.64,1) 1
 .tline__fig img{width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;transition:transform .8s var(--ease)}
 .tline__card:hover .tline__fig img{transform:scale(1.05)}
 
-/* mood band — parallax pull-quote */
-.aband{position:relative;overflow:hidden;padding:150px 22px;background:var(--pine)}
-.aband__bg{position:absolute;inset:-80px 0}
-.aband__bg img{width:100%;height:100%;object-fit:cover;object-position:50% 40%;opacity:.28;will-change:transform}
-.aband::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(18,53,40,.55),rgba(18,53,40,.25) 50%,rgba(18,53,40,.6));z-index:1}
+/* mood band — typographic brand statement on solid pine */
+.aband{position:relative;overflow:hidden;padding:170px 22px 178px;background:var(--pine)}
+.aband::before{
+  content:"";position:absolute;left:-8%;top:-30%;width:46vw;max-width:640px;aspect-ratio:1;border-radius:50%;
+  background:radial-gradient(circle,var(--emerald) 0%,transparent 62%);
+  opacity:.32;filter:blur(60px);animation:g-drift1 19s ease-in-out infinite;
+  pointer-events:none;
+}
+.aband::after{
+  content:"";position:absolute;right:-10%;bottom:-34%;width:42vw;max-width:560px;aspect-ratio:1;border-radius:50%;
+  background:radial-gradient(circle,#F3C969 0%,transparent 62%);
+  opacity:.1;filter:blur(70px);animation:g-drift2 23s ease-in-out infinite;
+  pointer-events:none;
+}
 .aband__inner{position:relative;z-index:2;max-width:var(--maxw);margin:0 auto;text-align:center}
-.aband__inner .kicker{justify-content:center}
+.aband__inner .kicker{justify-content:center;margin-bottom:26px}
 .aband__quote{
   font-family:var(--font-d);font-weight:500;color:var(--cream);
-  font-size:clamp(2.2rem,6vw,4.4rem);line-height:1.08;letter-spacing:-.012em;
+  font-size:clamp(2.5rem,7vw,5.4rem);line-height:1.06;letter-spacing:-.015em;
 }
 .aband__quote em{font-style:italic;color:#F7D98B}
-.aband__sub{margin-top:18px;color:rgba(250,246,239,.78);font-weight:300;font-size:1.08rem}
+.aband__sub{
+  margin-top:30px;color:rgba(250,246,239,.68);font-weight:300;
+  font-size:clamp(1rem,2.2vw,1.18rem);letter-spacing:.01em;
+}
+.aband__rule{
+  width:54px;height:2px;border-radius:2px;margin:34px auto 0;
+  background:linear-gradient(90deg,var(--emerald),var(--butter));
+}
 
 /* story split (about) */
 .story__grid{max-width:var(--maxw);margin:0 auto;display:grid;grid-template-columns:1.05fr 1fr;gap:64px;align-items:center}
