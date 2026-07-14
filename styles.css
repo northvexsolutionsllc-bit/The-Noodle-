@@ -1923,15 +1923,19 @@ body.is-loaded .vpost__pin{animation:v-pin .55s cubic-bezier(.34,1.4,.64,1) 1.5s
     height:auto;display:flex;align-items:flex-start;gap:14px;
     overflow-x:auto;scroll-snap-type:x mandatory;
     -webkit-overflow-scrolling:touch;
-    padding:10px 7vw 26px;
+    padding:10px 9vw 26px;
     scrollbar-width:none;cursor:grab;
   }
   .mdeck__cards::-webkit-scrollbar{display:none}
   .mdeck__cards.is-dragging{cursor:grabbing;scroll-snap-type:none}
   .mdeck__cards .mcat{
-    position:static;inset:auto;flex:0 0 86vw;max-width:400px;min-width:0;
+    position:static;inset:auto;flex:0 0 82vw;max-width:400px;min-width:0;
     transform:none;opacity:1;scroll-snap-align:center;
-    grid-template-columns:1fr;grid-template-rows:auto;
+    display:block;background:transparent;border:0;box-shadow:none;overflow:visible;
+  }
+  .mcat__inner{
+    background:var(--white);border:1px solid var(--line);border-radius:var(--r-lg);
+    overflow:hidden;box-shadow:var(--shadow-soft);
     will-change:transform,opacity;transform-origin:50% 40%;
   }
   .mdeck__cards .mcat .mcat__media{
