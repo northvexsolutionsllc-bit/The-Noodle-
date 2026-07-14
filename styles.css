@@ -1913,27 +1913,45 @@ body.is-loaded .vpost__pin{animation:v-pin .55s cubic-bezier(.34,1.4,.64,1) 1.5s
   .mcat__items li:last-child{border-bottom:none}
   .mcat__head{display:block}
   .mcat__sub{display:block}
-  /* drinks deck: pinned on mobile; the full drink sits contained in a
-     product-shot header and cards run tall with a scrollable body */
-  .mdeck__stage{padding:100px 12px 94px}
-  .mdeck__cards{height:min(78vh,660px)}
-  .mdeck__cards .mcat{grid-template-columns:1fr;grid-template-rows:clamp(210px,52vw,264px) 1fr}
-  .mdeck__cards .mcat--flip .mcat__media{order:0}
+  /* drinks deck on mobile: app-style snap carousel. one featured card in the
+     center, neighbours peeking at the edges; full drink shown over a blurred
+     fill; bodies expand naturally (no internal scrolling) */
+  .mdeck{height:auto !important}
+  .mdeck__stage{position:static;height:auto;overflow:visible;padding:88px 0 26px;justify-content:flex-start}
+  .mdeck__head{padding:0 18px}
+  .mdeck__cards{
+    height:auto;display:flex;align-items:flex-start;gap:14px;
+    overflow-x:auto;scroll-snap-type:x mandatory;
+    padding:10px 7vw 26px;
+    scrollbar-width:none;cursor:grab;
+  }
+  .mdeck__cards::-webkit-scrollbar{display:none}
+  .mdeck__cards.is-dragging{cursor:grabbing;scroll-snap-type:none}
+  .mdeck__cards .mcat{
+    position:static;inset:auto;flex:0 0 86vw;max-width:400px;
+    transform:none;scroll-snap-align:center;
+    grid-template-columns:1fr;grid-template-rows:auto;
+    will-change:transform,opacity;transform-origin:50% 40%;
+  }
   .mdeck__cards .mcat .mcat__media{
-    min-height:0;aspect-ratio:auto;
-    background:linear-gradient(170deg,var(--ivory),var(--sage));
-    display:flex;align-items:center;justify-content:center;
-    padding:14px;
+    min-height:0;aspect-ratio:4/4.1;position:relative;overflow:hidden;
+    background:var(--sage);display:block;padding:0;
   }
   .mdeck__cards .mcat .mcat__media::after{display:none}
-  .mdeck__cards .mcat .mcat__media img{
-    position:static;inset:auto;width:auto;height:100%;max-width:100%;
-    object-fit:contain;object-position:50% 50%;
-    border-radius:14px;
-    box-shadow:0 14px 30px -12px rgba(18,53,40,.35);
+  .mcat__blurbg{
+    position:absolute !important;inset:0;width:100% !important;height:100% !important;
+    object-fit:cover;filter:blur(18px) saturate(1.15) brightness(1.04);
+    transform:scale(1.2);z-index:1;border-radius:0 !important;box-shadow:none !important;
   }
-  .mdeck__cards .mcat .mcat__body{padding:20px 20px 26px}
-  .mdeck__foot{margin-top:1.4vh}
+  .mdeck__cards .mcat .mcat__media img:not(.mcat__blurbg){
+    position:relative;inset:auto;z-index:2;
+    width:auto;height:100%;max-width:100%;margin:0 auto;display:block;
+    object-fit:contain;border-radius:0;box-shadow:none;
+    filter:drop-shadow(0 18px 28px rgba(18,53,40,.35));
+    padding:14px 0 10px;
+  }
+  .mdeck__cards .mcat .mcat__body{overflow:visible;padding:22px 20px 28px}
+  .mdeck__foot{margin-top:4px}
   .mcat__head .mprice{margin-top:10px}
   .mcat__title{display:block;font-size:1.3rem;line-height:1.25}
   .menunav{top:8px;gap:6px;padding:10px 64px 10px 10px;justify-content:flex-start;overflow-x:auto;scrollbar-width:none}
