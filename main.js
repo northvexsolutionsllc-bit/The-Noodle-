@@ -754,6 +754,34 @@
     }
   }
 
+  /* ---------- Safari bfcache + font-swap remeasure ---------- */
+  window.addEventListener("pageshow", function (e) {
+    if (!e.persisted) return;
+    // back/forward restore: close the drawer if it was open and re-sync
+    // every scroll-driven runner to the restored scroll position
+    if (drawer && drawer.classList.contains("is-open")) setDrawerSafe(false);
+    window.dispatchEvent(new Event("resize"));
+    onScroll();
+  });
+  function setDrawerSafe(open) {
+    if (menuBtn && drawer) {
+      menuBtn.classList.remove("is-open");
+      drawer.classList.remove("is-open");
+      document.body.classList.remove("drawer-open");
+      document.body.style.position = "";
+      document.body.style.top = "";
+      menuBtn.setAttribute("aria-expanded", "false");
+      drawer.setAttribute("aria-hidden", "true");
+    }
+  }
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(function () {
+      // Fraunces/Outfit swap shifts layout; re-measure everything once
+      window.dispatchEvent(new Event("resize"));
+      onScroll();
+    });
+  }
+
   /* ---------- lazy map facade ---------- */
   var mapBtn = document.getElementById("mapLoad");
   if (mapBtn) {
