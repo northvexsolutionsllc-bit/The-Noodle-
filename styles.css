@@ -1911,34 +1911,31 @@ body.is-loaded .vpost__pin{animation:v-pin .55s cubic-bezier(.34,1.4,.64,1) 1.5s
   .mcat__items li:last-child{border-bottom:none}
   .mcat__head{display:block}
   .mcat__sub{display:block}
-  /* drinks deck on mobile: horizontal snap carousel; the section grows
-     vertically so every card shows its full content with no inner scrolling */
-  .mdeck{height:auto !important}
-  .mdeck__stage{position:static;height:auto;overflow:visible;padding:88px 0 26px;justify-content:flex-start}
+  /* drinks deck on mobile: pinned, scroll-driven. same card design; vertical
+     scroll slides each card to center, then scrolls its content, no swiping */
+  .mdeck__stage{padding:96px 0 88px;overflow:hidden}
   .mdeck__head{padding:0 18px}
   .mdeck__cards{
-    height:auto;display:flex;align-items:stretch;gap:14px;
-    overflow-x:auto;scroll-snap-type:x mandatory;
-    -webkit-overflow-scrolling:touch;
-    padding:10px 9vw 26px;
-    scrollbar-width:none;
+    position:relative;flex:1;min-height:0;width:100%;
+    margin-top:8px;
   }
-  .mdeck__cards::-webkit-scrollbar{display:none}
   .mdeck__cards .mcat,
   .mdeck__cards .mcat--flip{
-    position:static;inset:auto;flex:0 0 82vw;max-width:400px;min-width:0;
-    transform:none;opacity:1;scroll-snap-align:center;
+    position:absolute;top:0;bottom:0;left:9vw;right:9vw;
+    max-width:400px;margin:0 auto;min-width:0;
+    transform:none;opacity:1;
     display:block;background:transparent;border:0;box-shadow:none;overflow:visible;
     grid-template-columns:1fr;
+    will-change:transform;
   }
   .mcat__inner{
     height:100%;display:flex;flex-direction:column;
     background:var(--white);border:1px solid var(--line);border-radius:var(--r-lg);
     overflow:hidden;box-shadow:var(--shadow-soft);
-    will-change:transform,opacity;transform-origin:50% 40%;
+    will-change:transform,opacity;transform-origin:50% 45%;
   }
   .mdeck__cards .mcat .mcat__media{
-    min-height:0;height:clamp(240px,58vw,310px);flex:none;aspect-ratio:auto;width:100%;
+    min-height:0;height:clamp(220px,52vw,300px);flex:none;aspect-ratio:auto;width:100%;
     display:block;padding:0;overflow:hidden;background:var(--sage);
     position:relative;
   }
@@ -1963,10 +1960,11 @@ body.is-loaded .vpost__pin{animation:v-pin .55s cubic-bezier(.34,1.4,.64,1) 1.5s
     filter:drop-shadow(0 14px 20px rgba(18,53,40,.4));
   }
   .mdeck__cards .mcat .mcat__body{
-    overflow:visible;flex:1;height:auto;max-height:none;
+    flex:1;min-height:0;overflow:hidden;
     padding:22px 22px 28px;
   }
-  .mdeck__foot{margin-top:4px}
+  .mcat__bscroll{will-change:transform}
+  .mdeck__foot{margin-top:12px;flex:none}
   .mdeck__foot{margin-top:2vh}
   .mcat__head .mprice{margin-top:10px}
   .mcat__title{display:block;font-size:1.3rem;line-height:1.25}
