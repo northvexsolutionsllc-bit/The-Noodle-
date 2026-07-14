@@ -605,7 +605,7 @@
     var tBar = document.getElementById("tastingBar");
     var Nt = tImgs.length;
     var tCur = 0;
-    var tPinned = !reduceMotion && window.matchMedia("(min-width:1025px)").matches;
+    var tPinned = !reduceMotion;
 
     function tMeta(i) {
       var c = tCoasters[i];
