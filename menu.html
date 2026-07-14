@@ -69,7 +69,6 @@
       <p class="phero__lead">A whole wall of imported Korean ramen — cups and packets, mild to face-melting. Grab one, stack your toppings, and cook it fresh at the counter.</p>
     </div>
     <div class="phstack" aria-hidden="true">
-      <span class="phstack__ring"></span>
       <figure class="phstack__main"><img src="./assets/img/combo-bowls-shakes.jpg" alt="" width="752" height="1000" fetchpriority="high" decoding="async" /></figure>
       <figure class="phstack__accent"><img src="./assets/img/ramen-bowl-egg.jpg" alt="" width="348" height="348" loading="lazy" decoding="async" /></figure>
       <span class="phstack__chip">Combo <b>$15</b> · Ramen + Topping + Drink</span>
@@ -87,13 +86,15 @@
 </nav>
 
 <!-- ============================== DRINKS ============================== -->
-<section class="psec" id="menu-drinks" style="padding-top:70px">
-  <div class="msec__divider">
-    <p class="kicker reveal" data-reveal>The Soda Bar</p>
-    <h2 class="h2 tsplit">Drinks</h2>
-  </div>
+<section class="mdeck" id="menu-drinks" data-story="mdeck">
+  <div class="mdeck__stage">
+    <div class="mdeck__head" id="mdeckHead">
+      <p class="kicker" style="justify-content:center">The Soda Bar</p>
+      <h2 class="h2">Drinks</h2>
+    </div>
+    <div class="mdeck__cards" id="mdeckCards">
 
-  <article class="mcat reveal" data-reveal>
+  <article class="mcat" data-mdeck-card>
     <div class="mcat__media"><img src="./assets/img/drink-blue-redbull-gummy.jpg" alt="Blue Crush creamy energy drink with whipped cream and a gummy ring" width="600" height="800" loading="lazy" decoding="async" /></div>
     <div class="mcat__body">
       <div class="mcat__head"><h3 class="mcat__title"><span class="mcat__num">01</span>Signature Creamy Energy Drinks</h3><div class="mprice"><b>MD</b> $7.75 <span>·</span> <b>LG</b> $8.75</div></div>
@@ -113,7 +114,7 @@
     </div>
   </article>
 
-  <article class="mcat mcat--flip reveal" data-reveal>
+  <article class="mcat mcat--flip" data-mdeck-card>
     <div class="mcat__media"><img src="./assets/img/drink-dirty-coldbrew.jpg" alt="Iced espresso drink with cream cascading down the glass" width="563" height="1000" loading="lazy" decoding="async" /></div>
     <div class="mcat__body">
       <div class="mcat__head"><h3 class="mcat__title"><span class="mcat__num">02</span>Espresso Bar</h3><div class="mprice"><b>MD</b> $7.75 <span>·</span> <b>LG</b> $8.75</div></div>
@@ -136,7 +137,7 @@
     </div>
   </article>
 
-  <article class="mcat reveal" data-reveal>
+  <article class="mcat" data-mdeck-card>
     <div class="mcat__media"><img src="./assets/img/drink-blue-boba.jpg" alt="Blue Lagoon style drink with boba pearls" width="563" height="1000" loading="lazy" decoding="async" /></div>
     <div class="mcat__body">
       <div class="mcat__head"><h3 class="mcat__title"><span class="mcat__num">03</span>Dirty Juices</h3></div>
@@ -157,7 +158,7 @@
     </div>
   </article>
 
-  <article class="mcat mcat--flip reveal" data-reveal>
+  <article class="mcat mcat--flip" data-mdeck-card>
     <div class="mcat__media"><img src="./assets/img/drink-strawberry-lemonade.jpg" alt="Strawberry Dreamade lemonade refresher" width="565" height="1000" loading="lazy" decoding="async" /></div>
     <div class="mcat__body">
       <div class="mcat__head"><h3 class="mcat__title"><span class="mcat__num">04</span>Lemonade Refreshers</h3></div>
@@ -183,7 +184,7 @@
     </div>
   </article>
 
-  <article class="mcat reveal" data-reveal>
+  <article class="mcat" data-mdeck-card>
     <div class="mcat__media"><img src="./assets/img/drink-strawberry-shake.jpg" alt="La Fresita strawberry milkshake with whipped cream dome" width="563" height="1000" loading="lazy" decoding="async" /></div>
     <div class="mcat__body">
       <div class="mcat__head"><h3 class="mcat__title"><span class="mcat__num">05</span>Milkshakes</h3><div class="mprice"><b>MD</b> $7.75 <span>·</span> <b>LG</b> $8.75</div></div>
@@ -204,7 +205,7 @@
     </div>
   </article>
 
-  <article class="mcat mcat--flip reveal" data-reveal>
+  <article class="mcat mcat--flip" data-mdeck-card>
     <div class="mcat__media"><img src="./assets/img/drink-berry-smoothie.jpg" alt="Berrysita Linda real-fruit berry smoothie" width="563" height="1000" loading="lazy" decoding="async" /></div>
     <div class="mcat__body">
       <div class="mcat__head"><h3 class="mcat__title"><span class="mcat__num">06</span>Smoothies</h3></div>
@@ -219,6 +220,12 @@
       <div class="mcat__chips"><span>Pomegranate</span><span>Kiwi</span><span>Blueberry</span><span>Lemon</span><span>Strawberry</span><span>Peach</span><span>Green Apple</span><span>Cherry</span><span>Mango</span><span>Raspberry</span></div>
     </div>
   </article>
+    </div>
+    <div class="mdeck__foot">
+      <p class="mdeck__count"><b id="mdeckNow">01</b> / 06</p>
+      <div class="mdeck__bar"><i id="mdeckBar"></i></div>
+    </div>
+  </div>
 </section>
 
 <!-- ============================== RAMEN ============================== -->
@@ -228,21 +235,21 @@
     <h2 class="h2 tsplit">Ramen</h2>
   </div>
 
-  <article class="mcat reveal" data-reveal>
-    <div class="mcat__media"><img src="./assets/img/cooking-station-bowl.jpg" alt="A fresh ramen bowl at the HAUSCOOK cooking station" style="object-position:50% 82%" width="563" height="1000" loading="lazy" decoding="async" /></div>
+  <article class="mcat reveal" data-reveal="mask">
+    <div class="mcat__media" data-plx="0.07"><img src="./assets/img/cooking-station-bowl.jpg" alt="A fresh ramen bowl at the HAUSCOOK cooking station" style="object-position:50% 82%" width="563" height="1000" loading="lazy" decoding="async" /></div>
     <div class="mcat__body">
       <div class="mcat__head"><h3 class="mcat__title"><span class="mcat__num">07</span>Ramen</h3></div>
-      <ul class="mcat__items">
+      <ul class="mcat__items reveal" data-reveal="stagger">
         <li><span>Ramen + Rice</span><span class="dots"></span><span class="p">$13</span></li>
         <li><span>Ramen + Seaweed</span><span class="dots"></span><span class="p">$9</span></li>
         <li><span>Ramen + Topping + Drink</span><span class="dots"></span><span class="p">$15</span></li>
         <li><span>Ramen Esquite</span><span class="dots"></span><span class="p">$10</span></li>
       </ul>
       <p class="mcat__sub">Street Snack</p>
-      <ul class="mcat__items">
+      <ul class="mcat__items reveal" data-reveal="stagger">
         <li><span>Tostilocos</span><span class="dots"></span><span class="p">$5</span></li>
       </ul>
-      <div class="mcat__thumbs"><figure><img src="./assets/img/menu-tostilocos.jpg" alt="Tostilocos" width="68" height="68" loading="lazy" /><figcaption>Tostilocos</figcaption></figure></div>
+      <div class="mcat__thumbs"><figure><img src="./assets/img/menu-tostilocos-sq.jpg" alt="Tostilocos" width="76" height="76" loading="lazy" /><figcaption>Tostilocos</figcaption></figure></div>
     </div>
   </article>
 </section>
@@ -254,13 +261,13 @@
     <h2 class="h2 tsplit">Toppings &amp; Sides</h2>
   </div>
 
-  <article class="mcat reveal" data-reveal>
-    <div class="mcat__media"><img src="./assets/img/freezer-snacks.jpg" alt="The topping and snack freezer" width="750" height="1000" loading="lazy" decoding="async" /></div>
+  <article class="mcat reveal" data-reveal="mask">
+    <div class="mcat__media" data-plx="0.06"><img src="./assets/img/freezer-snacks.jpg" alt="The topping and snack freezer" width="750" height="1000" loading="lazy" decoding="async" /></div>
     <div class="mcat__body">
       <div class="mcat__head"><h3 class="mcat__title"><span class="mcat__num">08</span>Extra Toppings</h3><div class="mprice"><b>$1</b> each</div></div>
-      <div class="mcat__chips"><span>Green Onion</span><span>Cilantro</span><span>Lime</span><span>Lemon</span><span>Onion</span><span>Jalapeño (Regular or Spicy)</span><span>Hard Boil Egg</span><span>Raw Egg</span><span>Spam</span><span>Sausage</span><span>Rice Cakes</span><span>Corn</span><span>Mozzarella Cheese</span><span>Cheddar Cheese</span></div>
+      <div class="mcat__chips reveal" data-reveal="stagger"><span>Green Onion</span><span>Cilantro</span><span>Lime</span><span>Lemon</span><span>Onion</span><span>Jalapeño (Regular or Spicy)</span><span>Hard Boil Egg</span><span>Raw Egg</span><span>Spam</span><span>Sausage</span><span>Rice Cakes</span><span>Corn</span><span>Mozzarella Cheese</span><span>Cheddar Cheese</span></div>
       <p class="mcat__sub">Sides</p>
-      <ul class="mcat__items">
+      <ul class="mcat__items reveal" data-reveal="stagger">
         <li><span>Seaweed</span><span class="dots"></span><span class="p">$1</span></li>
         <li><span>Kimchi</span><span class="dots"></span><span class="p">$1</span></li>
         <li><span>White Rice</span><span class="dots"></span><span class="p">$2</span></li>

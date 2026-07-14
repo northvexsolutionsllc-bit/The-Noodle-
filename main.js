@@ -356,6 +356,42 @@
     });
   }
 
+  /* ----- menu page: pinned drinks deck ----- */
+  var mdeck = document.querySelector('[data-story="mdeck"]');
+  if (mdeck && !reduceMotion && !isMobile) {
+    var dcards = Array.prototype.slice.call(mdeck.querySelectorAll("[data-mdeck-card]"));
+    var Ndc = dcards.length;
+    var dnow = document.getElementById("mdeckNow");
+    var dbar = document.getElementById("mdeckBar");
+    var dhead = document.getElementById("mdeckHead");
+    mdeck.style.height = (100 + Ndc * 62 + 18) + "vh";
+    storyRunners.push(function () {
+      var p = sectionProgress(mdeck);
+      var total = Ndc * 0.155;
+      dcards.forEach(function (c, i) {
+        var lp = ease(clamp01((p - i * 0.155) / 0.135));
+        // followers pushed the settled card back for layered depth
+        var after = 0;
+        for (var j = i + 1; j < Ndc; j++) after += ease(clamp01((p - j * 0.155) / 0.135));
+        var y = (1 - lp) * 118 + (i === 0 ? 0 : 0);
+        var settleY = -Math.min(after, 2.2) * 1.6;
+        var sc = 1 - Math.min(after, 2.2) * 0.028;
+        var rot = (1 - lp) * (i % 2 ? 2.2 : -2.2);
+        c.style.transform = "translateY(" + (y + settleY) + "%) rotate(" + rot + "deg) scale(" + sc + ")";
+        c.style.zIndex = String(10 + i);
+        c.style.opacity = String(i === 0 ? 1 : (lp > 0 ? 1 : 0));
+      });
+      var current = 1;
+      for (var k = 0; k < Ndc; k++) { if (p >= k * 0.155 + 0.05) current = k + 1; }
+      if (dnow) dnow.textContent = (current < 10 ? "0" : "") + current;
+      if (dbar) dbar.style.setProperty("--f", clamp01(p / (total + 0.06)));
+      if (dhead) {
+        var hf = ease(clamp01((p - 0.9) / 0.1));
+        dhead.style.opacity = String(1 - hf * 0.5);
+      }
+    });
+  }
+
   /* ---------- in-page menu nav scrollspy ---------- */
   var menunav = document.querySelector(".menunav");
   if (menunav) {
