@@ -15,7 +15,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,600&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="./styles.css?v=19" />
+<link rel="stylesheet" href="./styles.css?v=20" />
 </head>
 <body>
 
@@ -42,7 +42,14 @@
 
 
 <button class="menuBtn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="drawer">
-  <span></span><span></span><span></span>
+  <svg class="menuBtn__noodles" viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M3.5 7c2-1.5 4-1.5 6 0s4 1.5 6 0 3-1.2 5-.4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+    <path d="M3.5 12c2-1.5 4-1.5 6 0s4 1.5 6 0 3-1.2 5-.4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+    <path d="M3.5 17c2-1.5 4-1.5 6 0s4 1.5 6 0 3-1.2 5-.4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+  </svg>
+  <svg class="menuBtn__x" viewBox="0 0 24 24" aria-hidden="true">
+    <path d="m7 7 10 10M17 7 7 17" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+  </svg>
 </button>
 <div class="drawer" id="drawer" aria-hidden="true">
   <nav class="drawer__nav" aria-label="All pages">
@@ -267,6 +274,6 @@
   </div>
 </footer>
 
-<script src="./main.js?v=19" defer></script>
+<script src="./main.js?v=20" defer></script>
 </body>
 </html>
