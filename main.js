@@ -380,6 +380,69 @@
     });
   }
 
+  /* ----- build page: pinned build line (chapter cross-fade journey) ----- */
+  var bline = document.querySelector('[data-story="bline"]');
+  if (bline && !reduceMotion && !isMobile) {
+    var bImgs = Array.prototype.slice.call(bline.querySelectorAll("[data-bline-img]"));
+    var bChs = Array.prototype.slice.call(bline.querySelectorAll("[data-bline-ch]"));
+    var bFill = document.getElementById("blineFill");
+    var bJumps = Array.prototype.slice.call(bline.querySelectorAll("[data-bline-jump]"));
+    var bGhost = document.getElementById("blineGhost");
+    var Nb = bChs.length;
+    var BW = 0.09, BHALF = 0.045; // crossfade window centred on chapter boundaries
+    bline.style.height = (100 + Nb * 75) + "vh";
+    storyRunners.push(function () {
+      var p = sectionProgress(bline);
+      var idx = Math.min(Nb - 1, Math.floor(p * Nb * 0.999));
+      bChs.forEach(function (ch, i) {
+        var tin = i === 0 ? 1 : ease(clamp01((p - (i / Nb - BHALF)) / BW));
+        var tout = i === Nb - 1 ? 0 : ease(clamp01((p - ((i + 1) / Nb - BHALF)) / BW));
+        var v = Math.max(0, tin - tout);
+        ch.style.opacity = String(v);
+        ch.style.transform = "translateY(" + ((1 - tin) * 46 - tout * 46) + "px)";
+        ch.style.pointerEvents = v > 0.6 ? "auto" : "none";
+        var img = bImgs[i];
+        if (img) {
+          img.style.opacity = String(v);
+          img.style.transform = "scale(" + (1.1 - 0.1 * tin + 0.04 * tout) + ")";
+        }
+      });
+      if (bGhost) {
+        bGhost.textContent = "0" + (idx + 1);
+        bGhost.style.transform = "translateY(" + (-(p * Nb - idx) * 16) + "px)";
+      }
+      if (bFill) bFill.style.transform = "scaleY(" + p + ")";
+      bJumps.forEach(function (b, i) { b.classList.toggle("is-on", i === idx); });
+    });
+    bJumps.forEach(function (b, i) {
+      b.addEventListener("click", function () {
+        var t = bline.offsetTop + ((i + 0.55) / Nb) * (bline.offsetHeight - window.innerHeight);
+        window.scrollTo({ top: t, behavior: "smooth" });
+      });
+    });
+  }
+
+  /* ----- build page: topping playground ----- */
+  var pickerWall = document.getElementById("pickerWall");
+  if (pickerWall) {
+    var pickCount = document.getElementById("pickerCount");
+    var pickPrice = document.getElementById("pickerPrice");
+    var pickTally = pickCount ? pickCount.parentElement : null;
+    pickerWall.addEventListener("click", function (e) {
+      var t = e.target.closest("[data-topping]");
+      if (!t) return;
+      t.classList.toggle("is-picked");
+      var n = pickerWall.querySelectorAll(".is-picked").length;
+      if (pickCount) pickCount.textContent = n === 0 ? "Your bowl is waiting — tap a topping" : "Your stack: " + n + " topping" + (n > 1 ? "s" : "");
+      if (pickPrice) pickPrice.textContent = n === 0 ? "" : "+ $" + n + ".00";
+      if (pickTally && !reduceMotion) {
+        pickTally.classList.remove("is-bump");
+        void pickTally.offsetWidth;
+        pickTally.classList.add("is-bump");
+      }
+    });
+  }
+
   /* ---------- in-page menu nav scrollspy ---------- */
   var menunav = document.querySelector(".menunav");
   if (menunav) {
