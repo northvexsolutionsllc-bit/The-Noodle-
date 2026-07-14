@@ -513,29 +513,70 @@
     });
   });
 
-  /* ---------- drinks rail: arrows + drag ---------- */
-  var rail = document.getElementById("drinksRail");
-  if (rail) {
-    var step = function () { return Math.min(rail.clientWidth * 0.8, 640); };
-    var prev = document.getElementById("drinksPrev");
-    var next = document.getElementById("drinksNext");
-    if (prev) prev.addEventListener("click", function () { rail.scrollBy({ left: -step(), behavior: "smooth" }); });
-    if (next) next.addEventListener("click", function () { rail.scrollBy({ left: step(), behavior: "smooth" }); });
-    if (finePointer) {
-      var down = false, startX = 0, startL = 0, moved = false;
-      rail.addEventListener("pointerdown", function (e) {
-        down = true; moved = false; startX = e.clientX; startL = rail.scrollLeft;
-        rail.classList.add("is-dragging");
-      });
-      window.addEventListener("pointermove", function (e) {
-        if (!down) return;
-        var dx = e.clientX - startX;
-        if (Math.abs(dx) > 4) moved = true;
-        rail.scrollLeft = startL - dx;
-      });
-      window.addEventListener("pointerup", function () { down = false; rail.classList.remove("is-dragging"); });
-      rail.addEventListener("click", function (e) { if (moved) e.preventDefault(); }, true);
+  /* ---------- drinks page: the tasting table ---------- */
+  var tasting = document.querySelector(".tasting");
+  if (tasting) {
+    var tImgs = Array.prototype.slice.call(document.querySelectorAll("#tastingFrame img"));
+    var tCoasters = Array.prototype.slice.call(tasting.querySelectorAll("[data-tasting]"));
+    var tGlow = document.getElementById("tastingGlow");
+    var tSwap = document.getElementById("tastingSwap");
+    var tCat = document.getElementById("tastingCat");
+    var tName = document.getElementById("tastingName");
+    var tDesc = document.getElementById("tastingDesc");
+    var tNow = document.getElementById("tastingNow");
+    var tBar = document.getElementById("tastingBar");
+    var tCur = 0, tTimer = null, tIdle = null, tVisible = false;
+
+    function tArm() {
+      if (tBar) {
+        tBar.classList.remove("run");
+        void tBar.offsetWidth;
+        if (!reduceMotion && tVisible) tBar.classList.add("run");
+      }
+      clearTimeout(tTimer);
+      if (!reduceMotion && tVisible) tTimer = setTimeout(function () { tGo((tCur + 1) % tImgs.length); }, 4600);
     }
+    function tGo(i) {
+      if (i === tCur) { tArm(); return; }
+      var out = tImgs[tCur], inn = tImgs[i];
+      tCur = i;
+      tImgs.forEach(function (im) { im.classList.remove("is-out"); });
+      out.classList.remove("is-on"); out.classList.add("is-out");
+      inn.classList.add("is-on");
+      setTimeout(function () { out.classList.remove("is-out"); }, 950);
+      var c = tCoasters[i];
+      if (tGlow) tGlow.style.background = c.getAttribute("data-g");
+      if (tCat) tCat.textContent = c.getAttribute("data-cat");
+      if (tName) tName.textContent = c.getAttribute("data-name");
+      if (tDesc) tDesc.textContent = c.getAttribute("data-desc");
+      if (tNow) tNow.textContent = "0" + (i + 1);
+      if (tSwap && !reduceMotion) { tSwap.classList.remove("swap"); void tSwap.offsetWidth; tSwap.classList.add("swap"); }
+      tCoasters.forEach(function (b, j) {
+        b.classList.toggle("is-on", j === i);
+        b.style.setProperty("--g", b.getAttribute("data-g"));
+        b.setAttribute("aria-selected", j === i ? "true" : "false");
+      });
+      tArm();
+    }
+    tCoasters.forEach(function (b) {
+      b.style.setProperty("--g", b.getAttribute("data-g"));
+      b.addEventListener("click", function () {
+        tGo(parseInt(b.getAttribute("data-tasting"), 10));
+        // a manual pick pauses the table for a beat before it resumes turning
+        clearTimeout(tTimer); clearTimeout(tIdle);
+        if (tBar) tBar.classList.remove("run");
+        tIdle = setTimeout(tArm, 8000);
+      });
+    });
+    // only turn the table while it is on screen
+    var tIo = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        tVisible = e.isIntersecting;
+        if (tVisible) tArm();
+        else { clearTimeout(tTimer); if (tBar) tBar.classList.remove("run"); }
+      });
+    }, { threshold: 0.35 });
+    tIo.observe(tasting);
   }
 
   /* ---------- gallery lightbox ---------- */
