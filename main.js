@@ -1,4 +1,4 @@
-/* the noodle lounge — motion + interaction engine (vanilla, no deps) */
+/* the noodle lounge, motion + interaction engine (vanilla, no deps) */
 (function () {
   "use strict";
 
@@ -54,7 +54,7 @@
   }
 
   /* ==================================================================
-     SCROLL-STORY ENGINE — pinned, scrub-driven sections (home)
+     SCROLL-STORY ENGINE, pinned, scrub-driven sections (home)
      ================================================================== */
   var isMobile = window.matchMedia("(max-width: 880px)").matches;
   if (reduceMotion) document.body.classList.add("is-static");
@@ -183,17 +183,27 @@
     });
   }
 
-  /* ----- stacked cards: mobile flow scrub (cards rise as they enter) ----- */
+  /* ----- stacked cards: mobile pinned scrub (pin, card 1-2-3, release) ----- */
   if (stack && !reduceMotion && isMobile) {
     var mCards = Array.prototype.slice.call(stack.querySelectorAll("[data-scard]"));
+    var mPanel = document.getElementById("stackPanel");
+    // the side panel becomes its own flow block right after the pinned section
+    if (mPanel) {
+      mPanel.classList.add("stack__panel--flow");
+      stack.parentNode.insertBefore(mPanel, stack.nextSibling);
+    }
+    stack.style.height = "320vh"; // 100svh stage + ~73vh of scroll per card
     storyRunners.push(function () {
-      var vh = window.innerHeight;
+      var p = sectionProgress(stack);
       mCards.forEach(function (c, i) {
-        var r = c.getBoundingClientRect();
-        if (r.top > vh * 1.1 || r.bottom < -60) return;
-        var q = ease(clamp01((vh * 0.94 - r.top) / (vh * 0.55)));
-        c.style.transform = "translateY(" + ((1 - q) * 54).toFixed(1) + "px) rotate(" + ((1 - q) * (i % 2 ? 2.4 : -2.4)).toFixed(2) + "deg) scale(" + (0.955 + q * 0.045).toFixed(4) + ")";
-        c.style.opacity = String(0.25 + q * 0.75);
+        // cards rise one after another: 0-.28 / .33-.61 / .66-.94
+        var lp = ease(clamp01((p - i * 0.33) / 0.28));
+        var riseY = (1 - lp) * 118;
+        var restY = i * -3 * lp;
+        var riseR = (1 - lp) * (i % 2 ? 3 : -3);
+        var restR = (i - 1) * 2 * lp;
+        var sc = 1 - lp * (mCards.length - 1 - i) * 0.03;
+        c.style.transform = "translateY(" + (riseY + restY) + "%) rotate(" + (riseR + restR) + "deg) scale(" + sc + ")";
       });
     });
   }
@@ -210,7 +220,7 @@
       var p = sectionProgress(cinema);
       if (!track || !Nc) return;
       // read layout once, then derive every card's distance from center
-      // arithmetically — no per-card rect reads after the transform write
+      // arithmetically, no per-card rect reads after the transform write
       var cw = ccards[0].getBoundingClientRect().width;
       var gap = parseFloat(getComputedStyle(track).columnGap || getComputedStyle(track).gap) || 0;
       var span = (cw + gap) * (Nc - 1);
@@ -474,7 +484,7 @@
       if (!t) return;
       t.classList.toggle("is-picked");
       var n = pickerWall.querySelectorAll(".is-picked").length;
-      if (pickCount) pickCount.textContent = n === 0 ? "Your bowl is waiting — tap a topping" : "Your stack: " + n + " topping" + (n > 1 ? "s" : "");
+      if (pickCount) pickCount.textContent = n === 0 ? "Your bowl is waiting, tap a topping" : "Your stack: " + n + " topping" + (n > 1 ? "s" : "");
       if (pickPrice) pickPrice.textContent = n === 0 ? "" : "+ $" + n + ".00";
       if (pickTally && !reduceMotion) {
         pickTally.classList.remove("is-bump");
