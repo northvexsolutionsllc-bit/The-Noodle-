@@ -15,7 +15,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,600&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="./styles.css?v=17" />
+<link rel="stylesheet" href="./styles.css?v=18" />
 </head>
 <body>
 
@@ -30,6 +30,7 @@
     <a href="./menu.html">our menu</a>
     <a href="./build.html">build your bowl</a>
     <a href="./drinks.html">signature drinks</a>
+    <a href="./events.html" class="is-active">events</a>
         <a href="./about.html">about</a>
   </div>
 </nav>
@@ -38,6 +39,26 @@
   <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-6.1-7-11a7 7 0 1 1 14 0c0 4.9-7 11-7 11Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.6" fill="currentColor"/></svg>
   <span>Visit Us</span>
 </a>
+
+
+<button class="menuBtn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="drawer">
+  <span></span><span></span><span></span>
+</button>
+<div class="drawer" id="drawer" aria-hidden="true">
+  <nav class="drawer__nav" aria-label="All pages">
+    <a href="./index.html" style="--i:0">home</a>
+    <a href="./menu.html" style="--i:1">our menu</a>
+    <a href="./build.html" style="--i:2">build your bowl</a>
+    <a href="./drinks.html" style="--i:3">signature drinks</a>
+    <a href="./events.html" class="is-active" style="--i:4">events</a>
+    <a href="./about.html" style="--i:5">about</a>
+    <a href="./visit.html" style="--i:6">visit us</a>
+  </nav>
+  <div class="drawer__foot">
+    <p><strong>712 Cherry Ave</strong> &middot; Long Beach, CA</p>
+    <p>Mon&ndash;Sat 10a&ndash;10:30p &middot; Sun 12p&ndash;10:30p</p>
+  </div>
+</div>
 
 <nav class="botnav" aria-label="Quick navigation">
   <a href="./index.html">
@@ -61,43 +82,102 @@
     <span>visit</span>
   </a>
 </nav>
-<header class="phero">
-  <div class="phero__panel" style="--phc:#F3C969;--phi:#4E3007">
-    <div>
-      <p class="phero__over">The Hangout</p>
-      <h1 class="phero__title tsplit">EVENTS &amp; NIGHTS</h1>
-      <p class="phero__lead">World Cup nights, Love Island drama, board games and the trinket trading post. Come for the noodles, stay for the lounge.</p>
+<header class="ehero" data-story="ehero">
+  <div class="ehero__inner">
+    <div class="ehero__copy">
+      <p class="kicker kicker--light ehero__kick">the hangout</p>
+      <h1 class="ehero__title tsplit">Something&rsquo;s<br />always <em>brewing.</em></h1>
+      <p class="ehero__lead">Watch parties, game nights, trinket trades and drink drops &mdash; the lounge runs late, and the screen is always on.</p>
+      <div class="ehero__ctas">
+        <a class="btn btn--cream" href="https://www.instagram.com/thenoodleloungee/" target="_blank" rel="noopener" data-magnetic>follow for drops</a>
+        <a class="btn btn--outline-light" href="./visit.html" data-magnetic>pull up tonight</a>
+      </div>
     </div>
-    <figure class="phero__fig"><img src="./assets/img/pos-counter-pink.jpg" alt="" width="600" height="800" fetchpriority="high" decoding="async" /></figure>
+    <div class="ehero__collage" aria-hidden="true">
+      <figure class="ecol ecol--a" data-eplx="0.4"><img src="./assets/img/ramen-wall.jpg" alt="" width="1024" height="526" fetchpriority="high" decoding="async" /></figure>
+      <figure class="ecol ecol--b" data-eplx="0.85"><img src="./assets/img/combo-bowls-shakes.jpg" alt="" width="750" height="1000" fetchpriority="high" decoding="async" /></figure>
+      <figure class="ecol ecol--c" data-eplx="1.3"><img src="./assets/img/drink-blue-boba.jpg" alt="" width="563" height="1000" loading="lazy" decoding="async" /></figure>
+      <span class="ehero__neon" data-eplx="1.1">open late</span>
+      <span class="ehero__chip" data-eplx="0.6">big screen &middot; board games &middot; soda bar</span>
+    </div>
   </div>
 </header>
 
 <main>
-<section class="psec">
+<!-- ============================== THE REGULAR ROTATION ============================== -->
+<section class="psec enights">
   <div class="psec__head">
     <p class="kicker reveal" data-reveal>always on</p>
-    <h2 class="h2 tsplit">More than<br /><em>a bowl.</em></h2>
+    <h2 class="h2 tsplit">The regular<br /><em>rotation.</em></h2>
+    <p class="lead reveal" data-reveal style="margin-left:auto;margin-right:auto">No tickets, no cover &mdash; just the nights that keep happening. Dates drop on the story first.</p>
   </div>
-  <div class="hangout__grid reveal" data-reveal="stagger">
-    <article class="hcard">
-      <div class="hcard__icon"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="m10 9.5 4 2.5-4 2.5v-5Z" fill="currentColor"/><path d="M8 21h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
-      <h3>Watch Parties</h3>
-      <p>World Cup nights, Love Island drama, big games on the screen. Bring friends — we've got the broth.</p>
-    </article>
-    <article class="hcard">
-      <div class="hcard__icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="8.5" cy="8.5" r="1.5" fill="currentColor"/><circle cx="15.5" cy="15.5" r="1.5" fill="currentColor"/><circle cx="15.5" cy="8.5" r="1.5" fill="currentColor"/><circle cx="8.5" cy="15.5" r="1.5" fill="currentColor"/></svg></div>
-      <h3>Board Game Corner</h3>
-      <p>Grab a game off the shelf, order a round of refreshers, and let the noodle timer set the pace.</p>
-    </article>
-    <article class="hcard">
-      <div class="hcard__icon"><svg viewBox="0 0 24 24"><path d="M7 8h13l-2.5 4H9.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M17 16H4l2.5-4H15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-      <h3>Trinket Trading Post</h3>
-      <p>Bring a trinket, take a trinket. The community swap shelf that keeps the lounge weird and wonderful.</p>
-    </article>
+  <ol class="enights__list">
+    <li class="enight reveal" data-reveal>
+      <span class="enight__num" aria-hidden="true">01</span>
+      <div class="enight__body">
+        <h3>Watch Parties</h3>
+        <p>World Cup nights, Love Island drama, fight nights &mdash; the big screen stays warm. Claim a table, stack a bowl, talk trash.</p>
+        <div class="enight__chips"><span>big screen</span><span>bring the group</span></div>
+      </div>
+      <figure class="enight__thumb"><img src="./assets/img/combo-bowls-shakes.jpg" alt="Ramen bowls and shakes on a lounge table" width="750" height="1000" loading="lazy" decoding="async" /></figure>
+    </li>
+    <li class="enight reveal" data-reveal>
+      <span class="enight__num" aria-hidden="true">02</span>
+      <div class="enight__body">
+        <h3>Game Nights</h3>
+        <p>Board games live on the shelf, and the noodle timer sets the pace. Loser buys the next round of refreshers.</p>
+        <div class="enight__chips"><span>games on the shelf</span><span>late-night friendly</span></div>
+      </div>
+      <figure class="enight__thumb"><img src="./assets/img/drinks-fridge.jpg" alt="The drinks fridge stocked with sodas" width="563" height="1000" loading="lazy" decoding="async" /></figure>
+    </li>
+    <li class="enight reveal" data-reveal>
+      <span class="enight__num" aria-hidden="true">03</span>
+      <div class="enight__body">
+        <h3>Trinket Trading Post</h3>
+        <p>Bring a trinket, take a trinket. The community swap shelf that keeps the lounge weird and wonderful.</p>
+        <div class="enight__chips"><span>community shelf</span><span>keep it weird</span></div>
+      </div>
+      <figure class="enight__thumb"><img src="./assets/img/ramen-shelf-closeup.jpg" alt="Shelves of imported Korean ramen" width="768" height="577" loading="lazy" decoding="async" /></figure>
+    </li>
+    <li class="enight reveal" data-reveal>
+      <span class="enight__num" aria-hidden="true">04</span>
+      <div class="enight__body">
+        <h3>Drop Nights</h3>
+        <p>New cremitas, seasonal raspados and featured ramen releases &mdash; when something new hits the board, it lands here first.</p>
+        <div class="enight__chips"><span>new drinks</span><span>featured ramen</span></div>
+      </div>
+      <figure class="enight__thumb"><img src="./assets/img/drink-blue-closeup.jpg" alt="A blue creamy soda up close" width="1600" height="893" loading="lazy" decoding="async" /></figure>
+    </li>
+  </ol>
+</section>
+
+<!-- ============================== TICKER ============================== -->
+<section class="eticker" aria-hidden="true">
+  <div class="eticker__row">
+    <div class="eticker__track">
+      <span>watch parties</span><i>&#10022;</i><span>game nights</span><i>&#10022;</i><span>drink drops</span><i>&#10022;</i><span>trinket trades</span><i>&#10022;</i><span>seasonal raspados</span><i>&#10022;</i><span>featured ramen</span><i>&#10022;</i><span>community nights</span><i>&#10022;</i><span>watch parties</span><i>&#10022;</i><span>game nights</span><i>&#10022;</i><span>drink drops</span><i>&#10022;</i><span>trinket trades</span><i>&#10022;</i><span>seasonal raspados</span><i>&#10022;</i><span>featured ramen</span><i>&#10022;</i><span>community nights</span><i>&#10022;</i>
+    </div>
   </div>
-  <div class="hangout__banner reveal" data-reveal="mask">
-    <p><strong>Next watch party:</strong> Thursday at 7 PM — pull up.</p>
-    <a class="btn btn--cream" href="https://www.instagram.com/thenoodleloungee/" target="_blank" rel="noopener" data-magnetic>get the schedule</a>
+  <div class="eticker__row eticker__row--rev">
+    <div class="eticker__track">
+      <span>slurp</span><i>&#9825;</i><span>sip</span><i>&#9825;</i><span>snack</span><i>&#9825;</i><span>stay a while</span><i>&#9825;</i><span>slurp</span><i>&#9825;</i><span>sip</span><i>&#9825;</i><span>snack</span><i>&#9825;</i><span>stay a while</span><i>&#9825;</i><span>slurp</span><i>&#9825;</i><span>sip</span><i>&#9825;</i><span>snack</span><i>&#9825;</i><span>stay a while</span><i>&#9825;</i>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== FIRST TO KNOW ============================== -->
+<section class="efollow">
+  <div class="efollow__card reveal" data-reveal="mask">
+    <div class="efollow__copy">
+      <p class="kicker kicker--light reveal" data-reveal>first to know</p>
+      <h2 class="h2 h2--light tsplit">Dates drop on<br /><em>the story first.</em></h2>
+      <p class="efollow__sub reveal" data-reveal>No newsletters, no spam. Follow along &mdash; or DM us to host your own night at the lounge.</p>
+      <div class="efollow__ctas reveal" data-reveal>
+        <a class="btn btn--cream" href="https://www.instagram.com/thenoodleloungee/" target="_blank" rel="noopener" data-magnetic>@thenoodleloungee</a>
+        <a class="btn btn--outline-light" href="tel:+17146007684" data-magnetic>call the lounge</a>
+      </div>
+    </div>
+    <p class="efollow__mark" aria-hidden="true">@thenoodle<br />loungee</p>
   </div>
 </section>
 </main>
@@ -124,6 +204,7 @@
       <a href="./menu.html">our menu</a>
       <a href="./build.html">build your bowl</a>
       <a href="./drinks.html">signature drinks</a>
+      <a href="./events.html">events</a>
           <a href="./about.html">about</a>
     </div>
     <div class="footer__col">
@@ -146,6 +227,6 @@
   </div>
 </footer>
 
-<script src="./main.js?v=17" defer></script>
+<script src="./main.js?v=18" defer></script>
 </body>
 </html>
