@@ -36,7 +36,8 @@
 
   /* ---------- drop-in hero video (floating live card) ---------- */
   var saveData = navigator.connection && navigator.connection.saveData;
-  if (!reduceMotion && !saveData && document.querySelector(".hero")) {
+  if (!reduceMotion && !saveData && document.querySelector(".hero")) window.addEventListener("load", function () { setTimeout(initHeroVideo, 1200); }, { once: true });
+  function initHeroVideo() {
     var v = document.createElement("video");
     v.className = "hero__videoLayer";
     v.muted = true; v.loop = true; v.playsInline = true; v.autoplay = true;
@@ -278,10 +279,25 @@
   var menuBtn = document.getElementById("menuBtn");
   var drawer = document.getElementById("drawer");
   if (menuBtn && drawer) {
+    var drawerScrollY = 0;
     function setDrawer(open) {
       menuBtn.classList.toggle("is-open", open);
       drawer.classList.toggle("is-open", open);
       document.body.classList.toggle("drawer-open", open);
+      // iOS Safari keeps scrolling behind overflow:hidden; fix the body instead
+      if (open) {
+        drawerScrollY = window.scrollY;
+        document.body.style.position = "fixed";
+        document.body.style.top = -drawerScrollY + "px";
+        document.body.style.left = "0";
+        document.body.style.right = "0";
+      } else {
+        document.body.style.position = "";
+        document.body.style.top = "";
+        document.body.style.left = "";
+        document.body.style.right = "";
+        window.scrollTo(0, drawerScrollY);
+      }
       menuBtn.setAttribute("aria-expanded", open ? "true" : "false");
       menuBtn.setAttribute("aria-label", open ? "Close menu" : "Open menu");
       drawer.setAttribute("aria-hidden", open ? "false" : "true");
