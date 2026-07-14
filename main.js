@@ -592,21 +592,14 @@
         b.setAttribute("aria-hidden", "true");
         img.parentNode.insertBefore(b, img);
       }
-      var body = c.querySelector(".mcat__body");
-      if (body && !body.querySelector(".mcat__bscroll")) {
-        var w = document.createElement("div");
-        w.className = "mcat__bscroll";
-        while (body.firstChild) w.appendChild(body.firstChild);
-        body.appendChild(w);
-      }
     });
     var mdInners = mdCards.map(function (c) { return c.querySelector(".mcat__inner"); });
-    var mdWraps = mdCards.map(function (c) { return c.querySelector(".mcat__bscroll"); });
+    var mdCardsEl = mdeck.querySelector(".mdeck__cards");
     var mdOver = mdCards.map(function () { return 0; });
     function mdMeasure() {
+      var win = mdCardsEl ? mdCardsEl.clientHeight : window.innerHeight;
       mdCards.forEach(function (c, i) {
-        var body = c.querySelector(".mcat__body");
-        mdOver[i] = body ? Math.max(0, body.scrollHeight - body.clientHeight) : 0;
+        mdOver[i] = Math.max(0, c.offsetHeight - win);
       });
     }
     mdeck.style.height = (100 + Nmd * 85) + "vh";
@@ -622,20 +615,19 @@
       var step = window.innerWidth * 0.86;
       mdCards.forEach(function (c, i) {
         var off = i - C;
-        c.style.transform = "translateX(" + (off * step).toFixed(1) + "px)";
+        // phase 2: the whole card rides up so its lower half comes into view;
+        // the card itself never scrolls internally
+        var q = 0;
+        if (mdOver[i] > 0) {
+          if (i === seg) q = i === 0 ? ease(clamp01((s - 0.06) / 0.82)) : ease(clamp01((s - 0.36) / 0.56));
+          else if (i < seg) q = 1;
+        }
+        c.style.transform = "translateX(" + (off * step).toFixed(1) + "px) translateY(" + (-mdOver[i] * q).toFixed(1) + "px)";
         var t = mdInners[i];
         if (t) {
           var d = Math.min(1, Math.abs(off));
           t.style.transform = "scale(" + (1 - d * 0.06).toFixed(4) + ")";
           t.style.opacity = String(1 - d * 0.35);
-        }
-        // phase 2: the focused card's content scrolls with the page
-        var w = mdWraps[i];
-        if (w && mdOver[i] > 0) {
-          var q = 0;
-          if (i === seg) q = i === 0 ? ease(clamp01((s - 0.06) / 0.82)) : ease(clamp01((s - 0.36) / 0.56));
-          else if (i < seg) q = 1;
-          w.style.transform = "translateY(" + (-mdOver[i] * q).toFixed(1) + "px)";
         }
       });
       if (mdBar) mdBar.style.setProperty("--f", p.toFixed(4));
