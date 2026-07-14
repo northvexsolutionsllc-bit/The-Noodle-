@@ -607,6 +607,9 @@
       }
     }
     railEl.addEventListener("scroll", function () { if (!railRaf) railRaf = requestAnimationFrame(railPaint); }, { passive: true });
+    window.addEventListener("resize", function () { if (!railRaf) railRaf = requestAnimationFrame(railPaint); }, { passive: true });
+    // repaint once images have loaded so card offsets are final
+    window.addEventListener("load", railPaint);
     railPaint();
     // mouse-drag support (trackpads and touch scroll natively)
     if (finePointer) {
