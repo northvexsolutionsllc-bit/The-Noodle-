@@ -183,9 +183,24 @@
     });
   }
 
+  /* ----- stacked cards: mobile flow scrub (cards rise as they enter) ----- */
+  if (stack && !reduceMotion && isMobile) {
+    var mCards = Array.prototype.slice.call(stack.querySelectorAll("[data-scard]"));
+    storyRunners.push(function () {
+      var vh = window.innerHeight;
+      mCards.forEach(function (c, i) {
+        var r = c.getBoundingClientRect();
+        if (r.top > vh * 1.1 || r.bottom < -60) return;
+        var q = ease(clamp01((vh * 0.94 - r.top) / (vh * 0.55)));
+        c.style.transform = "translateY(" + ((1 - q) * 54).toFixed(1) + "px) rotate(" + ((1 - q) * (i % 2 ? 2.4 : -2.4)).toFixed(2) + "deg) scale(" + (0.955 + q * 0.045).toFixed(4) + ")";
+        c.style.opacity = String(0.25 + q * 0.75);
+      });
+    });
+  }
+
   /* ----- horizontal cinema ----- */
   var cinema = document.querySelector('[data-story="cinema"]');
-  if (cinema && !reduceMotion && !isMobile) {
+  if (cinema && !reduceMotion) {
     var track = document.getElementById("cinemaTrack");
     var cbar = document.getElementById("cinemaBar");
     var ccards = track ? Array.prototype.slice.call(track.children) : [];
@@ -211,7 +226,7 @@
 
   /* ----- soda bar: 3D perspective showcase ----- */
   var soda = document.querySelector('[data-story="soda"]');
-  if (soda && !reduceMotion && !isMobile) {
+  if (soda && !reduceMotion) {
     var drinks = Array.prototype.slice.call(soda.querySelectorAll("[data-drink]"));
     var Nd = drinks.length;
     var glow = document.getElementById("sodaGlow");
@@ -222,7 +237,7 @@
       drinks.forEach(function (card, i) {
         var off = i - p;                       // 0 = focused
         var a = Math.abs(off);
-        var x = off * Math.min(window.innerWidth * 0.24, 340);
+        var x = off * Math.min(window.innerWidth * (isMobile ? 0.3 : 0.24), 340);
         var rotY = Math.max(-32, Math.min(32, -off * 22));
         var z = -a * 190;
         var sc = 1 - Math.min(0.16, a * 0.07);
@@ -248,6 +263,31 @@
   var nav = document.getElementById("nav");
   var navCta = document.getElementById("navCta");
   var lastY = 0, ticking = false;
+
+  /* ---------- mobile drawer ---------- */
+  var menuBtn = document.getElementById("menuBtn");
+  var drawer = document.getElementById("drawer");
+  if (menuBtn && drawer) {
+    function setDrawer(open) {
+      menuBtn.classList.toggle("is-open", open);
+      drawer.classList.toggle("is-open", open);
+      document.body.classList.toggle("drawer-open", open);
+      menuBtn.setAttribute("aria-expanded", open ? "true" : "false");
+      menuBtn.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+      drawer.setAttribute("aria-hidden", open ? "false" : "true");
+      if (open) {
+        var first = drawer.querySelector("a");
+        if (first) setTimeout(function () { first.focus({ preventScroll: true }); }, 250);
+      } else {
+        menuBtn.focus({ preventScroll: true });
+      }
+    }
+    menuBtn.addEventListener("click", function () { setDrawer(!drawer.classList.contains("is-open")); });
+    drawer.addEventListener("click", function (e) { if (e.target.closest("a")) setDrawer(false); });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && drawer.classList.contains("is-open")) setDrawer(false);
+    });
+  }
 
   /* ---------- parallax engine ---------- */
   var plxEls = Array.prototype.slice.call(document.querySelectorAll("[data-plx]"));
@@ -347,7 +387,7 @@
 
   /* ----- menu page: pinned drinks deck ----- */
   var mdeck = document.querySelector('[data-story="mdeck"]');
-  if (mdeck && !reduceMotion && !isMobile) {
+  if (mdeck && !reduceMotion) {
     var dcards = Array.prototype.slice.call(mdeck.querySelectorAll("[data-mdeck-card]"));
     var Ndc = dcards.length;
     var dnow = document.getElementById("mdeckNow");
@@ -487,6 +527,20 @@
           p.classList.remove("is-on");
           if (j === i) { void p.offsetWidth; p.classList.add("is-on"); }
         });
+      });
+    });
+  }
+
+  /* ----- events page: hero collage depth parallax (scroll-driven) ----- */
+  var ehero = document.querySelector('[data-story="ehero"]');
+  if (ehero && !reduceMotion) {
+    var eLayers = Array.prototype.slice.call(ehero.querySelectorAll("[data-eplx]"));
+    storyRunners.push(function () {
+      var y = window.scrollY;
+      if (y > window.innerHeight * 1.4) return;
+      eLayers.forEach(function (el) {
+        var d = parseFloat(el.getAttribute("data-eplx")) || 1;
+        el.style.setProperty("--ey", (-y * d * 0.14).toFixed(1) + "px");
       });
     });
   }
