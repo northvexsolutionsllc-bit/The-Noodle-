@@ -117,6 +117,7 @@
       swapping = true;
       active = idx;
       [slotL, slotC, slotR].forEach(function (sl) { sl.classList.add("is-swap"); });
+      // 330ms > the .32s CSS fade-out, so content never re-renders mid-fade
       setTimeout(function () {
         render();
         [slotL, slotC, slotR].forEach(function (sl) { sl.classList.remove("is-swap"); });
@@ -124,8 +125,8 @@
           swapping = false;
           if (queued >= 0 && queued !== active) { var q = queued; queued = -1; goTo(q); }
           else queued = -1;
-        }, 320);
-      }, 300);
+        }, 340);
+      }, 330);
     }
     render();
 
@@ -155,12 +156,12 @@
     var stackHead = document.getElementById("stackHead");
     var stackCards = document.getElementById("stackCards");
     var stackPanel = document.getElementById("stackPanel");
-    stack.style.height = "470vh";
+    stack.style.height = "420vh";
     storyRunners.push(function () {
       var p = sectionProgress(stack);
-      // phases: cards rise 0-.18/.18-.36/.36-.54 · hold · settle .62-.82 · hold to 1
+      // phases: cards rise 0-.16/.17-.33/.34-.50 · rest · settle .58-.82 · hold to 1
       cards.forEach(function (c, i) {
-        var lp = ease(clamp01((p - i * 0.18) / 0.16));
+        var lp = ease(clamp01((p - i * 0.17) / 0.16));
         var riseY = (1 - lp) * 118;
         var restY = i * -3;
         var riseR = (1 - lp) * (i % 2 ? 3 : -3);
@@ -168,7 +169,7 @@
         var sc = 1 - lp * (cards.length - 1 - i) * 0.03;
         c.style.transform = "translateY(" + (riseY + restY * lp) + "%) rotate(" + (riseR + restR) + "deg) scale(" + sc + ")";
       });
-      var settle = ease(clamp01((p - 0.62) / 0.2));
+      var settle = ease(clamp01((p - 0.58) / 0.24));
       if (stackHead) {
         stackHead.style.opacity = String(1 - settle);
         stackHead.style.transform = "translateY(" + (settle * -26) + "px)";
@@ -193,14 +194,14 @@
     storyRunners.push(function () {
       var p = sectionProgress(cinema);
       if (!track || !Nc) return;
+      // read layout once, then derive every card's distance from center
+      // arithmetically — no per-card rect reads after the transform write
       var cw = ccards[0].getBoundingClientRect().width;
       var gap = parseFloat(getComputedStyle(track).columnGap || getComputedStyle(track).gap) || 0;
       var span = (cw + gap) * (Nc - 1);
       track.style.transform = "translateX(" + (-p * span - cw / 2) + "px)";
-      var centerX = window.innerWidth / 2;
-      ccards.forEach(function (c) {
-        var r = c.getBoundingClientRect();
-        var d = Math.abs(r.left + r.width / 2 - centerX) / window.innerWidth;
+      ccards.forEach(function (c, i) {
+        var d = Math.abs(i * (cw + gap) - p * span) / window.innerWidth;
         c.style.transform = "scale(" + (1 - Math.min(0.08, d * 0.18)) + ")";
         c.style.opacity = String(1 - Math.min(0.22, d * 0.45));
       });
@@ -215,7 +216,7 @@
     var Nd = drinks.length;
     var glow = document.getElementById("sodaGlow");
     var sbar = document.getElementById("sodaBar");
-    soda.style.height = (100 + (Nd - 1) * 52) + "vh";
+    soda.style.height = (100 + (Nd - 1) * 55) + "vh";
     storyRunners.push(function () {
       var p = sectionProgress(soda) * (Nd - 1);
       drinks.forEach(function (card, i) {
@@ -245,7 +246,6 @@
   /* ---------- scroll progress + nav hide ---------- */
   var bar = document.getElementById("progressBar");
   var nav = document.getElementById("nav");
-  var navOrder = document.getElementById("navOrder");
   var lastY = 0, ticking = false;
 
   /* ---------- parallax engine ---------- */
@@ -272,8 +272,8 @@
       if (nav) {
         var hide = y > 400 && y > lastY + 6;
         var show = y < lastY - 6 || y < 200;
-        if (hide) { nav.classList.add("is-hidden"); if (navOrder) navOrder.classList.add("is-hidden"); }
-        else if (show) { nav.classList.remove("is-hidden"); if (navOrder) navOrder.classList.remove("is-hidden"); }
+        if (hide) { nav.classList.add("is-hidden"); }
+        else if (show) { nav.classList.remove("is-hidden"); }
       }
       if (!reduceMotion && plxEls.length) parallax();
       for (var i = 0; i < storyRunners.length; i++) storyRunners[i]();
@@ -357,10 +357,10 @@
       var p = sectionProgress(mdeck);
       var total = Ndc * 0.155;
       dcards.forEach(function (c, i) {
-        var lp = ease(clamp01((p - i * 0.155) / 0.135));
+        var lp = ease(clamp01((p - i * 0.155) / 0.15));
         // followers pushed the settled card back for layered depth
         var after = 0;
-        for (var j = i + 1; j < Ndc; j++) after += ease(clamp01((p - j * 0.155) / 0.135));
+        for (var j = i + 1; j < Ndc; j++) after += ease(clamp01((p - j * 0.155) / 0.15));
         var y = (1 - lp) * 118 + (i === 0 ? 0 : 0);
         var settleY = -Math.min(after, 2.2) * 1.6;
         var sc = 1 - Math.min(after, 2.2) * 0.028;
