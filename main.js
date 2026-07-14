@@ -356,6 +356,21 @@
     });
   }
 
+  /* ---------- in-page menu nav scrollspy ---------- */
+  var menunav = document.querySelector(".menunav");
+  if (menunav) {
+    var mlinks = Array.prototype.slice.call(menunav.querySelectorAll("a[href^='#']"));
+    var msections = mlinks.map(function (a) { return document.getElementById(a.getAttribute("href").slice(1)); }).filter(Boolean);
+    var mspy = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) {
+          mlinks.forEach(function (a) { a.classList.toggle("is-active", a.getAttribute("href") === "#" + e.target.id); });
+        }
+      });
+    }, { rootMargin: "-30% 0px -60% 0px" });
+    msections.forEach(function (sec) { mspy.observe(sec); });
+  }
+
   /* ---------- expandable menu cards ---------- */
   document.querySelectorAll(".mcard").forEach(function (card) {
     card.addEventListener("click", function (e) {
