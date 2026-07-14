@@ -1,5 +1,5 @@
 /* ==========================================================================
-   the noodle lounge — design system v3
+   the noodle lounge - design system v3
    cream + deep emerald · Fraunces + Outfit · multi-page · ocha-grade motion
    ========================================================================== */
 :root{
@@ -98,11 +98,11 @@ section{scroll-margin-top:110px}
 .btn--big{padding:20px 40px;font-size:1.08rem}
 
 /* ==========================================================================
-   NAVIGATION — premium floating pill
+   NAVIGATION - premium floating pill
    ========================================================================== */
 .nav{
   position:fixed;top:16px;left:50%;transform:translateX(-50%);z-index:100;
-  /* width:max-content — left:50% otherwise caps shrink-to-fit at half the
+  /* width:max-content - left:50% otherwise caps shrink-to-fit at half the
      viewport and the last link spills out of the pill */
   width:max-content;
   display:flex;align-items:center;gap:4px;
@@ -151,7 +151,7 @@ section{scroll-margin-top:110px}
 .nav__cta span{text-transform:capitalize}
 .nav__cta:hover{background:var(--pine-2);transform:translateY(-2px);box-shadow:0 14px 30px -10px rgba(31,111,82,.6)}
 
-/* visit-us CTA — fixed top right, stronger than nav links */
+/* visit-us CTA - fixed top right, stronger than nav links */
 .navCta{
   position:fixed;top:16px;right:20px;z-index:101;
   display:inline-flex;align-items:center;gap:8px;
@@ -249,7 +249,7 @@ body.drawer-open{overflow:hidden}
 .botnav a:active{transform:scale(.92)}
 
 /* ==========================================================================
-   HERO — color-blocked panel carousel (home)
+   HERO - color-blocked panel carousel (home)
    ========================================================================== */
 .shero{position:relative;background:var(--pine)}
 .hero{
@@ -374,7 +374,7 @@ body.is-loaded .pstrip{opacity:1;transform:none}
 .hero__videoLayer.is-live{opacity:1;transform:none}
 
 /* ==========================================================================
-   PAGE HERO — subpages
+   PAGE HERO - subpages
    ========================================================================== */
 .phero{
   background:var(--pine);padding:104px 18px 18px;
@@ -420,7 +420,7 @@ body.is-loaded .pstrip{opacity:1;transform:none}
 }
 .reveal[data-reveal="stagger"].is-in > *{opacity:1;transform:none;filter:none}
 
-/* split-text line masks — padding guard prevents descender clipping */
+/* split-text line masks - padding guard prevents descender clipping */
 .tsplit .ts-line{display:block;overflow:hidden;padding-bottom:.14em;margin-bottom:-.14em}
 .tsplit .ts-inner{display:block;transform:translateY(122%);transition:transform 1.05s var(--ease);transition-delay:calc(var(--l,0) * 95ms)}
 .tsplit.is-in .ts-inner{transform:translateY(0)}
@@ -433,7 +433,7 @@ body.is-loaded .pstrip{opacity:1;transform:none}
   will-change:transform;
 }
 .imgframe.is-in img{transform:scale(1.02)}
-/* parallax images are driven per-frame by JS — a transition here would lag a
+/* parallax images are driven per-frame by JS - a transition here would lag a
    beat behind the scroll, so it must stay off */
 [data-plx] img{will-change:transform;transition:none}
 
@@ -510,7 +510,7 @@ body.is-loaded .pstrip{opacity:1;transform:none}
 .cinema__progress i{display:block;height:100%;background:var(--butter);transform:scaleX(var(--f,0));transform-origin:0 50%}
 
 /* ==========================================================================
-   SODA BAR — 3D scroll showcase
+   SODA BAR - 3D scroll showcase
    ========================================================================== */
 .soda{position:relative;background:var(--ivory)}
 .soda__stage{
@@ -560,7 +560,7 @@ body.is-loaded .pstrip{opacity:1;transform:none}
 .drinks__note strong{color:var(--emerald);font-weight:600}
 
 /* ==========================================================================
-   SIGNATURE DRINKS PAGE — lounge hero, lineup shelf, flavor lab
+   SIGNATURE DRINKS PAGE - lounge hero, lineup shelf, flavor lab
    ========================================================================== */
 /* hero: dark lounge with drifting glow, choreographed bottle trio,
    pointer-depth parallax (--px/--py fed per-frame by JS) */
@@ -618,7 +618,7 @@ body.is-loaded .dhero__ctas{animation:bh-fade .8s var(--ease) .75s forwards}
   opacity:0;will-change:transform;
 }
 .dbottle__fig img{width:100%;height:100%;object-fit:cover;object-position:50% 62%}
-/* glass reflection streak — sweeps once on land, again on hover */
+/* glass reflection streak - sweeps once on land, again on hover */
 .dbottle__fig::after{
   content:"";position:absolute;inset:0;border-radius:999px;
   background:linear-gradient(115deg,transparent 32%,rgba(255,255,255,.3) 47%,transparent 60%);
@@ -659,7 +659,7 @@ body.is-loaded .dbottle--c figcaption{animation-delay:1.15s}
 body.is-loaded .dbottle--l figcaption{animation-delay:1.35s}
 body.is-loaded .dbottle--r figcaption{animation-delay:1.5s}
 
-/* the tasting table — pinned, scroll-poured spotlight + coaster selector */
+/* the tasting table - pinned, scroll-poured spotlight + coaster selector */
 .tasting{position:relative;background:var(--cream)}
 .tasting__pin{
   position:sticky;top:0;height:100svh;overflow:hidden;
@@ -758,7 +758,7 @@ body.is-loaded .dbottle--r figcaption{animation-delay:1.5s}
 .coaster.is-on::after{background:rgba(18,53,40,0)}
 .tasting__hint{margin-top:26px;font-family:var(--font-d);font-style:italic;font-size:.92rem;color:var(--ink-soft)}
 
-/* the flavor lab — interactive dark catalog */
+/* the flavor lab - interactive dark catalog */
 .flab{background:var(--pine);color:var(--cream);padding:110px 22px 96px}
 .flab__head{max-width:var(--maxw);margin:0 auto 50px;text-align:center}
 .flab__head .kicker{justify-content:center}
@@ -876,7 +876,7 @@ body.is-loaded .dbottle--r figcaption{animation-delay:1.5s}
 .evband__card .btn{position:relative;z-index:1}
 
 /* ==========================================================================
-   MENU PAGE — layered hero image, in-page nav, category blocks
+   MENU PAGE - layered hero image, in-page nav, category blocks
    ========================================================================== */
 /* layered hero image presentation (replaces the capsule crop) */
 .phstack{position:relative;justify-self:center;width:min(100%,400px);aspect-ratio:4/4.6}
@@ -946,7 +946,7 @@ body.is-loaded .phstack__chip{animation:ph-tag .7s cubic-bezier(.34,1.4,.64,1) 1
 .menunav a.is-active{background:var(--pine);color:var(--cream);border-color:var(--pine)}
 .menunav a.is-active svg{color:var(--butter)}
 
-/* pinned drinks deck — scroll-driven card stack */
+/* pinned drinks deck - scroll-driven card stack */
 .mdeck{position:relative;background:var(--cream)}
 .mdeck__stage{
   position:sticky;top:0;height:100svh;overflow:hidden;
@@ -1031,7 +1031,7 @@ body.is-loaded .phstack__chip{animation:ph-tag .7s cubic-bezier(.34,1.4,.64,1) 1
 .msec__cta{display:flex;justify-content:center;padding:34px 22px 90px;background:var(--cream)}
 
 /* ==========================================================================
-   BUILD PAGE — assembly hero, pinned build line, topping playground, combos
+   BUILD PAGE - assembly hero, pinned build line, topping playground, combos
    ========================================================================== */
 /* hero: staged bowl-assembly scene */
 .bhero{background:var(--pine);padding:104px 18px 18px}
@@ -1147,7 +1147,7 @@ body.is-loaded .bscene__steam i:nth-child(1){animation-delay:2.1s}
 body.is-loaded .bscene__steam i:nth-child(2){animation-delay:2.9s;height:56px}
 body.is-loaded .bscene__steam i:nth-child(3){animation-delay:3.7s;height:38px}
 
-/* pinned build line — chapters cross-fade against a fixed frame */
+/* pinned build line - chapters cross-fade against a fixed frame */
 .bline{position:relative;background:var(--cream)}
 .bline__stage{
   position:sticky;top:0;height:100svh;overflow:hidden;
@@ -1238,7 +1238,7 @@ body.is-loaded .bscene__steam i:nth-child(3){animation-delay:3.7s;height:38px}
 .picker__tally.is-bump{animation:tally-bump .4s var(--ease)}
 @keyframes tally-bump{0%{transform:scale(1)}40%{transform:scale(1.06)}100%{transform:scale(1)}}
 
-/* combo band — glass cards on emerald */
+/* combo band - glass cards on emerald */
 .cband{padding:0 22px 120px;background:var(--cream)}
 .cband__card{
   position:relative;max-width:calc(var(--maxw) + 40px);margin:0 auto;
@@ -1271,7 +1271,7 @@ body.is-loaded .bscene__steam i:nth-child(3){animation-delay:3.7s;height:38px}
 .cband__ctas{display:flex;gap:14px;justify-content:center;margin-top:46px;flex-wrap:wrap;position:relative;z-index:1}
 
 /* ==========================================================================
-   EVENTS — collage hero, editorial rotation, ticker, follow panel
+   EVENTS - collage hero, editorial rotation, ticker, follow panel
    ========================================================================== */
 .ehero{
   position:relative;background:var(--pine);color:var(--cream);
@@ -1340,7 +1340,7 @@ body.is-loaded .ehero__neon{animation:e-neon 1.6s ease 1.05s forwards}
 }
 body.is-loaded .ehero__chip{animation:b-tag .6s cubic-bezier(.34,1.4,.64,1) 1.3s forwards;transform:rotate(-2deg)}
 
-/* editorial numbered rotation — image reveals on hover */
+/* editorial numbered rotation - image reveals on hover */
 .enights__list{max-width:960px;margin:0 auto;border-top:1px solid var(--line)}
 .enight{
   position:relative;display:grid;grid-template-columns:110px 1fr 120px;gap:26px;align-items:center;
@@ -1432,7 +1432,7 @@ body.is-loaded .ehero__chip{animation:b-tag .6s cubic-bezier(.34,1.4,.64,1) 1.3s
 .plat__cta{font-weight:600;font-size:.86rem;color:var(--pine);margin-top:auto}
 
 /* ==========================================================================
-   ABOUT PAGE — polaroid-wall hero, timeline, mood band
+   ABOUT PAGE - polaroid-wall hero, timeline, mood band
    ========================================================================== */
 .ahero{
   background:var(--ivory);
@@ -1498,7 +1498,7 @@ body.is-loaded .apol img{filter:saturate(1) brightness(1) contrast(1)}
 }
 body.is-loaded .ahero__sticker{animation:b-tag .6s cubic-bezier(.34,1.4,.64,1) 1.35s forwards;transform:rotate(4deg)}
 
-/* timeline — the line draws itself as the story scrolls */
+/* timeline - the line draws itself as the story scrolls */
 .tline{padding:110px 22px;background:var(--ivory);overflow-x:clip}
 .tline .psec__head{max-width:var(--maxw);margin:0 auto 60px;text-align:center}
 .tline__wrap{position:relative;max-width:880px;margin:0 auto;display:flex;flex-direction:column;gap:44px}
@@ -1534,7 +1534,7 @@ body.is-loaded .ahero__sticker{animation:b-tag .6s cubic-bezier(.34,1.4,.64,1) 1
 .tline__fig img{width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;transition:transform .8s var(--ease)}
 .tline__card:hover .tline__fig img{transform:scale(1.05)}
 
-/* mood band — typographic brand statement on solid pine */
+/* mood band - typographic brand statement on solid pine */
 .aband{position:relative;overflow:hidden;padding:170px 22px 178px;background:var(--pine)}
 .aband::before{
   content:"";position:absolute;left:-8%;top:-30%;width:46vw;max-width:640px;aspect-ratio:1;border-radius:50%;
@@ -1588,7 +1588,7 @@ body.is-loaded .ahero__sticker{animation:b-tag .6s cubic-bezier(.34,1.4,.64,1) 1
 .stat span{font-size:.85rem;color:var(--ink-soft);max-width:20ch;display:block;margin-top:6px}
 
 /* ==========================================================================
-   VISIT — postcard hero + route map card
+   VISIT - postcard hero + route map card
    ========================================================================== */
 .vhero{background:var(--sage);padding:150px 22px 96px;overflow:hidden}
 .vhero__inner{
@@ -1856,7 +1856,7 @@ body.is-loaded .vpost__pin{animation:v-pin .55s cubic-bezier(.34,1.4,.64,1) 1.5s
   .tline__item,.tline__item:nth-child(odd),.tline__item:nth-child(even){width:100%;align-self:auto;text-align:left;padding-left:36px}
   .tline__item:nth-child(odd) .tline__dot,.tline__item:nth-child(even) .tline__dot{left:3px;right:auto;border-color:var(--ivory)}
   .aband{padding:110px 18px}
-  /* build page: unpin the build line — flow layout with per-chapter images */
+  /* build page: unpin the build line - flow layout with per-chapter images */
   .bhero{padding:70px 12px 12px}
   .bhero__panel{padding:48px 6vw 46px}
   .bscene{width:min(88%,330px)}
@@ -1913,14 +1913,27 @@ body.is-loaded .vpost__pin{animation:v-pin .55s cubic-bezier(.34,1.4,.64,1) 1.5s
   .mcat__items li:last-child{border-bottom:none}
   .mcat__head{display:block}
   .mcat__sub{display:block}
-  /* drinks deck: pinned on mobile — slim media strip, scrollable body */
-  .mdeck__stage{padding:112px 14px 96px}
-  .mdeck__cards{height:min(66vh,560px)}
-  .mdeck__cards .mcat{grid-template-columns:1fr;grid-template-rows:96px 1fr}
+  /* drinks deck: pinned on mobile; the full drink sits contained in a
+     product-shot header and cards run tall with a scrollable body */
+  .mdeck__stage{padding:100px 12px 94px}
+  .mdeck__cards{height:min(78vh,660px)}
+  .mdeck__cards .mcat{grid-template-columns:1fr;grid-template-rows:clamp(210px,52vw,264px) 1fr}
   .mdeck__cards .mcat--flip .mcat__media{order:0}
-  .mdeck__cards .mcat .mcat__media{min-height:0;aspect-ratio:auto}
-  .mdeck__cards .mcat .mcat__body{padding:18px 18px 22px}
-  .mdeck__foot{margin-top:2vh}
+  .mdeck__cards .mcat .mcat__media{
+    min-height:0;aspect-ratio:auto;
+    background:linear-gradient(170deg,var(--ivory),var(--sage));
+    display:flex;align-items:center;justify-content:center;
+    padding:14px;
+  }
+  .mdeck__cards .mcat .mcat__media::after{display:none}
+  .mdeck__cards .mcat .mcat__media img{
+    position:static;inset:auto;width:auto;height:100%;max-width:100%;
+    object-fit:contain;object-position:50% 50%;
+    border-radius:14px;
+    box-shadow:0 14px 30px -12px rgba(18,53,40,.35);
+  }
+  .mdeck__cards .mcat .mcat__body{padding:20px 20px 26px}
+  .mdeck__foot{margin-top:1.4vh}
   .mcat__head .mprice{margin-top:10px}
   .mcat__title{display:block;font-size:1.3rem;line-height:1.25}
   .menunav{top:8px;gap:6px;padding:10px 64px 10px 10px;justify-content:flex-start;overflow-x:auto;scrollbar-width:none}
@@ -1960,7 +1973,7 @@ body.is-loaded .vpost__pin{animation:v-pin .55s cubic-bezier(.34,1.4,.64,1) 1.5s
   ::view-transition-old(root),::view-transition-new(root){animation:none}
 }
 
-/* static story fallback (reduced motion — set by JS) */
+/* static story fallback (reduced motion - set by JS) */
 body.is-static .shero{height:auto !important}
 body.is-static .hero{position:static;height:100svh}
 body.is-static .shero__steps{display:none}
