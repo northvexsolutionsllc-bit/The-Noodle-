@@ -1,6 +1,11 @@
 /* the noodle lounge, motion + interaction engine (vanilla, no deps) */
 (function () {
   "use strict";
+  // Entry authority marker: the inline HTML fallback only fires is-loaded if
+  // this flag is absent (main.js truly never arrived). Otherwise armEntrance
+  // at the end of this file is the SOLE entry trigger - slow-but-single
+  // beats fast-but-double.
+  window.__nlBoot = true;
 
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var finePointer = window.matchMedia("(pointer: fine)").matches;
