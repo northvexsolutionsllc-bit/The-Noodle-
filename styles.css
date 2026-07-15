@@ -424,6 +424,8 @@ body.is-loaded .pstrip{opacity:1;transform:none}
 /* pre-JS guard: the line masks are installed by main.js, so until ts-ready
    lands the heading must not paint in its final state (hero-flash trap) */
 :where(html.js) .tsplit:not(.ts-ready){opacity:0}
+/* rescue: main.js never arrived (inline fallback fired) - show raw headings */
+html.nl-nojs-late .tsplit{opacity:1}
 .tsplit .ts-line{display:block;overflow:hidden;padding-bottom:.14em;margin-bottom:-.14em}
 .tsplit .ts-inner{display:block;transform:translateY(122%);transition:transform 1.05s var(--ease);transition-delay:calc(var(--l,0) * 95ms)}
 /* v42: the heading joined the SAME entry gate as everything else.
