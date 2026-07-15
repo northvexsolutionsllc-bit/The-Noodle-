@@ -2104,6 +2104,17 @@ a,button,.mcard,[data-topping]{touch-action:manipulation}
      static (one-time rasterize); fixed chrome follows the drawer's
      solid-translucent precedent. */
   .dhero__glow,.tasting__glow{animation:none}
+  /* v37: v36 stopped the glow DRIFT but left the blur() filters, and the
+     iOS load freeze is the FIRST rasterization of those 500-720px blurred
+     layers before first paint. Every one of these backgrounds is already a
+     radial-gradient fading to transparent, so on touch the blur costs the
+     most while adding the least. Measured on 6x-throttled Chromium mobile:
+     109 rendered frames in 6s with the filters vs 367 without, worst
+     main-thread gap 717ms vs 400ms, load 2028ms vs 1125ms. */
+  .dhero__glow{filter:none;opacity:.26;will-change:auto}
+  .dbottle::before{filter:none}
+  .soda__glow{filter:none}
+  .tasting__glow{filter:blur(16px)}
   .botnav{backdrop-filter:none;-webkit-backdrop-filter:none;background:rgba(18,53,40,.96)}
   .menuBtn{backdrop-filter:none;-webkit-backdrop-filter:none;background:rgba(250,246,239,.94)}
   .menunav a{backdrop-filter:none;-webkit-backdrop-filter:none;background:rgba(250,246,239,.94)}

@@ -720,18 +720,19 @@
     var tNow = document.getElementById("tastingNow");
     var tBar = document.getElementById("tastingBar");
     var Nt = tImgs.length;
-    var tCur = 0;
+    var tCur = 0, tBooted = false;
     var tPinned = !reduceMotion;
 
     function tMeta(i) {
       var c = tCoasters[i];
       if (!c) return;
-      if (tGlow) tGlow.style.background = c.getAttribute("data-g");
+      if (tGlow) tGlow.style.background = "radial-gradient(circle, " + c.getAttribute("data-g") + " 0%, transparent 62%)";
       if (tCat) tCat.textContent = c.getAttribute("data-cat");
       if (tName) tName.textContent = c.getAttribute("data-name");
       if (tDesc) tDesc.textContent = c.getAttribute("data-desc");
       if (tNow) tNow.textContent = "0" + (i + 1);
-      if (tSwap && !reduceMotion) { tSwap.classList.remove("swap"); void tSwap.offsetWidth; tSwap.classList.add("swap"); }
+      if (tSwap && !reduceMotion && tBooted) { tSwap.classList.remove("swap"); void tSwap.offsetWidth; tSwap.classList.add("swap"); }
+      tBooted = true;
       tCoasters.forEach(function (b, j) {
         b.classList.toggle("is-on", j === i);
         b.setAttribute("aria-selected", j === i ? "true" : "false");

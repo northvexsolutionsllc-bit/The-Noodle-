@@ -47,9 +47,8 @@ def fresh(ctx, url):
         if m.type != "error":
             return
         u = (m.location or {}).get("url", "")
-        # errors sourced from non-local URLs are the hermetic route aborts
         if u and "127.0.0.1" not in u and "localhost" not in u:
-            return
+            return  # external-host noise (aborted fonts CDN)
         if not u and "ERR_FAILED" in m.text:
             return
         errs.append(m.text)
@@ -68,14 +67,14 @@ def sweep(pg, steps=14):
     pg.wait_for_timeout(250)
 
 def hermetic(ctx):
-    # the suite runs against the local server; external hosts (fonts CDN) are
-    # environment-dependent noise, so they are dropped at the context level
+    # external hosts (fonts CDN) are environment-dependent; drop them so the
+    # suite measures the site, not the sandbox's network policy
     ctx.route(re.compile(r"^https?://(?!127\.0\.0\.1|localhost)"), lambda r: r.abort())
     return ctx
 
 def run_engine(p, engine_name, launcher):
-    # PW_WEBKIT_PATH / PW_CHROMIUM_PATH override the pinned browser builds so
-    # the suite runs in environments with a preinstalled browser
+    # PW_WEBKIT_PATH / PW_CHROMIUM_PATH point at preinstalled browsers in
+    # environments where the pinned Playwright builds are unavailable
     exe = os.environ.get(f"PW_{engine_name.upper()}_PATH")
     browser = launcher.launch(executable_path=exe) if exe else launcher.launch()
 
@@ -127,8 +126,12 @@ def run_engine(p, engine_name, launcher):
         if "about:blank" in pg.url:
             pg.goto(BASE + url, wait_until="load"); pg.wait_for_timeout(300)
         sweep(pg)
-        stuck = pg.evaluate("[...document.querySelectorAll('.reveal.is-in, .tsplit.is-in')].filter(e=>parseFloat(getComputedStyle(e).opacity)<0.9).length")
-        check(f"{engine_name}/mob {url} no stuck reveals", stuck == 0, f"{stuck} revealed-but-invisible")
+        try:
+            pg.wait_for_function("[...document.querySelectorAll('.reveal.is-in, .tsplit.is-in')].every(e=>parseFloat(getComputedStyle(e).opacity)>=0.9)", timeout=4500)
+            stuck = 0
+        except Exception:
+            stuck = pg.evaluate("[...document.querySelectorAll('.reveal.is-in, .tsplit.is-in')].filter(e=>parseFloat(getComputedStyle(e).opacity)<0.9).length")
+        check(f"{engine_name}/mob {url} no stuck reveals", stuck == 0, f"{stuck} revealed-but-invisible after 4.5s")
         check(f"{engine_name}/mob {url} console clean", not errs, "; ".join(errs[:3]))
         check(f"{engine_name}/mob {url} no 4xx/5xx", not bad, "; ".join(bad[:3]))
         pg.close()
@@ -183,13 +186,30 @@ def run_engine(p, engine_name, launcher):
         if "about:blank" in pg.url or not pg.evaluate("!!document.getElementById('nav')"):
             pg.goto(BASE + url, wait_until="load"); pg.wait_for_timeout(300)
         sweep(pg, steps=16)
-        stuck = pg.evaluate("[...document.querySelectorAll('.reveal.is-in, .tsplit.is-in')].filter(e=>parseFloat(getComputedStyle(e).opacity)<0.9).length")
-        check(f"{engine_name}/desk {url} no stuck reveals", stuck == 0, f"{stuck} revealed-but-invisible")
-        pg.evaluate("window.scrollTo({top:1400,behavior:'instant'})"); pg.wait_for_timeout(60)
-        pg.evaluate("window.scrollTo({top:1900,behavior:'instant'})"); pg.wait_for_timeout(200)
-        hidden = pg.evaluate("document.getElementById('nav').classList.contains('is-hidden')")
-        pg.evaluate("window.scrollTo({top:1500,behavior:'instant'})"); pg.wait_for_timeout(250)
-        shown = pg.evaluate("!document.getElementById('nav').classList.contains('is-hidden')")
+        try:
+            pg.wait_for_function("[...document.querySelectorAll('.reveal.is-in, .tsplit.is-in')].every(e=>parseFloat(getComputedStyle(e).opacity)>=0.9)", timeout=4500)
+            stuck = 0
+        except Exception:
+            stuck = pg.evaluate("[...document.querySelectorAll('.reveal.is-in, .tsplit.is-in')].filter(e=>parseFloat(getComputedStyle(e).opacity)<0.9).length")
+        check(f"{engine_name}/desk {url} no stuck reveals", stuck == 0, f"{stuck} revealed-but-invisible after 4.5s")
+        maxY = pg.evaluate("document.documentElement.scrollHeight - innerHeight")
+        hideY = min(1900, max(600, maxY - 60)); showY = max(300, hideY - 400)
+        pg.evaluate("window.scrollTo({top:%d,behavior:'instant'})" % max(300, hideY - 500)); pg.wait_for_timeout(150)
+        pg.evaluate("window.scrollTo({top:%d,behavior:'instant'})" % hideY)
+        try: pg.wait_for_function("Math.abs(window.scrollY-%d)<3" % hideY, timeout=2000)
+        except Exception: pass
+        pg.evaluate("window.scrollBy(0,12)")  # guarantee a scroll event; +12 keeps the downward direction past the 6px threshold
+        pg.wait_for_timeout(150)
+        try:
+            pg.wait_for_function("document.getElementById('nav').classList.contains('is-hidden')", timeout=2500); hidden = True
+        except Exception: hidden = False
+        pg.evaluate("window.scrollTo({top:%d,behavior:'instant'})" % showY)
+        try: pg.wait_for_function("Math.abs(window.scrollY-%d)<3" % showY, timeout=2000)
+        except Exception: pass
+        pg.evaluate("window.scrollBy(0,-12)")  # upward past the 6px show threshold
+        try:
+            pg.wait_for_function("!document.getElementById('nav').classList.contains('is-hidden')", timeout=2500); shown = True
+        except Exception: shown = False
         check(f"{engine_name}/desk {url} nav hide/show", hidden and shown, f"hidden={hidden} shown={shown}")
         check(f"{engine_name}/desk {url} console clean", not errs, "; ".join(errs[:3]))
         check(f"{engine_name}/desk {url} no 4xx/5xx", not bad, "; ".join(bad[:3]))
@@ -198,8 +218,18 @@ def run_engine(p, engine_name, launcher):
     pg, errs, bad = fresh(desk, "index.html"); pg.wait_for_timeout(400)
     def probe():
         pg.evaluate("window.scrollTo({top:Math.round(document.querySelector('[data-story=stack]').offsetTop + 900),behavior:'instant'})")
-        pg.wait_for_timeout(320)
-        return pg.evaluate("document.querySelector('[data-scard]').style.transform")
+        # the stack runner smooths toward the target per scroll tick; a teleport
+        # delivers one tick, so feed it a few micro-scroll events to converge
+        for _ in range(10):
+            pg.evaluate("window.scrollBy(0,1);window.scrollBy(0,-1)")
+            pg.wait_for_timeout(80)
+        last = None
+        for _ in range(12):
+            pg.wait_for_timeout(150)
+            cur = pg.evaluate("document.querySelector('[data-scard]').style.transform")
+            if cur == last: break
+            last = cur
+        return last
     t1 = probe(); pg.evaluate("window.scrollTo(0,0)"); pg.wait_for_timeout(250); t2 = probe()
     check(f"{engine_name}/desk pinned engine deterministic", t1 == t2 and t1 != "", f"{t1[:38]} vs {t2[:38]}")
     pg.close()
