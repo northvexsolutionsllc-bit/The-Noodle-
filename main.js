@@ -852,7 +852,7 @@
           "700 1em Outfit", "800 1em Outfit", "400 1em Fraunces", "500 1em Fraunces",
           "600 1em Fraunces", "italic 400 1em Fraunces", "italic 600 1em Fraunces"];
         Promise.all(faces.map(function (f) { return F.load(f); })).then(go, go);
-        setTimeout(go, 900); // a slow network must never hold the hero hostage
+        setTimeout(go, 350); // fonts have display:swap; never hold the hero hostage
       } else go();
     } catch (e) { go(); }
   })();

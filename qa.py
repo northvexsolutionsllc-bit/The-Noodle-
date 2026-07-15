@@ -48,7 +48,7 @@ def fresh(ctx, url):
             return
         u = (m.location or {}).get("url", "")
         if u and "127.0.0.1" not in u and "localhost" not in u:
-            return  # external-host noise (aborted fonts CDN)
+            return
         if not u and "ERR_FAILED" in m.text:
             return
         errs.append(m.text)
@@ -67,14 +67,13 @@ def sweep(pg, steps=14):
     pg.wait_for_timeout(250)
 
 def hermetic(ctx):
-    # external hosts (fonts CDN) are environment-dependent; drop them so the
-    # suite measures the site, not the sandbox's network policy
+    # external hosts (fonts CDN) are environment-dependent noise here
     ctx.route(re.compile(r"^https?://(?!127\.0\.0\.1|localhost)"), lambda r: r.abort())
     return ctx
 
 def run_engine(p, engine_name, launcher):
-    # PW_WEBKIT_PATH / PW_CHROMIUM_PATH point at preinstalled browsers in
-    # environments where the pinned Playwright builds are unavailable
+    # PW_WEBKIT_PATH / PW_CHROMIUM_PATH point at preinstalled browsers where
+    # the pinned Playwright builds are unavailable
     exe = os.environ.get(f"PW_{engine_name.upper()}_PATH")
     browser = launcher.launch(executable_path=exe) if exe else launcher.launch()
 
@@ -198,7 +197,7 @@ def run_engine(p, engine_name, launcher):
         pg.evaluate("window.scrollTo({top:%d,behavior:'instant'})" % hideY)
         try: pg.wait_for_function("Math.abs(window.scrollY-%d)<3" % hideY, timeout=2000)
         except Exception: pass
-        pg.evaluate("window.scrollBy(0,12)")  # guarantee a scroll event; +12 keeps the downward direction past the 6px threshold
+        pg.mouse.wheel(0, 260)  # real wheel events = the event stream actual users produce
         pg.wait_for_timeout(150)
         try:
             pg.wait_for_function("document.getElementById('nav').classList.contains('is-hidden')", timeout=2500); hidden = True
@@ -206,10 +205,12 @@ def run_engine(p, engine_name, launcher):
         pg.evaluate("window.scrollTo({top:%d,behavior:'instant'})" % showY)
         try: pg.wait_for_function("Math.abs(window.scrollY-%d)<3" % showY, timeout=2000)
         except Exception: pass
-        pg.evaluate("window.scrollBy(0,-12)")  # upward past the 6px show threshold
-        try:
-            pg.wait_for_function("!document.getElementById('nav').classList.contains('is-hidden')", timeout=2500); shown = True
-        except Exception: shown = False
+        shown = False
+        for _ in range(5):  # real upward wheel; heavy pages may need a couple of ticks
+            pg.mouse.wheel(0, -260)
+            try:
+                pg.wait_for_function("!document.getElementById('nav').classList.contains('is-hidden')", timeout=900); shown = True; break
+            except Exception: pass
         check(f"{engine_name}/desk {url} nav hide/show", hidden and shown, f"hidden={hidden} shown={shown}")
         check(f"{engine_name}/desk {url} console clean", not errs, "; ".join(errs[:3]))
         check(f"{engine_name}/desk {url} no 4xx/5xx", not bad, "; ".join(bad[:3]))
