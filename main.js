@@ -382,8 +382,12 @@
   for (var sr = 0; sr < storyRunners.length; sr++) storyRunners[sr]();
 
   /* ---------- split headlines into masked lines ---------- */
-  if (!reduceMotion) {
-    document.querySelectorAll(".tsplit").forEach(function (el) {
+  // headings are opacity:0 from parse time (see .tsplit:not(.ts-ready) in CSS)
+  // so slow networks never show them in final state before the mask animates;
+  // ts-ready lifts the guard in the same synchronous pass that installs the
+  // line masks, so there is no visible in-between frame.
+  document.querySelectorAll(".tsplit").forEach(function (el) {
+    if (!reduceMotion) {
       var frag = document.createDocumentFragment();
       // split on <br> boundaries or single line
       var parts = el.innerHTML.split(/<br\s*\/?>/i);
@@ -399,8 +403,9 @@
         frag.appendChild(line);
       });
       el.appendChild(frag);
-    });
-  }
+    }
+    el.classList.add("ts-ready");
+  });
 
   /* ---------- reveal on scroll (reveal / tsplit / imgframe) ---------- */
   document.querySelectorAll('[data-reveal="stagger"]').forEach(function (group) {
