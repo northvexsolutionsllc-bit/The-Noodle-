@@ -6,9 +6,12 @@
   var finePointer = window.matchMedia("(pointer: fine)").matches;
 
   /* ---------- page load ---------- */
-  // body.is-loaded is added by a tiny inline double-rAF script in each page's
-  // HTML (guarantees one painted frame first, so entry transitions play);
-  // main.js must not add it earlier or the .pstrip transition gets skipped.
+  // The whole entry choreography fires from ONE trigger at the END of this
+  // file (armEntrance): after the split-text masks and reveal observers are
+  // installed AND the web fonts have settled (Safari restarts running CSS
+  // animations when a font face activates, and a late-arriving deferred
+  // main.js used to split the choreography into two visible pulses on iOS).
+  // Each page's HTML keeps only a 2.6s safety timer as a fallback.
 
   /* ---------- live open/closed (America/Los_Angeles) ---------- */
   var HOURS = { 0: [720, 1350], 1: [600, 1350], 2: [600, 1350], 3: [600, 1350], 4: [600, 1350], 5: [600, 1350], 6: [600, 1350] };
@@ -830,4 +833,27 @@
       mapBtn.remove();
     }, { once: true });
   }
+
+  /* ---------- entry choreography: one trigger, after masks + fonts ---------- */
+  (function armEntrance() {
+    var fired = false;
+    function go() {
+      if (fired) return;
+      fired = true;
+      // double-rAF guarantees one painted frame so entry transitions play
+      requestAnimationFrame(function () {
+        requestAnimationFrame(function () { document.body.classList.add("is-loaded"); });
+      });
+    }
+    try {
+      var F = document.fonts;
+      if (F && F.load) {
+        var faces = ["300 1em Outfit", "400 1em Outfit", "500 1em Outfit", "600 1em Outfit",
+          "700 1em Outfit", "800 1em Outfit", "400 1em Fraunces", "500 1em Fraunces",
+          "600 1em Fraunces", "italic 400 1em Fraunces", "italic 600 1em Fraunces"];
+        Promise.all(faces.map(function (f) { return F.load(f); })).then(go, go);
+        setTimeout(go, 900); // a slow network must never hold the hero hostage
+      } else go();
+    } catch (e) { go(); }
+  })();
 })();
