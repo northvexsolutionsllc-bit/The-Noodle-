@@ -2078,6 +2078,13 @@ body.is-static .ccard{transform:none !important}
    in practice: touch has no hover concept, and the drawer bg is near-opaque)
    ========================================================================== */
 a,button,.mcard,[data-topping]{touch-action:manipulation}
+@supports (-webkit-touch-callout: none){
+  /* iOS only: when Safari minimizes its bottom bar, safe-area-inset-bottom
+     collapses and the tab row ends up inside Safari's tap-to-restore strip -
+     the first tap re-expands the browser UI and never reaches the page.
+     Keep a hard floor so the tabs always sit above that strip. */
+  .botnav{bottom:max(30px, calc(14px + env(safe-area-inset-bottom, 0px)))}
+}
 @media (hover:none){
   .btn:hover,.pslot__cta:hover,.nav__cta:hover,.navCta:hover,
   .hero__social a:hover,.menunav a:hover,.coaster:hover,
@@ -2091,6 +2098,22 @@ a,button,.mcard,[data-topping]{touch-action:manipulation}
   .nav__brand:hover .nav__logo,.tline__card:hover .tline__fig img{
     transform:none !important;
   }
+  /* iOS GPU relief, measured under 6x CPU throttle: the drifting hero glows
+     and always-on backdrop blurs on fixed chrome were the biggest main-thread
+     blocks (412ms task with them, 181ms without). Glows stay visible but
+     static (one-time rasterize); fixed chrome follows the drawer's
+     solid-translucent precedent. */
+  .dhero__glow,.tasting__glow{animation:none}
+  .botnav{backdrop-filter:none;-webkit-backdrop-filter:none;background:rgba(18,53,40,.96)}
+  .menuBtn{backdrop-filter:none;-webkit-backdrop-filter:none;background:rgba(250,246,239,.94)}
+  .menunav a{backdrop-filter:none;-webkit-backdrop-filter:none;background:rgba(250,246,239,.94)}
+  .btn--outline-light{backdrop-filter:none;-webkit-backdrop-filter:none;background:rgba(18,53,40,.35)}
+  .hero__statusPill{backdrop-filter:none;-webkit-backdrop-filter:none;background:rgba(18,53,40,.62)}
+  /* WebKit rasterizes blur-transitioning text poorly (glyphs stick mid-blur,
+     see the ghosted footer in the iOS recording) - reveals enter with
+     opacity+transform only on touch; blur-in stays on desktop */
+  :where(html.js) .reveal{filter:none;transition:opacity .95s var(--ease),transform .95s var(--ease)}
+  :where(html.js) .reveal[data-reveal="stagger"] > *{filter:none;transition:opacity .85s var(--ease),transform .85s var(--ease);transition-delay:calc(var(--i,0) * 90ms)}
   .dbottle:hover .dbottle__fig::after,.navCta:hover::after{animation:none !important}
   .enight__thumb{opacity:1}
   .drawer{
