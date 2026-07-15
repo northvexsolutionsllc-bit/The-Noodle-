@@ -426,7 +426,12 @@ body.is-loaded .pstrip{opacity:1;transform:none}
 :where(html.js) .tsplit:not(.ts-ready){opacity:0}
 .tsplit .ts-line{display:block;overflow:hidden;padding-bottom:.14em;margin-bottom:-.14em}
 .tsplit .ts-inner{display:block;transform:translateY(122%);transition:transform 1.05s var(--ease);transition-delay:calc(var(--l,0) * 95ms)}
-.tsplit.is-in .ts-inner{transform:translateY(0)}
+/* v42: the heading joined the SAME entry gate as everything else.
+   Before, .is-in (IntersectionObserver, fires at JS-exec time) released
+   the heading ~1-2s before the fonts-gated body.is-loaded released the
+   rest - on iPhone that always split the hero into two visible acts
+   ("animation played, then started again"). One gate = one flow. */
+body.is-loaded .tsplit.is-in .ts-inner{transform:translateY(0)}
 
 /* image reveal frames (parallax inside) */
 .imgframe{position:relative;overflow:hidden;border-radius:var(--r-lg)}
