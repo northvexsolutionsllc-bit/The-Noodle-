@@ -16,7 +16,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,600&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="./styles.css?v=39" />
+<link rel="stylesheet" href="./styles.css?v=40" />
 </head>
 <body>
 
@@ -286,7 +286,7 @@
   </div>
 </footer>
 
-<script>requestAnimationFrame(function(){requestAnimationFrame(function(){document.body.classList.add("is-loaded");});});</script>
-<script src="./main.js?v=39" defer></script>
+<script>(function(){var fired=false;function go(){if(fired)return;fired=true;requestAnimationFrame(function(){requestAnimationFrame(function(){document.body.classList.add("is-loaded");});});}try{var F=document.fonts;if(F&&F.load){var faces=["300 1em Outfit","400 1em Outfit","500 1em Outfit","600 1em Outfit","700 1em Outfit","800 1em Outfit","400 1em Fraunces","500 1em Fraunces","600 1em Fraunces","italic 400 1em Fraunces","italic 600 1em Fraunces"];Promise.all(faces.map(function(f){return F.load(f);})).then(go,go);setTimeout(go,900);}else{go();}}catch(e){go();}})();</script>
+<script src="./main.js?v=40" defer></script>
 </body>
 </html>
