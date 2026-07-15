@@ -2149,3 +2149,12 @@ a,button,.mcard,[data-topping]{touch-action:manipulation}
   .tasting__floor{height:6px}
   .tasting__tilt{width:min(52%,240px,18vh)}
 }
+
+/* return visit (same session, same page): on reload/back iOS Safari first
+   shows its snapshot of the page - fully rendered - then the real first
+   paint hides the hero behind its entrance guard, which reads as the hero
+   blinking away and re-animating. The second open of a page skips the home
+   hero entrance and paints it settled; the first open keeps the full
+   choreography. (html.seen is set by the inline head script from a
+   per-pathname sessionStorage key, before first paint.) */
+html.seen .pstrip{opacity:1;transform:none;transition:none}
