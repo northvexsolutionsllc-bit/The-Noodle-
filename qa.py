@@ -1,7 +1,7 @@
 """Noodle Lounge QA: first-tap reliability, console cleanliness, scroll-engine
 stability. Runs the real WebKit (Safari engine) + Chromium."""
 from playwright.sync_api import sync_playwright
-import sys, threading, functools, os
+import re, sys, threading, functools, os
 from http.server import ThreadingHTTPServer, SimpleHTTPRequestHandler
 
 import pathlib
@@ -43,7 +43,17 @@ def check(label, ok, detail=""):
 def fresh(ctx, url):
     pg = ctx.new_page()
     errs, bad = [], []
-    pg.on("console", lambda m: errs.append(m.text) if m.type == "error" else None)
+    def _on_console(m):
+        if m.type != "error":
+            return
+        u = (m.location or {}).get("url", "")
+        # errors sourced from non-local URLs are the hermetic route aborts
+        if u and "127.0.0.1" not in u and "localhost" not in u:
+            return
+        if not u and "ERR_FAILED" in m.text:
+            return
+        errs.append(m.text)
+    pg.on("console", _on_console)
     pg.on("pageerror", lambda e: errs.append("pageerror: " + str(e)))
     pg.on("response", lambda r: bad.append(f"{r.status} {r.url}") if r.status >= 400 and not any(a in r.url for a in ALLOWED_404) else None)
     pg.goto(BASE + url, wait_until="load")
@@ -57,13 +67,22 @@ def sweep(pg, steps=14):
     pg.evaluate("window.scrollTo({top:0,behavior:'instant'})")
     pg.wait_for_timeout(250)
 
+def hermetic(ctx):
+    # the suite runs against the local server; external hosts (fonts CDN) are
+    # environment-dependent noise, so they are dropped at the context level
+    ctx.route(re.compile(r"^https?://(?!127\.0\.0\.1|localhost)"), lambda r: r.abort())
+    return ctx
+
 def run_engine(p, engine_name, launcher):
-    browser = launcher.launch()
+    # PW_WEBKIT_PATH / PW_CHROMIUM_PATH override the pinned browser builds so
+    # the suite runs in environments with a preinstalled browser
+    exe = os.environ.get(f"PW_{engine_name.upper()}_PATH")
+    browser = launcher.launch(executable_path=exe) if exe else launcher.launch()
 
     # ---------- MOBILE (iPhone 12 class: 390x844, touch, 3x) ----------
-    mob = browser.new_context(viewport={"width":390,"height":844}, device_scale_factor=3,
+    mob = hermetic(browser.new_context(viewport={"width":390,"height":844}, device_scale_factor=3,
                               is_mobile=(engine_name=="chromium"), has_touch=True,
-                              user_agent="Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1")
+                              user_agent="Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1"))
     for url in PAGES:
         pg, errs, bad = fresh(mob, url)
         pg.wait_for_timeout(400)
@@ -148,7 +167,7 @@ def run_engine(p, engine_name, launcher):
     mob.close()
 
     # ---------- DESKTOP 1440x900 ----------
-    desk = browser.new_context(viewport={"width":1440,"height":900})
+    desk = hermetic(browser.new_context(viewport={"width":1440,"height":900}))
     for url in PAGES:
         pg, errs, bad = fresh(desk, url)
         pg.wait_for_timeout(350)
@@ -188,11 +207,11 @@ def run_engine(p, engine_name, launcher):
     browser.close()
 
 with sync_playwright() as p:
-    run_engine(p, "webkit", p.webkit)
-    try:
-        run_engine(p, "chromium", p.chromium)
-    except Exception as e:
-        check("chromium engine available", False, str(e)[:120])
+    for engine_name, launcher in (("webkit", p.webkit), ("chromium", p.chromium)):
+        try:
+            run_engine(p, engine_name, launcher)
+        except Exception as e:
+            check(f"{engine_name} engine available", False, str(e)[:120])
 
 passed = sum(1 for _, ok, _ in results if ok)
 print(f"\n===== {passed}/{len(results)} checks passed =====")
