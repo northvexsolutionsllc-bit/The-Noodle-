@@ -846,6 +846,7 @@
       });
     }
     try {
+      if (reduceMotion) return go(); // static poses land instantly, no font wait
       var F = document.fonts;
       if (F && F.load) {
         var faces = ["300 1em Outfit", "400 1em Outfit", "500 1em Outfit", "600 1em Outfit",
