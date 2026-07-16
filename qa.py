@@ -86,9 +86,9 @@ def run_engine(p, engine_name, launcher):
         pg.wait_for_timeout(400)
         check(f"{engine_name}/mob {url} html.js tagged", pg.evaluate("document.documentElement.classList.contains('js')"))
         try:
-            pg.wait_for_function("document.body.classList.contains('is-loaded')", timeout=2500); il = True
+            pg.wait_for_function("document.body.classList.contains('hero-live')", timeout=2500); il = True
         except Exception: il = False
-        check(f"{engine_name}/mob {url} is-loaded at parse", il)
+        check(f"{engine_name}/mob {url} hero-live gate fires", il)
         hit = pg.evaluate("(()=>{const e=document.elementFromPoint(195,500);return e?(e.id||e.className.toString().slice(0,40)):'none'})()")
         check(f"{engine_name}/mob {url} no overlay intercept", "drawer" not in str(hit) and "progress" not in str(hit), f"hit={hit}")
         pg.tap("#menuBtn")
