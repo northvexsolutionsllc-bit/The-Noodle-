@@ -2247,3 +2247,9 @@ html.ios .vpost__pin{animation:none !important}
    (toggled by an IntersectionObserver in main.js; resumes mid-cycle on
    re-entry so on-screen visuals are pixel-identical) */
 .is-offview,.is-offview *,.is-offview *::before,.is-offview *::after{animation-play-state:paused !important}
+
+/* signature deck card: chips + photo thumb share one row so the card body
+   stays inside the deck's fixed height */
+.mcat__row{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.mcat__row .mcat__chips{margin-top:0}
+.mcat__thumbs--inline{margin-top:-6px}
