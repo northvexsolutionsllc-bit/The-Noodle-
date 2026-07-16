@@ -1,22 +1,49 @@
 /* the noodle lounge, motion + interaction engine (vanilla, no deps) */
 (function () {
   "use strict";
-  // Entry authority marker: the inline HTML fallback only fires is-loaded if
-  // this flag is absent (main.js truly never arrived). Otherwise armEntrance
-  // at the end of this file is the SOLE entry trigger - slow-but-single
-  // beats fast-but-double.
+  // Boot marker: the inline per-page rescue only fires the hero gate if this
+  // flag is absent (main.js truly never arrived). Otherwise the heroEntrance
+  // module below is the SOLE authority for body.hero-live.
   window.__nlBoot = true;
+
+  /* ================= HERO ENTRANCE (v53 clean rebuild) =================
+     One gate, one authority: body.hero-live releases every hero element
+     on every page - split headings included - so the entrance is always
+     a single act (a second trigger is what historically split it into
+     the iPhone "plays then restarts" double). It fires on EVERY page
+     open, all platforms: double-rAF after boot guarantees one painted
+     frame so the transitions actually run, with at most a 300ms font
+     grace (fonts are display:swap - never a hard gate). bfcache
+     restores land settled and never replay. */
+  (function heroEntrance() {
+    var fired = false;
+    function live() {
+      if (fired) return;
+      fired = true;
+      requestAnimationFrame(function () {
+        requestAnimationFrame(function () { document.body.classList.add("hero-live"); });
+      });
+    }
+    try {
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        fired = true;
+        document.body.classList.add("hero-live"); // settle instantly, no motion
+      } else {
+        var grace = setTimeout(live, 300);
+        if (document.fonts && document.fonts.ready && document.fonts.ready.then) {
+          document.fonts.ready.then(function () { clearTimeout(grace); live(); },
+            function () { clearTimeout(grace); live(); });
+        } else { clearTimeout(grace); live(); }
+      }
+    } catch (e) { fired = true; document.body.classList.add("hero-live"); }
+    window.addEventListener("pageshow", function (e) {
+      if (e.persisted) { fired = true; document.body.classList.add("hero-live"); }
+    });
+  })();
 
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var finePointer = window.matchMedia("(pointer: fine)").matches;
 
-  /* ---------- page load ---------- */
-  // The whole entry choreography fires from ONE trigger at the END of this
-  // file (armEntrance): after the split-text masks and reveal observers are
-  // installed AND the web fonts have settled (Safari restarts running CSS
-  // animations when a font face activates, and a late-arriving deferred
-  // main.js used to split the choreography into two visible pulses on iOS).
-  // Each page's HTML keeps only a 2.6s safety timer as a fallback.
 
   /* ---------- live open/closed (America/Los_Angeles) ---------- */
   var HOURS = { 0: [720, 1350], 1: [600, 1350], 2: [600, 1350], 3: [600, 1350], 4: [600, 1350], 5: [600, 1350], 6: [600, 1350] };
@@ -892,29 +919,4 @@
   }
 
   /* ---------- entry choreography: one trigger, after masks + fonts ---------- */
-  (function armEntrance() {
-    var fired = false;
-    function go() {
-      if (fired) return;
-      fired = true;
-      // double-rAF guarantees one painted frame so entry transitions play
-      requestAnimationFrame(function () {
-        requestAnimationFrame(function () { document.body.classList.add("is-loaded"); });
-      });
-    }
-    try {
-      // repeat view: heroes have transition:none under html.seen - land
-      // settled immediately, no font wait, nothing to replay
-      if (document.documentElement.classList.contains("seen")) return go();
-      if (reduceMotion) return go(); // static poses land instantly, no font wait
-      var F = document.fonts;
-      if (F && F.load) {
-        var faces = ["300 1em Outfit", "400 1em Outfit", "500 1em Outfit", "600 1em Outfit",
-          "700 1em Outfit", "800 1em Outfit", "400 1em Fraunces", "500 1em Fraunces",
-          "600 1em Fraunces", "italic 400 1em Fraunces", "italic 600 1em Fraunces"];
-        Promise.all(faces.map(function (f) { return F.load(f); })).then(go, go);
-        setTimeout(go, 350); // fonts have display:swap; never hold the hero hostage
-      } else go();
-    } catch (e) { go(); }
-  })();
 })();
