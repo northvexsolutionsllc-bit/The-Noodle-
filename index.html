@@ -19,6 +19,33 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,600&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="./styles.css?v=44" />
+<script>
+/* nl-debug: inert unless ?debug=1 - shows an on-device event timeline */
+if(location.search.indexOf("debug")>-1){(function(){
+var L=[],t0=performance.now(),D=null;
+function log(n){L.push(String((performance.now()-t0)|0).padStart(5," ")+"ms  "+n);if(L.length>120)L.shift();if(D)D.textContent=L.join("\n")}
+try{var nav=(performance.getEntriesByType("navigation")[0]||{}).type||"?";log("NAV-TYPE: "+nav+(nav==="reload"?"  <<< PAGE WAS RELOADED!":""))}catch(e){}
+log("UA: "+navigator.userAgent.split("(")[1].split(")")[0]);
+log("viewport "+innerWidth+"x"+innerHeight+" dpr"+devicePixelRatio);
+addEventListener("DOMContentLoaded",function(){
+  D=document.createElement("pre");
+  D.style.cssText="position:fixed;z-index:2147483647;bottom:84px;left:6px;right:6px;max-height:46vh;overflow:auto;background:rgba(0,0,0,.9);color:#7CFC7C;font:9px/1.45 Menlo,monospace;padding:8px;border-radius:10px;pointer-events:none;white-space:pre";
+  document.body.appendChild(D);D.textContent=L.join("\n");
+  new MutationObserver(function(){log("BODY CLASS -> ["+document.body.className+"]")}).observe(document.body,{attributes:true,attributeFilter:["class"]});
+  new MutationObserver(function(){log("HTML CLASS -> ["+document.documentElement.className+"]")}).observe(document.documentElement,{attributes:true,attributeFilter:["class"]});
+});
+document.fonts&&document.fonts.ready.then(function(){log("FONTS ready")});
+var iv=setInterval(function(){if(document.querySelector(".ts-inner")){log("MAIN.JS: heading split done");clearInterval(iv)}},40);
+setTimeout(function(){clearInterval(iv);if(!document.querySelector(".ts-inner"))log("MAIN.JS: heading NOT split after 6s <<<")},6000);
+addEventListener("animationstart",function(e){log("ANIM  "+e.animationName+"  "+(e.target.className||e.target.tagName).toString().slice(0,22))},true);
+addEventListener("animationcancel",function(e){log("CANCEL "+e.animationName+" <<<")},true);
+addEventListener("transitionrun",function(e){if(e.propertyName==="opacity"||e.propertyName==="transform")log("TRAN  "+e.propertyName+"  "+(e.target.className||"").toString().slice(0,22))},true);
+addEventListener("resize",function(){log("RESIZE "+innerWidth+"x"+innerHeight)});
+addEventListener("pageshow",function(e){log("PAGESHOW persisted="+e.persisted)});
+document.addEventListener("visibilitychange",function(){log("VIS "+document.visibilityState)});
+addEventListener("scroll",function(){if(!window.__ls||Math.abs(scrollY-__ls)>200){window.__ls=scrollY;log("scroll y="+(scrollY|0))}},{passive:true});
+})()}
+</script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
