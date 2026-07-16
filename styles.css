@@ -2227,3 +2227,12 @@ body.is-static .vpost__card,body.is-static .vpost__stamp,body.is-static .vpost__
   transition:none;
 }
 body.is-static .dbottle::before{opacity:.4;transition:none}
+
+/* iOS: hero animations fully off. The head script adds html.ios (+seen, which
+   already zeroes every entrance transition and fast-paths is-loaded); this
+   block silences the remaining ambient hero loops. Other platforms unchanged. */
+html.ios .pslot__fig,html.ios .phero__fig,html.ios .hero__down,
+html.ios .dhero__glow--pink,html.ios .dhero__glow--blue,html.ios .dhero__glow--butter,
+html.ios .dbottle__fig,
+html.ios .bscene__mini--packets,html.ios .bscene__mini--toppings,html.ios .bscene__steam i,
+html.ios .vpost__pin{animation:none !important}
