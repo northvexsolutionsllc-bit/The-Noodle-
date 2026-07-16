@@ -539,6 +539,7 @@ body.is-loaded .tsplit.is-in .ts-inner{transform:translateY(0)}
 .soda__head{text-align:center;padding:96px 22px 2vh;position:relative;z-index:2}
 .soda__scene{position:relative;flex:1;perspective:1300px;z-index:2}
 .dcard{
+  contain:layout paint;
   position:absolute;left:50%;top:50%;
   width:min(300px,74vw);
   margin-left:calc(min(300px,74vw) / -2);
@@ -2241,3 +2242,8 @@ html.ios .vpost__pin{animation:none !important}
 .vrow strong a,.vrow a{display:inline-block;padding:12px 0;margin:-12px 0}
 .textlink{color:var(--emerald);font-weight:600;display:inline-block;padding:12px 2px;margin:-12px -2px}
 .bline__rail button{padding:10px 0;margin:-10px 0}
+
+/* perf: ambient keyframe loops pause while their section is offscreen
+   (toggled by an IntersectionObserver in main.js; resumes mid-cycle on
+   re-entry so on-screen visuals are pixel-identical) */
+.is-offview,.is-offview *,.is-offview *::before,.is-offview *::after{animation-play-state:paused !important}

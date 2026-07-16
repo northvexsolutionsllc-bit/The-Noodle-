@@ -89,6 +89,19 @@
     else if (mq.addListener) mq.addListener(onFlip);
   })();
   var storyRunners = [];
+  // perf: a story runner only needs to write styles while its section can be
+  // seen. Each runner is registered with its section element and skipped when
+  // the section is fully offscreen (±160px margin so pinned stages are posed
+  // before they enter). First call always runs so initial poses exist.
+  function addRunner(el, fn) {
+    var first = true;
+    storyRunners.push(function () {
+      if (first) { first = false; fn(); return; }
+      var r = el.getBoundingClientRect();
+      if (r.bottom < -160 || r.top > viewH() + 160) return;
+      fn();
+    });
+  }
 
   // iOS Safari: window.innerHeight changes as the URL bar collapses, which
   // would make scroll progress jump mid-gesture. documentElement.clientHeight
@@ -170,7 +183,7 @@
     if (!reduceMotion) {
       // pin the hero: each scroll segment steps to the next slide
       shero.style.height = (N * 70 + 55) + SVH;
-      storyRunners.push(function () {
+      addRunner(shero, function () {
         var p = sectionProgress(shero);
         var idx = Math.min(N - 1, Math.floor(p * N * 0.999));
         goTo(idx);
@@ -194,7 +207,7 @@
     var stackCards = document.getElementById("stackCards");
     var stackPanel = document.getElementById("stackPanel");
     stack.style.height = 420 + SVH;
-    storyRunners.push(function () {
+    addRunner(stack, function () {
       var p = sectionProgress(stack);
       // phases: cards rise 0-.16/.17-.33/.34-.50 · rest · settle .58-.82 · hold to 1
       cards.forEach(function (c, i) {
@@ -230,7 +243,7 @@
       stack.parentNode.insertBefore(mPanel, stack.nextSibling);
     }
     stack.style.height = 320 + SVH; // 100svh stage + ~73svh of scroll per card
-    storyRunners.push(function () {
+    addRunner(stack, function () {
       var p = sectionProgress(stack);
       mCards.forEach(function (c, i) {
         // cards rise one after another: 0-.28 / .33-.61 / .66-.94
@@ -253,7 +266,7 @@
     var ccards = track ? Array.prototype.slice.call(track.children) : [];
     var Nc = ccards.length;
     cinema.style.height = (100 + (Nc - 1) * 55) + SVH;
-    storyRunners.push(function () {
+    addRunner(cinema, function () {
       var p = sectionProgress(cinema);
       if (!track || !Nc) return;
       // read layout once, then derive every card's distance from center
@@ -279,29 +292,52 @@
     var glow = document.getElementById("sodaGlow");
     var sbar = document.getElementById("sodaBar");
     soda.style.height = (100 + (Nd - 1) * 55) + SVH;
-    storyRunners.push(function () {
+    // perf: quantize every written value and skip writes when unchanged -
+    // a hidden card (opacity 0) keeps its stale transform, a parked scroll
+    // position produces zero style mutations, and the sheen only moves on
+    // the cards near focus where it is actually visible.
+    var sodaLast = drinks.map(function () { return { t: "", o: "", z: "", sh: null }; });
+    var sodaLastFocus = -1, sodaLastF = "";
+    addRunner(soda, function () {
       var p = sectionProgress(soda) * (Nd - 1);
       drinks.forEach(function (card, i) {
         var off = i - p;                       // 0 = focused
         var a = Math.abs(off);
-        var x = off * Math.min(window.innerWidth * (isMobile ? 0.3 : 0.24), 340);
-        var rotY = Math.max(-32, Math.min(32, -off * 22));
-        var z = -a * 190;
-        var sc = 1 - Math.min(0.16, a * 0.07);
+        var last = sodaLast[i];
         var op = a > 2.4 ? 0 : 1 - Math.max(0, (a - 1) * 0.35);
-        card.style.transform = "translateY(-50%) translateX(" + x + "px) translateZ(" + z + "px) rotateY(" + rotY + "deg) scale(" + sc + ")";
-        card.style.opacity = String(Math.max(0, op));
-        card.style.zIndex = String(100 - Math.round(a * 10));
-        // glass sheen sweeps across the focused card
-        var media = card.querySelector(".dcard__media");
-        if (media) media.style.setProperty("--sheen", ((0.5 - off) * 240 - 120) + "%");
+        var oStr = String(Math.max(0, op));
+        var hidden = oStr === "0" && last.o === "0";
+        if (!hidden) {
+          var x = off * Math.min(window.innerWidth * (isMobile ? 0.3 : 0.24), 340);
+          var rotY = Math.max(-32, Math.min(32, -off * 22));
+          var z = -a * 190;
+          var sc = 1 - Math.min(0.16, a * 0.07);
+          var t = "translateY(-50%) translateX(" + x + "px) translateZ(" + z + "px) rotateY(" + rotY + "deg) scale(" + sc + ")";
+          if (t !== last.t) { card.style.transform = t; last.t = t; }
+        }
+        if (oStr !== last.o) { card.style.opacity = oStr; last.o = oStr; }
+        // depth bands: stacking ORDER is identical (z monotonic in distance),
+        // but z only changes at half-way crossings instead of every frame -
+        // per-frame z churn forces the compositor to re-layerize the scene.
+        var zi = String(100 - Math.round(a) * 10);
+        if (zi !== last.z) { card.style.zIndex = zi; last.z = zi; }
+        // glass sheen sweeps across the focused card; invisible beyond |off|>1.6
+        if (a < 1.6) {
+          var media = card.querySelector(".dcard__media");
+          var sh = ((0.5 - off) * 240 - 120) + "%";
+          if (media && sh !== last.sh) { media.style.setProperty("--sheen", sh); last.sh = sh; }
+        }
       });
       var focus = Math.min(Nd - 1, Math.max(0, Math.round(p)));
-      if (glow) {
+      if (glow && focus !== sodaLastFocus) {
+        sodaLastFocus = focus;
         var g = drinks[focus].getAttribute("data-glow");
         if (g) glow.style.background = "radial-gradient(circle, " + g + " 0%, transparent 62%)";
       }
-      if (sbar) sbar.style.setProperty("--f", p / (Nd - 1));
+      if (sbar) {
+        var fStr = String(p / (Nd - 1));
+        if (fStr !== sodaLastF) { sodaLastF = fStr; sbar.style.setProperty("--f", fStr); }
+      }
     });
   }
 
@@ -309,7 +345,7 @@
   var bar = document.getElementById("progressBar");
   var nav = document.getElementById("nav");
   var navCta = document.getElementById("navCta");
-  var lastY = 0, ticking = false;
+  var lastY = 0, ticking = false, lastBarF = -1;
 
   /* ---------- mobile drawer ---------- */
   var menuBtn = document.getElementById("menuBtn");
@@ -371,7 +407,10 @@
     requestAnimationFrame(function () {
       var y = window.scrollY;
       var max = document.documentElement.scrollHeight - viewH();
-      if (bar && max > 0) bar.style.transform = "scaleX(" + Math.min(1, y / max) + ")";
+      if (bar && max > 0) {
+        var pf = Math.min(1, y / max);
+        if (pf !== lastBarF) { lastBarF = pf; bar.style.transform = "scaleX(" + pf + ")"; }
+      }
       if (nav) {
         var hide = y > 400 && y > lastY + 6;
         var show = y < lastY - 6 || y < 200;
@@ -426,6 +465,18 @@
   }, { threshold: 0.16, rootMargin: "0px 0px -6% 0px" });
   document.querySelectorAll(".reveal, .tsplit, .imgframe").forEach(function (el) { io.observe(el); });
 
+  /* ---------- pause ambient keyframe loops while offscreen ---------- */
+  // Infinite animations (bottle idle, steam, glow drifts, floats) burn frames
+  // for the whole page even when their section is scrolled away. is-offview
+  // freezes them via animation-play-state; removing the class resumes them
+  // mid-cycle, so nothing looks different while a section is on screen.
+  if ("IntersectionObserver" in window) {
+    var animPauser = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { e.target.classList.toggle("is-offview", !e.isIntersecting); });
+    }, { rootMargin: "200px 0px" });
+    document.querySelectorAll("body > section, main > section, footer").forEach(function (s) { animPauser.observe(s); });
+  }
+
   /* ---------- magnetic buttons ---------- */
   if (finePointer && !reduceMotion) {
     document.querySelectorAll("[data-magnetic]").forEach(function (btn) {
@@ -461,7 +512,7 @@
     var dbar = document.getElementById("mdeckBar");
     var dhead = document.getElementById("mdeckHead");
     mdeck.style.height = (100 + Ndc * 62 + 18) + SVH;
-    storyRunners.push(function () {
+    addRunner(mdeck, function () {
       var p = sectionProgress(mdeck);
       var total = Ndc * 0.155;
       dcards.forEach(function (c, i) {
@@ -499,7 +550,7 @@
     var Nb = bChs.length;
     var BW = 0.09, BHALF = 0.045; // crossfade window centred on chapter boundaries
     bline.style.height = (100 + Nb * 75) + SVH;
-    storyRunners.push(function () {
+    addRunner(bline, function () {
       var p = sectionProgress(bline);
       var idx = Math.min(Nb - 1, Math.floor(p * Nb * 0.999));
       bChs.forEach(function (ch, i) {
@@ -602,7 +653,7 @@
   var ehero = document.querySelector('[data-story="ehero"]');
   if (ehero && !reduceMotion) {
     var eLayers = Array.prototype.slice.call(ehero.querySelectorAll("[data-eplx]"));
-    storyRunners.push(function () {
+    addRunner(ehero, function () {
       var y = window.scrollY;
       if (y > viewH() * 1.4) return;
       eLayers.forEach(function (el) {
@@ -616,7 +667,7 @@
   var tline = document.querySelector('[data-story="tline"]');
   var tlineFill = document.getElementById("tlineFill");
   if (tline && tlineFill && !reduceMotion) {
-    storyRunners.push(function () {
+    addRunner(tline, function () {
       var r = tline.getBoundingClientRect();
       var vh = viewH();
       // fill from when the section enters to when its bottom clears 80% of the viewport
@@ -663,7 +714,7 @@
     mdMeasure();
     window.addEventListener("resize", mdMeasure, { passive: true });
     window.addEventListener("load", mdMeasure);
-    storyRunners.push(function () {
+    addRunner(mdeck, function () {
       var p = sectionProgress(mdeck);
       var seg = Math.min(Nmd - 1, Math.floor(p * Nmd * 0.9999));
       var s = clamp01(p * Nmd - seg); // local progress within this card's segment
@@ -758,7 +809,7 @@
         im.style.opacity = j === 0 ? "1" : "0";
       });
       var TW = 0.1, THALF = 0.05;
-      storyRunners.push(function () {
+      addRunner(tasting, function () {
         var p = sectionProgress(tasting);
         var idx = 0;
         for (var i = 1; i < Nt; i++) {
