@@ -399,7 +399,11 @@
         document.body.style.top = "";
         document.body.style.left = "";
         document.body.style.right = "";
+        // html has scroll-behavior:smooth - suppress it for this restore or the
+        // page visibly animates from the top back to the saved position
+        document.documentElement.style.scrollBehavior = "auto";
         window.scrollTo(0, drawerScrollY);
+        document.documentElement.style.scrollBehavior = "";
       }
       menuBtn.setAttribute("aria-expanded", open ? "true" : "false");
       menuBtn.setAttribute("aria-label", open ? "Close menu" : "Open menu");
