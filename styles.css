@@ -1767,7 +1767,7 @@ body.is-loaded .vpost__pin{opacity:1;transform:scale(1);transition:opacity .55s 
 }
 .footer__social a svg{width:19px;height:19px}
 .footer__social a:hover{background:var(--cream);color:var(--pine);border-color:var(--cream);transform:translateY(-3px)}
-.footer__col h4{font-weight:600;font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:var(--butter);margin-bottom:18px}
+.footer__col h3{font-weight:600;font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:var(--butter);margin-bottom:18px}
 .footer__col a{display:block;color:rgba(250,246,239,.75);font-size:.94rem;padding:5px 0;transition:color .2s,transform .2s;text-transform:capitalize}
 .footer__col a:hover{color:var(--cream);transform:translateX(4px)}
 .footer__col p{color:rgba(250,246,239,.75);font-size:.94rem;margin-bottom:12px;font-weight:300}
@@ -2236,3 +2236,8 @@ html.ios .dhero__glow--pink,html.ios .dhero__glow--blue,html.ios .dhero__glow--b
 html.ios .dbottle__fig,
 html.ios .bscene__mini--packets,html.ios .bscene__mini--toppings,html.ios .bscene__steam i,
 html.ios .vpost__pin{animation:none !important}
+
+/* audit C1: comfortable tap areas without visual change */
+.vrow strong a,.vrow a{display:inline-block;padding:12px 0;margin:-12px 0}
+.textlink{color:var(--emerald);font-weight:600;display:inline-block;padding:12px 2px;margin:-12px -2px}
+.bline__rail button{padding:10px 0;margin:-10px 0}
