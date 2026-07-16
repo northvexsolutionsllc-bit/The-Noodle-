@@ -207,20 +207,20 @@ section{scroll-margin-top:110px}
 .menuBtn{
   position:fixed;top:calc(8px + env(safe-area-inset-top, 0px));right:14px;z-index:130;
   width:48px;height:48px;border-radius:50%;
-  background:rgba(var(--cream-rgb),.82);
+  background:rgba(255,255,255,.95);
   backdrop-filter:blur(16px) saturate(1.4);
   -webkit-backdrop-filter:blur(16px) saturate(1.4);
   border:1px solid rgba(var(--ink-rgb),.1);
   box-shadow:0 12px 32px -12px rgba(var(--pine-rgb),.4);
   display:none;align-items:center;justify-content:center;
-  color:var(--pine);
+  color:var(--berry);
   transition:background .3s,transform .3s var(--ease),color .3s;
 }
 .menuBtn:active{transform:scale(.94)}
 .menuBtn svg{position:absolute;width:23px;height:23px;transition:opacity .3s ease,transform .4s var(--ease)}
 .menuBtn__noodles{opacity:1;transform:rotate(0deg) scale(1)}
 .menuBtn__x{opacity:0;transform:rotate(-50deg) scale(.55)}
-.menuBtn.is-open{background:var(--pine);color:var(--cream)}
+.menuBtn.is-open{background:var(--pink-1);color:var(--pink-ink)}
 .menuBtn.is-open .menuBtn__noodles{opacity:0;transform:rotate(50deg) scale(.55)}
 .menuBtn.is-open .menuBtn__x{opacity:1;transform:rotate(0deg) scale(1)}
 .drawer{
@@ -261,7 +261,7 @@ body.drawer-open{overflow:hidden}
 .botnav{
   position:fixed;left:50%;bottom:calc(14px + env(safe-area-inset-bottom, 0px));transform:translateX(-50%);z-index:100;
   display:none;align-items:stretch;gap:2px;
-  background:rgba(255,247,250,.92);
+  background:rgba(255,255,255,.94);
   backdrop-filter:blur(20px) saturate(1.3);
   -webkit-backdrop-filter:blur(20px) saturate(1.3);
   border:1px solid rgba(var(--pine-rgb),.14);
@@ -272,10 +272,11 @@ body.drawer-open{overflow:hidden}
 .botnav a{
   flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;
   padding:8px 2px;border-radius:18px;
-  color:rgba(var(--pine-rgb),.8);font-weight:500;font-size:.62rem;letter-spacing:.04em;text-transform:capitalize;
+  color:var(--butter);font-weight:500;font-size:.62rem;letter-spacing:.04em;text-transform:capitalize;
   transition:color .2s,background .25s var(--ease),transform .2s;
 }
-.botnav a svg{width:21px;height:21px}
+.botnav a svg{width:21px;height:21px;color:var(--berry)}
+.botnav a.is-active svg{color:var(--pink-ink)}
 .botnav a.is-active{color:var(--pink-ink);background:var(--pink-2)}
 .botnav a:active{transform:scale(.92)}
 
@@ -2081,8 +2082,8 @@ a,button,.mcard,[data-topping]{touch-action:manipulation}
   .dbottle::before{filter:none}
   .soda__glow{filter:none}
   .tasting__glow{filter:blur(16px)}
-  .botnav{backdrop-filter:none;-webkit-backdrop-filter:none;background:rgba(var(--pine-rgb),.96)}
-  .menuBtn{backdrop-filter:none;-webkit-backdrop-filter:none;background:rgba(var(--cream-rgb),.94)}
+  .botnav{backdrop-filter:none;-webkit-backdrop-filter:none;background:rgba(255,255,255,.97)}
+  .menuBtn{backdrop-filter:none;-webkit-backdrop-filter:none;background:rgba(255,255,255,.96)}
   .menunav a{backdrop-filter:none;-webkit-backdrop-filter:none;background:rgba(var(--cream-rgb),.94)}
   .btn--outline-light{backdrop-filter:none;-webkit-backdrop-filter:none;background:rgba(var(--pine-rgb),.35)}
   .hero__statusPill{backdrop-filter:none;-webkit-backdrop-filter:none;background:rgba(var(--pine-rgb),.62)}
