@@ -152,7 +152,7 @@
 
   /* ----- pinned panel hero: scroll steps the carousel ----- */
   var SLIDES = [
-    { pnl: "#F3C969", ink: "#4E3007", title: "the spicy buldak bowl", img: "./assets/img/ramen-bowl-egg.webp", alt: "A spicy ramen bowl with a soft egg, fresh off the cooking station", shape: "round", cta: "Build Your Bowl", href: "./build.html" },
+    { pnl: "#F4BBC9", ink: "#7A2136", title: "the spicy buldak bowl", img: "./assets/img/ramen-bowl-egg.webp", alt: "A spicy ramen bowl with a soft egg, fresh off the cooking station", shape: "round", cta: "Build Your Bowl", href: "./build.html" },
     { pnl: "#F4BBC9", ink: "#7A2136", title: "strawberry cream shake", img: "./assets/img/drink-strawberry-shake.webp", alt: "Strawberry cream shake with a whipped cream dome", shape: "tall", cta: "See Signature Drinks", href: "./drinks.html" },
     { pnl: "#CBD9A6", ink: "#2E4A21", title: "the iced matcha latte", img: "./assets/img/drink-matcha.webp", alt: "Iced matcha latte dusted with matcha powder", shape: "tall", cta: "See Signature Drinks", href: "./drinks.html" },
     { pnl: "#BFD8E8", ink: "#1F3A52", title: "berry breeze creamy red bull", img: "./assets/img/drink-blue-redbull-gummy.webp", alt: "Berry Breeze Creamy Red Bull topped with whipped cream and a gummy ring", shape: "tall", cta: "See Signature Drinks", href: "./drinks.html" }
