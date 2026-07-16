@@ -591,6 +591,7 @@
       var t = e.target.closest("[data-topping]");
       if (!t) return;
       t.classList.toggle("is-picked");
+      t.setAttribute("aria-pressed", t.classList.contains("is-picked") ? "true" : "false");
       var n = pickerWall.querySelectorAll(".is-picked").length;
       if (pickCount) pickCount.textContent = n === 0 ? "Your bowl is waiting, tap a topping" : "Your stack: " + n + " topping" + (n > 1 ? "s" : "");
       if (pickPrice) pickPrice.textContent = n === 0 ? "" : "+ $" + n + ".00";

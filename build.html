@@ -16,7 +16,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,600&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="./styles.css?v=51" />
+<link rel="stylesheet" href="./styles.css?v=52" />
 <script>
 /* nl-debug: inert unless ?debug=1 - shows an on-device event timeline */
 var nlDbg=false;try{if(location.search.indexOf("debug=1")>-1)localStorage.nlDebug="1";if(location.search.indexOf("debug=0")>-1)localStorage.removeItem("nlDebug");nlDbg=location.hash==="#debug"||localStorage.nlDebug==="1"}catch(e){}
@@ -203,20 +203,20 @@ addEventListener("scroll",function(){if(!window.__ls||Math.abs(scrollY-__ls)>200
     <p class="lead reveal" data-reveal style="margin-left:auto;margin-right:auto">Tap toppings to try a build, then come make it for real at the counter. Every topping is $1.</p>
   </div>
   <div class="picker__wall reveal" data-reveal="stagger" id="pickerWall">
-    <button class="tkt" data-topping>Green Onion</button>
-    <button class="tkt" data-topping>Cilantro</button>
-    <button class="tkt" data-topping>Lime</button>
-    <button class="tkt" data-topping>Lemon</button>
-    <button class="tkt" data-topping>Onion</button>
-    <button class="tkt" data-topping>Jalape&ntilde;o</button>
-    <button class="tkt" data-topping>Hard Boil Egg</button>
-    <button class="tkt" data-topping>Raw Egg</button>
-    <button class="tkt" data-topping>Spam</button>
-    <button class="tkt" data-topping>Sausage</button>
-    <button class="tkt" data-topping>Rice Cakes</button>
-    <button class="tkt" data-topping>Corn</button>
-    <button class="tkt" data-topping>Mozzarella Cheese</button>
-    <button class="tkt" data-topping>Cheddar Cheese</button>
+    <button class="tkt" data-topping aria-pressed="false">Green Onion</button>
+    <button class="tkt" data-topping aria-pressed="false">Cilantro</button>
+    <button class="tkt" data-topping aria-pressed="false">Lime</button>
+    <button class="tkt" data-topping aria-pressed="false">Lemon</button>
+    <button class="tkt" data-topping aria-pressed="false">Onion</button>
+    <button class="tkt" data-topping aria-pressed="false">Jalape&ntilde;o</button>
+    <button class="tkt" data-topping aria-pressed="false">Hard Boil Egg</button>
+    <button class="tkt" data-topping aria-pressed="false">Raw Egg</button>
+    <button class="tkt" data-topping aria-pressed="false">Spam</button>
+    <button class="tkt" data-topping aria-pressed="false">Sausage</button>
+    <button class="tkt" data-topping aria-pressed="false">Rice Cakes</button>
+    <button class="tkt" data-topping aria-pressed="false">Corn</button>
+    <button class="tkt" data-topping aria-pressed="false">Mozzarella Cheese</button>
+    <button class="tkt" data-topping aria-pressed="false">Cheddar Cheese</button>
   </div>
   <div class="picker__tally reveal" data-reveal="pop">
     <span class="picker__bowlIco" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 14h16a8 8 0 0 1-5 7.4V22H9v-.6A8 8 0 0 1 4 14Z" fill="currentColor"/><path d="M9 10.5c0-1.6 1.2-1.6 1.2-3.2S9 5 9 3.5m5 7c0-1.6 1.2-1.6 1.2-3.2S14 5 14 3.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" fill="none"/></svg></span>
@@ -304,6 +304,6 @@ addEventListener("scroll",function(){if(!window.__ls||Math.abs(scrollY-__ls)>200
 </footer>
 
 <script>setTimeout(function(){if(!window.__nlBoot){document.body.classList.add("is-loaded");document.documentElement.classList.add("nl-nojs-late");}},1600);</script>
-<script src="./main.js?v=51" defer></script>
+<script src="./main.js?v=52" defer></script>
 </body>
 </html>
