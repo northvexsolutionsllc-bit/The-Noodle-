@@ -1,6 +1,8 @@
 {
   "name": "The Noodle Lounge",
   "short_name": "Noodle Lounge",
+  "start_url": "/",
+  "scope": "/",
   "icons": [
     {
       "src": "/assets/img/icon-192.png",

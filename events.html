@@ -7,16 +7,19 @@
 <title>events · the noodle lounge · watch parties, board games & trades</title>
 <meta name="description" content="Watch parties, a board game corner and the trinket trading post · The Noodle Lounge is Long Beach’s late-night hangout." />
 <meta name="theme-color" content="#123528" />
+<link rel="canonical" href="https://the-noodle.vercel.app/events" />
 <meta property="og:title" content="events · the noodle lounge · watch parties, board games & trades" />
 <meta property="og:description" content="Watch parties, a board game corner and the trinket trading post · The Noodle Lounge is Long Beach’s late-night hangout." />
 <meta property="og:image" content="https://the-noodle.vercel.app/assets/img/og-card.jpg" />
+<meta property="og:url" content="https://the-noodle.vercel.app/events" />
+<meta name="twitter:card" content="summary_large_image" />
 <link rel="icon" type="image/png" sizes="64x64" href="./assets/img/favicon-32.png" />
 <link rel="apple-touch-icon" href="./assets/img/apple-touch-icon.png" />
 <link rel="manifest" href="./site.webmanifest" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,600&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="./styles.css?v=53" />
+<link rel="stylesheet" href="./styles.css?v=54" />
 <script>
 /* nl-debug: inert unless ?debug=1 - shows an on-device event timeline */
 var nlDbg=false;try{if(location.search.indexOf("debug=1")>-1)localStorage.nlDebug="1";if(location.search.indexOf("debug=0")>-1)localStorage.removeItem("nlDebug");nlDbg=location.hash==="#debug"||localStorage.nlDebug==="1"}catch(e){}
@@ -47,6 +50,8 @@ addEventListener("scroll",function(){if(!window.__ls||Math.abs(scrollY-__ls)>200
 </script>
 </head>
 <body>
+
+<a class="skip" href="#main">skip to content</a>
 
 <div class="progress" aria-hidden="true"><span id="progressBar"></span></div>
 <nav class="nav" id="nav" aria-label="Main">
@@ -80,7 +85,7 @@ addEventListener("scroll",function(){if(!window.__ls||Math.abs(scrollY-__ls)>200
     <path d="m7 7 10 10M17 7 7 17" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
   </svg>
 </button>
-<div class="drawer" id="drawer" aria-hidden="true">
+<div class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Site navigation" aria-hidden="true">
   <nav class="drawer__nav" aria-label="All pages">
     <a href="./index.html" style="--i:0">home</a>
     <a href="./menu.html" style="--i:1">our menu</a>
@@ -132,14 +137,14 @@ addEventListener("scroll",function(){if(!window.__ls||Math.abs(scrollY-__ls)>200
     <div class="ehero__collage" aria-hidden="true">
       <figure class="ecol ecol--a" data-eplx="0.4"><img src="./assets/img/ramen-wall.jpg" alt="" width="1024" height="526" fetchpriority="high" decoding="async" /></figure>
       <figure class="ecol ecol--b" data-eplx="0.85"><img src="./assets/img/combo-bowls-shakes.webp" alt="" width="750" height="1000" fetchpriority="high" decoding="async" /></figure>
-      <figure class="ecol ecol--c" data-eplx="1.3"><img src="./assets/img/drink-blue-boba.webp" alt="" width="563" height="1000" loading="lazy" decoding="async" /></figure>
+      <figure class="ecol ecol--c" data-eplx="1.3"><img src="./assets/img/drink-blue-boba.webp" alt="" width="563" height="1000" decoding="async" /></figure>
       <span class="ehero__neon" data-eplx="1.1">open late</span>
       <span class="ehero__chip" data-eplx="0.6">big screen &middot; board games &middot; soda bar</span>
     </div>
   </div>
 </header>
 
-<main>
+<main id="main" tabindex="-1">
 <!-- ============================== THE REGULAR ROTATION ============================== -->
 <section class="psec enights">
   <div class="psec__head">
@@ -220,7 +225,7 @@ addEventListener("scroll",function(){if(!window.__ls||Math.abs(scrollY-__ls)>200
   </div>
   <div class="footer__grid">
     <div class="footer__brand">
-      <a class="footer__logo" href="./index.html"><img src="./assets/img/logo-96.webp" alt="" width="44" height="44" loading="lazy" />The Noodle Lounge</a>
+      <a class="footer__logo" href="./index.html"><img src="./assets/img/logo-96.webp" alt="" width="44" height="44" loading="lazy" decoding="async" />The Noodle Lounge</a>
       <p>Slurp, Sip &amp; Snack, Long Beach's DIY Korean ramen lounge and creamy soda bar.</p>
       <div class="footer__social">
         <a href="https://www.instagram.com/thenoodleloungee/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.2" cy="6.8" r="1.3" fill="currentColor"/></svg></a>
@@ -251,12 +256,12 @@ addEventListener("scroll",function(){if(!window.__ls||Math.abs(scrollY-__ls)>200
   </div>
   <p class="footer__wordmark" aria-hidden="true">The Noodle Lounge</p>
   <div class="footer__base">
-    <p>© <span id="year"></span> The Noodle Lounge · 712 Cherry Ave, Long Beach, CA</p>
+    <p>© <span id="year">2026</span> The Noodle Lounge · 712 Cherry Ave, Long Beach, CA</p>
     <p class="footer__madewith">Made with steam &amp; sugar</p>
   </div>
 </footer>
 
-<script>setTimeout(function(){if(!window.__nlBoot){document.body.classList.add("hero-live");document.documentElement.classList.add("nl-rescue");}},1600);</script>
-<script src="./main.js?v=53" defer></script>
+<script>setTimeout(function(){if(!window.__nlBoot){document.body.classList.add("hero-live");document.body.classList.add("is-static");document.documentElement.classList.add("nl-rescue");}},1600);</script>
+<script src="./main.js?v=54" defer></script>
 </body>
 </html>

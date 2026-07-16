@@ -5,6 +5,10 @@
   // flag is absent (main.js truly never arrived). Otherwise the heroEntrance
   // module below is the SOLE authority for body.hero-live.
   window.__nlBoot = true;
+  // If the 1600ms inline rescue fired before this file booted (slow network,
+  // not a failed load), undo its static fallback now that the engine is here.
+  document.documentElement.classList.remove("nl-rescue");
+  document.body.classList.remove("is-static");
 
   /* ================= HERO ENTRANCE (v53 clean rebuild) =================
      One gate, one authority: body.hero-live releases every hero element
@@ -412,6 +416,16 @@
     document.addEventListener("keydown", function (e) {
       if (e.key === "Escape" && drawer.classList.contains("is-open")) setDrawer(false);
     });
+    // keep Tab inside the open drawer: cycle is the visible close button (menuBtn,
+    // z-index above the overlay) plus the drawer links; everything else is covered
+    document.addEventListener("keydown", function (e) {
+      if (e.key !== "Tab" || !drawer.classList.contains("is-open")) return;
+      var f = [menuBtn].concat(Array.prototype.slice.call(drawer.querySelectorAll("a")));
+      var first = f[0], last = f[f.length - 1], active = document.activeElement;
+      if (e.shiftKey && active === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && active === last) { e.preventDefault(); first.focus(); }
+      else if (f.indexOf(active) === -1) { e.preventDefault(); first.focus(); }
+    });
   }
 
   /* ---------- parallax engine ---------- */
@@ -485,19 +499,23 @@
   document.querySelectorAll('[data-reveal="stagger"]').forEach(function (group) {
     Array.prototype.forEach.call(group.children, function (child, i) { child.style.setProperty("--i", i); });
   });
-  var io = new IntersectionObserver(function (entries) {
-    entries.forEach(function (e) {
-      if (e.isIntersecting) { e.target.classList.add("is-in"); io.unobserve(e.target); }
-    });
-  }, { threshold: 0.16, rootMargin: "0px 0px -6% 0px" });
-  document.querySelectorAll(".reveal, .tsplit, .imgframe").forEach(function (el) { io.observe(el); });
+  if (typeof IntersectionObserver === "function") {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add("is-in"); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.16, rootMargin: "0px 0px -6% 0px" });
+    document.querySelectorAll(".reveal, .tsplit, .imgframe").forEach(function (el) { io.observe(el); });
+  } else {
+    document.querySelectorAll(".reveal, .tsplit, .imgframe").forEach(function (el) { el.classList.add("is-in"); });
+  }
 
   /* ---------- pause ambient keyframe loops while offscreen ---------- */
   // Infinite animations (bottle idle, steam, glow drifts, floats) burn frames
   // for the whole page even when their section is scrolled away. is-offview
   // freezes them via animation-play-state; removing the class resumes them
   // mid-cycle, so nothing looks different while a section is on screen.
-  if ("IntersectionObserver" in window) {
+  if (typeof IntersectionObserver === "function") {
     var animPauser = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) { e.target.classList.toggle("is-offview", !e.isIntersecting); });
     }, { rootMargin: "200px 0px" });
@@ -666,7 +684,7 @@
         var i = parseInt(tab.getAttribute("data-flab"), 10);
         flabTabs.forEach(function (t, j) {
           t.classList.toggle("is-on", j === i);
-          t.setAttribute("aria-selected", j === i ? "true" : "false");
+          t.setAttribute("aria-pressed", j === i ? "true" : "false");
         });
         flabPanes.forEach(function (p, j) {
           // re-add the class even for the same pane so the cascade replays
@@ -773,7 +791,7 @@
 
   /* ---------- in-page menu nav scrollspy ---------- */
   var menunav = document.querySelector(".menunav");
-  if (menunav) {
+  if (menunav && typeof IntersectionObserver === "function") {
     var mlinks = Array.prototype.slice.call(menunav.querySelectorAll("a[href^='#']"));
     var msections = mlinks.map(function (a) { return document.getElementById(a.getAttribute("href").slice(1)); }).filter(Boolean);
     var mspy = new IntersectionObserver(function (entries) {
@@ -822,7 +840,7 @@
       tBooted = true;
       tCoasters.forEach(function (b, j) {
         b.classList.toggle("is-on", j === i);
-        b.setAttribute("aria-selected", j === i ? "true" : "false");
+        b.setAttribute("aria-pressed", j === i ? "true" : "false");
       });
     }
     tCoasters.forEach(function (b) { b.style.setProperty("--g", b.getAttribute("data-g")); });

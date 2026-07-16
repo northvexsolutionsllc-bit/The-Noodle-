@@ -7,16 +7,19 @@
 <title>build your bowl · the noodle lounge · press start</title>
 <meta name="description" content="Four steps, zero rules: browse the ramen wall, stack your toppings, press start on our automated HAUSCOOK cooking stations, and mix a drink." />
 <meta name="theme-color" content="#123528" />
+<link rel="canonical" href="https://the-noodle.vercel.app/build" />
 <meta property="og:title" content="build your bowl · the noodle lounge · press start" />
 <meta property="og:description" content="Four steps, zero rules: browse the ramen wall, stack your toppings, press start on our automated HAUSCOOK cooking stations, and mix a drink." />
 <meta property="og:image" content="https://the-noodle.vercel.app/assets/img/og-card.jpg" />
+<meta property="og:url" content="https://the-noodle.vercel.app/build" />
+<meta name="twitter:card" content="summary_large_image" />
 <link rel="icon" type="image/png" sizes="64x64" href="./assets/img/favicon-32.png" />
 <link rel="apple-touch-icon" href="./assets/img/apple-touch-icon.png" />
 <link rel="manifest" href="./site.webmanifest" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,600&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="./styles.css?v=53" />
+<link rel="stylesheet" href="./styles.css?v=54" />
 <script>
 /* nl-debug: inert unless ?debug=1 - shows an on-device event timeline */
 var nlDbg=false;try{if(location.search.indexOf("debug=1")>-1)localStorage.nlDebug="1";if(location.search.indexOf("debug=0")>-1)localStorage.removeItem("nlDebug");nlDbg=location.hash==="#debug"||localStorage.nlDebug==="1"}catch(e){}
@@ -47,6 +50,8 @@ addEventListener("scroll",function(){if(!window.__ls||Math.abs(scrollY-__ls)>200
 </script>
 </head>
 <body>
+
+<a class="skip" href="#main">skip to content</a>
 
 <div class="progress" aria-hidden="true"><span id="progressBar"></span></div>
 <nav class="nav" id="nav" aria-label="Main">
@@ -80,7 +85,7 @@ addEventListener("scroll",function(){if(!window.__ls||Math.abs(scrollY-__ls)>200
     <path d="m7 7 10 10M17 7 7 17" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
   </svg>
 </button>
-<div class="drawer" id="drawer" aria-hidden="true">
+<div class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Site navigation" aria-hidden="true">
   <nav class="drawer__nav" aria-label="All pages">
     <a href="./index.html" style="--i:0">home</a>
     <a href="./menu.html" style="--i:1">our menu</a>
@@ -135,23 +140,23 @@ addEventListener("scroll",function(){if(!window.__ls||Math.abs(scrollY-__ls)>200
       <div class="bscene__station"><img src="./assets/img/cooking-station-steam.webp" alt="" width="1080" height="1920" fetchpriority="high" decoding="async" /></div>
       <div class="bscene__steam"><i></i><i></i><i></i></div>
       <div class="bscene__bowl"><img src="./assets/img/ramen-bowl-egg.webp" alt="" width="348" height="348" fetchpriority="high" decoding="async" /></div>
-      <figure class="bscene__mini bscene__mini--packets"><img src="./assets/img/build-mini-packets.webp" alt="" width="440" height="440" loading="lazy" decoding="async" /></figure>
-      <figure class="bscene__mini bscene__mini--toppings"><img src="./assets/img/build-mini-toppings.webp" alt="" width="440" height="440" loading="lazy" decoding="async" /></figure>
+      <figure class="bscene__mini bscene__mini--packets"><img src="./assets/img/build-mini-packets.webp" alt="" width="440" height="440" decoding="async" /></figure>
+      <figure class="bscene__mini bscene__mini--toppings"><img src="./assets/img/build-mini-toppings.webp" alt="" width="440" height="440" decoding="async" /></figure>
       <span class="bscene__tag">4 steps &middot; zero rules</span>
     </div>
   </div>
 </header>
 
-<main>
+<main id="main" tabindex="-1">
 <!-- ============================== THE BUILD LINE, pinned journey ============================== -->
 <section class="bline" data-story="bline">
   <div class="bline__stage">
-    <div class="bline__rail" id="blineRail" aria-hidden="true">
+    <div class="bline__rail" id="blineRail" role="group" aria-label="Jump to build step">
       <span class="bline__railTrack"><i id="blineFill"></i></span>
-      <button data-bline-jump="0"><b></b><span>choose</span></button>
-      <button data-bline-jump="1"><b></b><span>stack</span></button>
-      <button data-bline-jump="2"><b></b><span>cook</span></button>
-      <button data-bline-jump="3"><b></b><span>enjoy</span></button>
+      <button data-bline-jump="0" aria-label="Jump to step 1: choose"><b></b><span>choose</span></button>
+      <button data-bline-jump="1" aria-label="Jump to step 2: stack"><b></b><span>stack</span></button>
+      <button data-bline-jump="2" aria-label="Jump to step 3: cook"><b></b><span>cook</span></button>
+      <button data-bline-jump="3" aria-label="Jump to step 4: enjoy"><b></b><span>enjoy</span></button>
     </div>
     <div class="bline__media">
       <span class="bline__ghost" id="blineGhost">01</span>
@@ -267,7 +272,7 @@ addEventListener("scroll",function(){if(!window.__ls||Math.abs(scrollY-__ls)>200
   </div>
   <div class="footer__grid">
     <div class="footer__brand">
-      <a class="footer__logo" href="./index.html"><img src="./assets/img/logo-96.webp" alt="" width="44" height="44" loading="lazy" />The Noodle Lounge</a>
+      <a class="footer__logo" href="./index.html"><img src="./assets/img/logo-96.webp" alt="" width="44" height="44" loading="lazy" decoding="async" />The Noodle Lounge</a>
       <p>Slurp, Sip &amp; Snack, Long Beach's DIY Korean ramen lounge and creamy soda bar.</p>
       <div class="footer__social">
         <a href="https://www.instagram.com/thenoodleloungee/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.2" cy="6.8" r="1.3" fill="currentColor"/></svg></a>
@@ -298,12 +303,12 @@ addEventListener("scroll",function(){if(!window.__ls||Math.abs(scrollY-__ls)>200
   </div>
   <p class="footer__wordmark" aria-hidden="true">The Noodle Lounge</p>
   <div class="footer__base">
-    <p>© <span id="year"></span> The Noodle Lounge · 712 Cherry Ave, Long Beach, CA</p>
+    <p>© <span id="year">2026</span> The Noodle Lounge · 712 Cherry Ave, Long Beach, CA</p>
     <p class="footer__madewith">Made with steam &amp; sugar</p>
   </div>
 </footer>
 
-<script>setTimeout(function(){if(!window.__nlBoot){document.body.classList.add("hero-live");document.documentElement.classList.add("nl-rescue");}},1600);</script>
-<script src="./main.js?v=53" defer></script>
+<script>setTimeout(function(){if(!window.__nlBoot){document.body.classList.add("hero-live");document.body.classList.add("is-static");document.documentElement.classList.add("nl-rescue");}},1600);</script>
+<script src="./main.js?v=54" defer></script>
 </body>
 </html>
