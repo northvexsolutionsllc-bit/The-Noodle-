@@ -2176,6 +2176,36 @@ a,button,.mcard,[data-topping]{touch-action:manipulation}
    choreography. (html.seen is set by the inline head script from a
    per-pathname sessionStorage key, before first paint.) */
 html.seen .pstrip{opacity:1;transform:none;transition:none}
+/* repeat view of the same page (same session): heroes paint settled
+   instantly - no entrance to replay behind Safari's page snapshot. Final
+   poses come from the body.is-loaded rules; only the motion is skipped.
+   Ambient loops (bottle bob, steam, desktop neon) intentionally keep
+   running. */
+html.seen .dhero__kick,html.seen .dhero__lead,html.seen .dhero__ctas,
+html.seen .dbottle__fig,html.seen .dbottle figcaption,html.seen .dbottle::before,
+html.seen .phstack__main,html.seen .phstack__accent,html.seen .phstack__chip,
+html.seen .bhero__over,html.seen .bhero__lead,html.seen .bhero__steps li,
+html.seen .bscene__station,html.seen .bscene__bowl,html.seen .bscene__mini,html.seen .bscene__tag,
+html.seen .ehero__kick,html.seen .ehero__lead,html.seen .ehero__ctas,
+html.seen .ecol,html.seen .ehero__neon,html.seen .ehero__chip,
+html.seen .ahero__kick,html.seen .ahero__lead,html.seen .ahero__ctas,
+html.seen .apol,html.seen .ahero__sticker,
+html.seen .vhero__kick,html.seen .vhero__fade,
+html.seen .vpost__card,html.seen .vpost__stamp,html.seen .vpost__postmark,html.seen .vpost__pin{
+  transition:none;
+}
+html.seen .tsplit .ts-inner{transition:none}
+/* variant rules carry an extra class - matching-specificity companions so
+   the seen fast-path wins those too (end of file breaks the ties) */
+html.seen .dbottle--c .dbottle__fig,html.seen .dbottle--l .dbottle__fig,html.seen .dbottle--r .dbottle__fig,
+html.seen .dbottle--c figcaption,html.seen .dbottle--l figcaption,html.seen .dbottle--r figcaption,
+html.seen .bscene__mini--packets,html.seen .bscene__mini--toppings,
+html.seen .ecol--a,html.seen .ecol--b,html.seen .ecol--c,
+html.seen .apol--a,html.seen .apol--b,html.seen .apol--c,
+html.seen .bhero__steps li:nth-child(1),html.seen .bhero__steps li:nth-child(2),
+html.seen .bhero__steps li:nth-child(3),html.seen .bhero__steps li:nth-child(4){
+  transition:none;
+}
 /* v43: entrance one-shots are TRANSITIONS now (WebKit restarts running CSS
    ANIMATIONS whenever a stylesheet becomes applicable or a font face
    activates - the "hero animation plays then starts again" on iOS; a
