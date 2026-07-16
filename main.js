@@ -851,6 +851,9 @@
       });
     }
     try {
+      // repeat view: heroes have transition:none under html.seen - land
+      // settled immediately, no font wait, nothing to replay
+      if (document.documentElement.classList.contains("seen")) return go();
       if (reduceMotion) return go(); // static poses land instantly, no font wait
       var F = document.fonts;
       if (F && F.load) {
