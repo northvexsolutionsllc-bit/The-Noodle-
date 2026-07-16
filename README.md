@@ -50,7 +50,9 @@ version stamps — never overwrite an image file in place; rename it (as with
 for up to a year. CSS/JS changes instead bump the `?v=NN` stamp in all 7 pages.
 
 ## Verified business facts used on the page
-- Phone **(714) 600-7684** (from in-store receipt — supersedes older listings)
+- Phone **(562) 248-2178** (owner-directed change, 2026-07-16). NOTE: RESEARCH.md's
+  receipt scan had recorded (714) 600-7684 as superseding this exact number —
+  owner should confirm against current receipts/Google listing.
 - Hours: Mon–Sat 10:00a–10:30p · Sun 12:00p–10:30p
 - $15 combo (ramen + topping + drink) · ramen only ~$8 · +$1 per topping
 - HAUSCOOK **automated** cooking stations ("press start" is real)
