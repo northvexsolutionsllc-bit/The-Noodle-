@@ -16,7 +16,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,600&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="./styles.css?v=48" />
+<link rel="stylesheet" href="./styles.css?v=51" />
 <script>
 /* nl-debug: inert unless ?debug=1 - shows an on-device event timeline */
 var nlDbg=false;try{if(location.search.indexOf("debug=1")>-1)localStorage.nlDebug="1";if(location.search.indexOf("debug=0")>-1)localStorage.removeItem("nlDebug");nlDbg=location.hash==="#debug"||localStorage.nlDebug==="1"}catch(e){}
@@ -168,7 +168,8 @@ addEventListener("scroll",function(){if(!window.__ls||Math.abs(scrollY-__ls)>200
         <li><span>Dino Rush</span></li>
       </ul>
       <p class="mcat__sub">Build Your Own Cremita, Choose Your Energy Base</p>
-      <div class="mcat__chips"><span>Red Bull</span><span>Alani Nu’s</span><span>Celsius</span></div>
+      <div class="mcat__row"><div class="mcat__chips"><span>Red Bull</span><span>Alani Nu’s</span><span>Celsius</span></div>
+      <div class="mcat__thumbs mcat__thumbs--inline"><figure><img src="./assets/img/menu-passionfruit-sq.webp" alt="Passion Fruit Creamy Redbull" width="76" height="76" loading="lazy" /><figcaption>Passion Fruit</figcaption></figure></div></div>
     </div>
   </article>
 
@@ -255,7 +256,7 @@ addEventListener("scroll",function(){if(!window.__ls||Math.abs(scrollY-__ls)>200
         <li><span>Vainilla Mami ♡</span></li>
         <li><span>Creamy Mango Slush</span></li>
       </ul>
-      <div class="mcat__thumbs"><figure><img src="./assets/img/menu-mango-slush-sq.webp" alt="Creamy Mango Slush" width="76" height="76" loading="lazy" /><figcaption>Mango Slush</figcaption></figure></div>
+
       <p class="mcat__sub">Raspados</p>
       <ul class="mcat__items">
         <li><span>Chicle</span></li>
@@ -400,6 +401,6 @@ addEventListener("scroll",function(){if(!window.__ls||Math.abs(scrollY-__ls)>200
 </footer>
 
 <script>setTimeout(function(){if(!window.__nlBoot){document.body.classList.add("is-loaded");document.documentElement.classList.add("nl-nojs-late");}},1600);</script>
-<script src="./main.js?v=48" defer></script>
+<script src="./main.js?v=51" defer></script>
 </body>
 </html>
