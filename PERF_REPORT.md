@@ -1,6 +1,8 @@
 # PERF_REPORT — v50 runtime FPS pass (home-page scroll jank)
 
-**Environment disclosure:** the WebKit Playwright binary cannot be installed in this sandbox (cdn.playwright.dev is blocked), so all profiling ran on **Chromium + CDP, 6x CPU throttle, 390x844 viewport, DPR 3, iPhone UA** (so the real `html.ios` code path is active). Chromium's compositor is not WebKit's; the absolute numbers are a proxy. What transfers to the iPhone is the *workload* reduction (style recalcs, paints, per-frame writes) and the relative FPS gain. Nothing here was tested on a physical iPhone.
+**Environment disclosure:** the WebKit Playwright binary cannot be installed in this sandbox (cdn.playwright.dev is blocked), so all profiling ran on **Chromium + CDP, 6x CPU throttle, 390x844 viewport, DPR 3, iPhone UA**. Chromium's compositor is not WebKit's; the absolute numbers are a proxy. What transfers to the iPhone is the *workload* reduction (style recalcs, paints, per-frame writes) and the relative FPS gain. Nothing here was tested on a physical iPhone.
+
+> **Stale as of v53:** the `html.ios` class path this report references was removed in the v53 hero rebuild (commit 25ce178, deliberate). Touch-device animation trimming now lives solely in the `@media (hover:none)` relief block in styles.css plus the `.is-offview` offscreen pause; the narrower v47 iOS-only kill list (hero fig/steam/pin idle loops) is no longer applied. A 2026-07 re-probe at v53 (same 6x-throttle design) measured soda at 60.2fps / 16.8ms worst gap — the v50 optimizations held.
 
 ## Named root cause of the drinks-section lag
 

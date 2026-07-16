@@ -22,15 +22,15 @@ index.html      # home: panel-carousel hero, intro, three paths, bento preview,
 menu.html       # ramen wall recipe cards (spice levels, expandable) + toppings
 build.html      # build-your-bowl steps (verified HAUSCOOK 'press start')
 drinks.html     # signature drinks recipe cards + collab credits
-gallery.html    # bento gallery + lightbox
 events.html     # watch parties / board games / trinket post
 about.html      # story, press quotes, platform cards
 visit.html      # address, hours, live status, lazy map, contact
 styles.css      # design system v3 + motion engine (reveals, tsplit, parallax)
 main.js         # carousel, split-text, parallax, tilt, expandable cards,
                 # live status, lightbox, lazy map
-favicon.svg     # bowl-and-steam mark
-assets/img/     # real restaurant photos incl. processed logo.png
+assets/img/     # real restaurant photos, favicons (favicon-32.png is 64px), logo
+robots.txt      # crawler policy, points at sitemap.xml
+sitemap.xml     # 7 clean URLs (cleanUrls:true on Vercel)
 assets/reference/  # owner's design refs + receipt (not shipped on page)
 RESEARCH.md     # research dossier & verified facts
 ```
@@ -44,8 +44,15 @@ python3 -m http.server 8000   # open http://localhost:8000
 Static — import the repo, framework preset **Other**, no build command, output `./`.
 Every push to `main` auto-deploys once the Vercel↔GitHub account link is verified.
 
+**Image cache rule:** images are served `max-age=31536000, immutable` with no
+version stamps — never overwrite an image file in place; rename it (as with
+`*-real.webp`) and update references, or returning visitors keep the old pixels
+for up to a year. CSS/JS changes instead bump the `?v=NN` stamp in all 7 pages.
+
 ## Verified business facts used on the page
-- Phone **(714) 600-7684** (from in-store receipt — supersedes older listings)
+- Phone **(562) 248-2178** (owner-directed change, 2026-07-16). NOTE: RESEARCH.md's
+  receipt scan had recorded (714) 600-7684 as superseding this exact number —
+  owner should confirm against current receipts/Google listing.
 - Hours: Mon–Sat 10:00a–10:30p · Sun 12:00p–10:30p
 - $15 combo (ramen + topping + drink) · ramen only ~$8 · +$1 per topping
 - HAUSCOOK **automated** cooking stations ("press start" is real)

@@ -6,17 +6,20 @@
 <script>document.documentElement.classList.add("js");</script>
 <title>signature drinks · the noodle lounge · creamy red bulls & dirty sodas</title>
 <meta name="description" content="Creamy Red Bulls, lemonade refreshers, mangonadas, matcha and dirty sodas · made to order at Long Beach’s noodle lounge soda bar." />
-<meta name="theme-color" content="#123528" />
+<meta name="theme-color" content="#F4BBC9" />
+<link rel="canonical" href="https://the-noodle.vercel.app/drinks" />
 <meta property="og:title" content="signature drinks · the noodle lounge · creamy red bulls & dirty sodas" />
 <meta property="og:description" content="Creamy Red Bulls, lemonade refreshers, mangonadas, matcha and dirty sodas · made to order at Long Beach’s noodle lounge soda bar." />
 <meta property="og:image" content="https://the-noodle.vercel.app/assets/img/og-card.jpg" />
+<meta property="og:url" content="https://the-noodle.vercel.app/drinks" />
+<meta name="twitter:card" content="summary_large_image" />
 <link rel="icon" type="image/png" sizes="64x64" href="./assets/img/favicon-32.png" />
 <link rel="apple-touch-icon" href="./assets/img/apple-touch-icon.png" />
 <link rel="manifest" href="./site.webmanifest" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,600&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="./styles.css?v=53" />
+<link rel="stylesheet" href="./styles.css?v=56" />
 <script>
 /* nl-debug: inert unless ?debug=1 - shows an on-device event timeline */
 var nlDbg=false;try{if(location.search.indexOf("debug=1")>-1)localStorage.nlDebug="1";if(location.search.indexOf("debug=0")>-1)localStorage.removeItem("nlDebug");nlDbg=location.hash==="#debug"||localStorage.nlDebug==="1"}catch(e){}
@@ -47,6 +50,8 @@ addEventListener("scroll",function(){if(!window.__ls||Math.abs(scrollY-__ls)>200
 </script>
 </head>
 <body>
+
+<a class="skip" href="#main">skip to content</a>
 
 <div class="progress" aria-hidden="true"><span id="progressBar"></span></div>
 <nav class="nav" id="nav" aria-label="Main">
@@ -80,7 +85,7 @@ addEventListener("scroll",function(){if(!window.__ls||Math.abs(scrollY-__ls)>200
     <path d="m7 7 10 10M17 7 7 17" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
   </svg>
 </button>
-<div class="drawer" id="drawer" aria-hidden="true">
+<div class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Site navigation" aria-hidden="true">
   <nav class="drawer__nav" aria-label="All pages">
     <a href="./index.html" style="--i:0">home</a>
     <a href="./menu.html" style="--i:1">our menu</a>
@@ -149,7 +154,7 @@ addEventListener("scroll",function(){if(!window.__ls||Math.abs(scrollY-__ls)>200
   </div>
 </header>
 
-<main>
+<main id="main" tabindex="-1">
 <!-- ============================== THE LINEUP, draggable shelf ============================== -->
 <section class="tasting" id="lineup" data-story="tasting">
   <div class="tasting__pin">
@@ -181,13 +186,13 @@ addEventListener("scroll",function(){if(!window.__ls||Math.abs(scrollY-__ls)>200
         <h3 class="tasting__name" id="tastingName">Creamy Blue Redbull</h3>
         <p class="tasting__desc" id="tastingDesc">Creamy blue energy over Red Bull, Alani Nu or Celsius, whipped top, gummy garnish.</p>
       </div>
-      <div class="tasting__coasters" role="tablist" aria-label="Pick a drink">
-        <button class="coaster is-on" data-tasting="0" data-g="#BFD8E8" data-cat="signature energy" data-name="Creamy Blue Redbull" data-desc="Creamy blue energy over Red Bull, Alani Nu or Celsius, whipped top, gummy garnish." role="tab" aria-selected="true" aria-label="Creamy Blue Redbull"><img src="./assets/img/drink-creamy-blue-redbull-thumb.webp" alt="" width="76" height="76" loading="lazy" decoding="async" /></button>
-        <button class="coaster" data-tasting="1" data-g="#F4BBC9" data-cat="milkshake" data-name="La Fresita" data-desc="Blended strawberry shake crowned with a whipped-cream dome. Sweet, pink, dreamy." role="tab" aria-selected="false" aria-label="La Fresita"><img src="./assets/img/drink-strawberry-shake-thumb.webp" alt="" width="76" height="76" loading="lazy" decoding="async" /></button>
-        <button class="coaster" data-tasting="2" data-g="#CBD9A6" data-cat="milk tea" data-name="Matcha" data-desc="Stone-ground matcha over ice with a creamy top. The calm one on the board." role="tab" aria-selected="false" aria-label="Matcha"><img src="./assets/img/drink-matcha-thumb.webp" alt="" width="76" height="76" loading="lazy" decoding="async" /></button>
-        <button class="coaster" data-tasting="3" data-g="#E8D9BF" data-cat="milkshake" data-name="Cookies y Cremita" data-desc="Cookies-and-cream over boba pearls, finished with a whipped dome. Dessert in a cup." role="tab" aria-selected="false" aria-label="Cookies y Cremita"><img src="./assets/img/drink-cookies-cream-thumb.webp" alt="" width="76" height="76" loading="lazy" decoding="async" /></button>
-        <button class="coaster" data-tasting="4" data-g="#D9BFD4" data-cat="smoothie" data-name="Berrysita Linda" data-desc="Smooth and refreshing, made with real fruit, a mixed-berry smoothie built for the sun." role="tab" aria-selected="false" aria-label="Berrysita Linda"><img src="./assets/img/drink-berry-smoothie-thumb.webp" alt="" width="76" height="76" loading="lazy" decoding="async" /></button>
-        <button class="coaster" data-tasting="5" data-g="#F3C969" data-cat="lemonade refresher" data-name="Strawberry Dreamade" data-desc="A strawberry lemonade refresher off the flavor wall. Add boba to make it a moment." role="tab" aria-selected="false" aria-label="Strawberry Dreamade"><img src="./assets/img/drink-strawberry-lemonade-thumb.webp" alt="" width="76" height="76" loading="lazy" decoding="async" /></button>
+      <div class="tasting__coasters" role="group" aria-label="Pick a drink">
+        <button class="coaster is-on" data-tasting="0" data-g="#BFD8E8" data-cat="signature energy" data-name="Creamy Blue Redbull" data-desc="Creamy blue energy over Red Bull, Alani Nu or Celsius, whipped top, gummy garnish." aria-pressed="true" aria-label="Creamy Blue Redbull"><img src="./assets/img/drink-creamy-blue-redbull-thumb.webp" alt="" width="76" height="76" loading="lazy" decoding="async" /></button>
+        <button class="coaster" data-tasting="1" data-g="#F4BBC9" data-cat="milkshake" data-name="La Fresita" data-desc="Blended strawberry shake crowned with a whipped-cream dome. Sweet, pink, dreamy." aria-pressed="false" aria-label="La Fresita"><img src="./assets/img/drink-strawberry-shake-thumb.webp" alt="" width="76" height="76" loading="lazy" decoding="async" /></button>
+        <button class="coaster" data-tasting="2" data-g="#CBD9A6" data-cat="milk tea" data-name="Matcha" data-desc="Stone-ground matcha over ice with a creamy top. The calm one on the board." aria-pressed="false" aria-label="Matcha"><img src="./assets/img/drink-matcha-thumb.webp" alt="" width="76" height="76" loading="lazy" decoding="async" /></button>
+        <button class="coaster" data-tasting="3" data-g="#E8D9BF" data-cat="milkshake" data-name="Cookies y Cremita" data-desc="Cookies-and-cream over boba pearls, finished with a whipped dome. Dessert in a cup." aria-pressed="false" aria-label="Cookies y Cremita"><img src="./assets/img/drink-cookies-cream-thumb.webp" alt="" width="76" height="76" loading="lazy" decoding="async" /></button>
+        <button class="coaster" data-tasting="4" data-g="#D9BFD4" data-cat="smoothie" data-name="Berrysita Linda" data-desc="Smooth and refreshing, made with real fruit, a mixed-berry smoothie built for the sun." aria-pressed="false" aria-label="Berrysita Linda"><img src="./assets/img/drink-berry-smoothie-thumb.webp" alt="" width="76" height="76" loading="lazy" decoding="async" /></button>
+        <button class="coaster" data-tasting="5" data-g="#F3C969" data-cat="lemonade refresher" data-name="Strawberry Dreamade" data-desc="A strawberry lemonade refresher off the flavor wall. Add boba to make it a moment." aria-pressed="false" aria-label="Strawberry Dreamade"><img src="./assets/img/drink-strawberry-lemonade-thumb.webp" alt="" width="76" height="76" loading="lazy" decoding="async" /></button>
       </div>
       <p class="tasting__hint">every cup made to order at the counter</p>
     </div>
@@ -202,13 +207,13 @@ addEventListener("scroll",function(){if(!window.__ls||Math.abs(scrollY-__ls)>200
     <h2 class="h2 h2--light tsplit">Every sip,<br /><em>on the menu.</em></h2>
   </div>
   <div class="flab__wrap reveal" data-reveal>
-    <div class="flab__tabs" role="tablist" aria-label="Drink categories">
-      <button class="flab__tab is-on" data-flab="0" style="--fg:#F4BBC9" role="tab" aria-selected="true"><i>01</i><span>Creamy Energy</span></button>
-      <button class="flab__tab" data-flab="1" style="--fg:#E8D9BF" role="tab" aria-selected="false"><i>02</i><span>Espresso Bar</span></button>
-      <button class="flab__tab" data-flab="2" style="--fg:#BFD8E8" role="tab" aria-selected="false"><i>03</i><span>Dirty Juices &amp; Sodas</span></button>
-      <button class="flab__tab" data-flab="3" style="--fg:#F3C969" role="tab" aria-selected="false"><i>04</i><span>Refreshers &amp; Aguas</span></button>
-      <button class="flab__tab" data-flab="4" style="--fg:#D9BFD4" role="tab" aria-selected="false"><i>05</i><span>Shakes &amp; Raspados</span></button>
-      <button class="flab__tab" data-flab="5" style="--fg:#CBD9A6" role="tab" aria-selected="false"><i>06</i><span>Smoothies &amp; Boba</span></button>
+    <div class="flab__tabs" role="group" aria-label="Drink categories">
+      <button class="flab__tab is-on" data-flab="0" style="--fg:#F4BBC9" aria-pressed="true"><i>01</i><span>Creamy Energy</span></button>
+      <button class="flab__tab" data-flab="1" style="--fg:#E8D9BF" aria-pressed="false"><i>02</i><span>Espresso Bar</span></button>
+      <button class="flab__tab" data-flab="2" style="--fg:#BFD8E8" aria-pressed="false"><i>03</i><span>Dirty Juices &amp; Sodas</span></button>
+      <button class="flab__tab" data-flab="3" style="--fg:#F3C969" aria-pressed="false"><i>04</i><span>Refreshers &amp; Aguas</span></button>
+      <button class="flab__tab" data-flab="4" style="--fg:#D9BFD4" aria-pressed="false"><i>05</i><span>Shakes &amp; Raspados</span></button>
+      <button class="flab__tab" data-flab="5" style="--fg:#CBD9A6" aria-pressed="false"><i>06</i><span>Smoothies &amp; Boba</span></button>
     </div>
     <div class="flab__panel">
       <article class="flab__pane is-on" data-flab-pane style="--fg:#F4BBC9">
@@ -302,19 +307,19 @@ addEventListener("scroll",function(){if(!window.__ls||Math.abs(scrollY-__ls)>200
     <div class="footer__col">
       <h3>contact</h3>
       <p>712 Cherry Ave<br />Long Beach, CA 90813</p>
-      <a href="tel:+17146007684">(714) 600-7684</a>
+      <a href="tel:+15622482178">(562) 248-2178</a>
       <a href="https://www.instagram.com/thenoodleloungee/" target="_blank" rel="noopener">DM us on Instagram</a>
       <a href="./visit.html">Plan Your Visit</a>
     </div>
   </div>
   <p class="footer__wordmark" aria-hidden="true">The Noodle Lounge</p>
   <div class="footer__base">
-    <p>© <span id="year"></span> The Noodle Lounge · 712 Cherry Ave, Long Beach, CA</p>
+    <p>© <span id="year">2026</span> The Noodle Lounge · 712 Cherry Ave, Long Beach, CA</p>
     <p class="footer__madewith">Made with steam &amp; sugar</p>
   </div>
 </footer>
 
-<script>setTimeout(function(){if(!window.__nlBoot){document.body.classList.add("hero-live");document.documentElement.classList.add("nl-rescue");}},1600);</script>
-<script src="./main.js?v=53" defer></script>
+<script>setTimeout(function(){if(!window.__nlBoot){document.body.classList.add("hero-live");document.body.classList.add("is-static");document.documentElement.classList.add("nl-rescue");}},1600);</script>
+<script src="./main.js?v=56" defer></script>
 </body>
 </html>
