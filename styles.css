@@ -1782,6 +1782,7 @@ body.drawer-open{overflow:hidden}
   .mcat,.mcat--flip{grid-template-columns:1fr}
   .mcat--flip .mcat__media{order:0}
   .mcat__media{min-height:220px;aspect-ratio:16/7}
+  .mcat--tall .mcat__media{aspect-ratio:1/1}
   .mcat__body{padding:26px 24px 30px}
   .phero__panel{grid-template-columns:1fr;padding:60px 7vw 54px;text-align:center}
   .phero__fig{width:min(70%,280px)}
