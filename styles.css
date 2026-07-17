@@ -1960,7 +1960,7 @@ body.drawer-open{overflow:hidden}
   .phstack{width:min(86%,320px);margin:0 auto}
   /* the combo chip must stay a single-line badge on phones - wrapped it
      collides with the accent photo (client-reported) */
-  .phstack__chip{white-space:nowrap;font-size:clamp(.58rem,3vw,.86rem);padding:8px 13px}
+  .phstack__chip{white-space:nowrap;font-size:clamp(.58rem,3vw,.86rem);padding:8px 13px;left:2%;bottom:5%}
   .proof__quotes{grid-template-columns:1fr}
   .footer__grid{grid-template-columns:1fr 1fr;gap:34px}
   .footer__base{justify-content:center;text-align:center}
