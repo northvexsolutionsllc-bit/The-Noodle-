@@ -1958,6 +1958,9 @@ body.drawer-open{overflow:hidden}
   .menunav a{padding:11px 14px;font-size:.82rem;gap:6px}
   .menunav a svg{width:14px;height:14px}
   .phstack{width:min(86%,320px);margin:0 auto}
+  /* the combo chip must stay a single-line badge on phones - wrapped it
+     collides with the accent photo (client-reported) */
+  .phstack__chip{white-space:nowrap;font-size:clamp(.58rem,3vw,.86rem);padding:8px 13px}
   .proof__quotes{grid-template-columns:1fr}
   .footer__grid{grid-template-columns:1fr 1fr;gap:34px}
   .footer__base{justify-content:center;text-align:center}
