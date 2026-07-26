@@ -134,12 +134,12 @@
     });
   }
 
-  // iOS Safari: window.innerHeight changes as the URL bar collapses, which
+  // iOS Safari: the visual viewport height changes as the URL bar collapses, which
   // would make scroll progress jump mid-gesture. documentElement.clientHeight
   // stays constant (equals 100svh), so all pin math uses it, and JS-assigned
   // runway heights use svh so CSS stages and JS heights speak one language.
   var SVH = (window.CSS && CSS.supports && CSS.supports("height", "1svh")) ? "svh" : "vh";
-  function viewH() { return document.documentElement.clientHeight || window.innerHeight; }
+  function viewH() { return document.documentElement.clientHeight; }
 
   function clamp01(v) { return v < 0 ? 0 : v > 1 ? 1 : v; }
   function ease(t) { return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2; } // easeInOutQuad
