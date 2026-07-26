@@ -1,7 +1,7 @@
 # The Noodle Lounge — Full-Site Audit Report
 
 **Date:** 2026-07-16 · **Repo HEAD audited:** `25ce178` (v53, == `origin/main`) · **Fix branch:** `claude/website-audit-fixes-2plcyg`
-**Auditor environment (page-one disclosure):** every dynamic test in this report ran on **Playwright Chromium 141 (emulation)** — mobile profile 390×844 / DPR 3 / touch / iPhone UA, desktop 1440×900 — against a local server of this repo. **WebKit (Safari's engine) cannot be installed in this sandbox**, so nothing here was tested on Safari or on a physical phone; every iOS/Safari-specific claim is code-inspection, labeled as such. **The live site (https://the-noodle.vercel.app) is unreachable from this sandbox** (egress proxy 403), so every live-side claim is converted into an owner-runnable `curl` command (§7).
+**Auditor environment (page-one disclosure):** every dynamic test in this report ran on **Playwright Chromium 141 (emulation)** — mobile profile 390×844 / DPR 3 / touch / iPhone UA, desktop 1440×900 — against a local server of this repo. **WebKit (Safari's engine) cannot be installed in this sandbox**, so nothing here was tested on Safari or on a physical phone; every iOS/Safari-specific claim is code-inspection, labeled as such. **The live site (https://www.thenoodlelounge.com) is unreachable from this sandbox** (egress proxy 403), so every live-side claim is converted into an owner-runnable `curl` command (§7).
 
 ---
 
@@ -130,22 +130,22 @@ Fixes in this round were metadata/a11y/failure-path only — no runtime code in 
 
 ```bash
 # 1. Live matches repo (expect: HTTP 200 and ?v=54 stamps in the HTML)
-curl -s https://the-noodle.vercel.app/ | grep -o 'v=5[0-9]' | sort -u
+curl -s https://www.thenoodlelounge.com/ | grep -o 'v=5[0-9]' | sort -u
 
 # 2. Internal docs are no longer public (expect: 404 on all four)
 for f in RESEARCH.md PERF_REPORT.md qa.py README.md; do
-  curl -s -o /dev/null -w "%{http_code} /$f\n" https://the-noodle.vercel.app/$f; done
+  curl -s -o /dev/null -w "%{http_code} /$f\n" https://www.thenoodlelounge.com/$f; done
 
 # 3. New headers live (expect: nosniff/SAMEORIGIN/strict-origin..., and
 #    cache-control on /menu = max-age=0, must-revalidate)
-curl -sI https://the-noodle.vercel.app/menu | grep -iE 'cache-control|x-content-type|x-frame|referrer'
-curl -sI 'https://the-noodle.vercel.app/styles.css?v=54' | grep -i cache-control   # expect 1y immutable
-curl -sI https://the-noodle.vercel.app/site.webmanifest | grep -i cache-control    # expect max-age=86400
+curl -sI https://www.thenoodlelounge.com/menu | grep -iE 'cache-control|x-content-type|x-frame|referrer'
+curl -sI 'https://www.thenoodlelounge.com/styles.css?v=54' | grep -i cache-control   # expect 1y immutable
+curl -sI https://www.thenoodlelounge.com/site.webmanifest | grep -i cache-control    # expect max-age=86400
 
 # 4. SEO plumbing (expect: 200 + 200, and canonical in the HTML)
-curl -s -o /dev/null -w "%{http_code} " https://the-noodle.vercel.app/robots.txt; \
-curl -s -o /dev/null -w "%{http_code}\n" https://the-noodle.vercel.app/sitemap.xml
-curl -s https://the-noodle.vercel.app/menu | grep -o '<link rel="canonical"[^>]*>'
+curl -s -o /dev/null -w "%{http_code} " https://www.thenoodlelounge.com/robots.txt; \
+curl -s -o /dev/null -w "%{http_code}\n" https://www.thenoodlelounge.com/sitemap.xml
+curl -s https://www.thenoodlelounge.com/menu | grep -o '<link rel="canonical"[^>]*>'
 
 # 5. External links still alive (Instagram/TikTok/Yelp may 4xx to curl's UA — trust a browser over curl here)
 for u in 'https://www.instagram.com/thenoodleloungee/' 'https://www.tiktok.com/@thenoodleloungee' \
